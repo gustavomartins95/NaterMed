@@ -21,5 +21,9 @@ module.exports = function (app, passport) {
     app.get('/login', function (req, res) {
         res.sendFile(path + 'login.html')
     })
+    /* 404 */
+    app.use(function (req, res, next) {
+        res.status(404).sendFile(path + '404.html')
+    })
 
 }
