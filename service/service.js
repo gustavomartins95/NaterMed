@@ -65,6 +65,27 @@ var service = {
                 }
             })
         }
+    },
+    // Cadastrar dados dos usuários
+    cadastrarusuario: function (data, dataSession, callback) {
+        let sql = 'INSERT INTO usuario ' +
+            '(login_idlogin, nome_completo, nome_mae, nome_pai, data_nasc, sexo, escolaridade, profissao, estado_civil, ' +
+            'cpf, rg, cns, familia_idfamilia, microarea_idmicroarea, tipo_sang, email, telefone, celular, ' +
+            'estado, cidade, rua, bairro, numero_casa) ' +
+            'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        // Query no Banco de Dados
+        connection.query(sql,
+            [dataSession.idlogin, data.txtNome_Completo, data.txtNome_Mae, data.txtNome_Pai, data.txtData_Nasc,
+            data.txtSexo, data.txtEscolaridade, data.txtSituacao, data.txtEstado_Civil, data.txtCpf, data.txtRg,
+            data.txtCns, data.txtFamilia, data.txtMicroarea, data.txtTipo_Sanguineo, data.txtEmail, data.txtTelefone,
+            data.txtCelular, data.txtEstado, data.txtCidade, data.txtRua, data.txtBairro, data.txtNumero],
+            function (error, result) {
+                if (error) {
+                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    callback(null, httpStatus.OK, 'Cadastrado com sucesso.')
+                }
+            })
     }
 }
 

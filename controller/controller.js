@@ -17,6 +17,12 @@ var controller = {
             else if (status == httpStatus.UNAUTHORIZED) callback(null, false, message)
             else callback(error)
         })
+    },
+    // Cadastrar dados dos usuários
+    cadastrarusuario: function (req, res, dataSession) {
+        service.cadastrarusuario(req.body, dataSession, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
     }
 }
 

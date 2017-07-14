@@ -43,6 +43,14 @@ module.exports = function (app, passport) {
     app.get('/indexusuario', isLoggedIn, function (req, res) {
         res.sendFile(path + 'users/usuario/indexUsuario.html')
     })
+    /* Cadastrar dados dos usuários */
+    app.route('/cadastrarusuario')
+        .get(isLoggedIn, function (req, res) {
+            res.sendFile(path + 'users/usuario/cadastrarUsuario.html')
+        })
+        .post(isLoggedIn, function (req, res) {
+            controller.cadastrarusuario(req, res, req.session.passport.user)
+        })
     /* Logout */
     app.get('/logout', function (req, res) {
         req.session.destroy(function (error) {
