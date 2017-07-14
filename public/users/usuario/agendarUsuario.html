@@ -10,11 +10,17 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/animate.css">
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/calendar/kendo.common.min.css">
+    <link rel="stylesheet" href="../css/calendar/kendo.default.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower|Open+Sans+Condensed:300">
     <script type="text/javascript" src="../js/loader.js"></script>
     <style>
         #conteudo {
             opacity: 0;
+        }
+
+        #calendar {
+            width: 100%;
         }
     </style>
 </head>
@@ -39,16 +45,37 @@
                 </div>
             </div>
         </nav>
+        <!--Opções-->
+        <div class="container-fluid marginTopNav">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="demo-section k-content">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Fim conteúdo -->
     </div>
     <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/kendo.all.min.js"></script>
     <script type="text/javascript" src="../js/wow.min.js"></script>
     <script>
         // Loader
-        loading();
+        loading()
         // Animation WOW
-        new WOW().init();
+        new WOW().init()
+        // Calendar
+        $("#calendar").kendoCalendar({
+            change: function () {
+                console.log(kendo.toString(this.value(), 'u'))
+            },
+            min: new Date(2017, 0, 1),
+            max: new Date(2018, 11, 31),
+            disableDates: ["sa", "su"],
+            footer: "#: kendo.toString(data, 'D') #"
+        })
     </script>
 </body>
 
