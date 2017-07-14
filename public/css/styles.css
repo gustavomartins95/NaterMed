@@ -1,0 +1,271 @@
+html,
+body,
+div#conteudo {
+    width: 100%;
+    height: 100%;
+    background-color:#f0f0f0;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+
+/*Loader*/
+#loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 100px;
+    height: 100px;
+    margin: -50px 0 0 -50px;
+    border: 15px solid #f0f0f0;
+    border-radius: 50%;
+    border-top: 15px solid #101010;
+    width: 100px;
+    height: 100px;
+    animation: spin 2s linear infinite;
+}
+@keyframes spin {
+    0% {transform: rotate(0deg)}
+    100% {transform: rotate(360deg)}
+}
+
+/*Imagem do início*/
+div.imgInicio {
+    width: 100%;
+    height: 100%;
+    background: url(../img/home_site.jpg) no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/*Nav*/
+nav.navbar-custom {
+	background-color: #101010;
+	border-color: transparent;
+    padding: 20px 0;
+}
+
+nav.navbar-custom a.navbar-brand {
+    padding: 0;
+}
+
+nav.navbar-custom button.navbar-toggle {
+	background-color:#3c65af;
+	border-color:#3c65af;
+    color:#fff;
+	font-size: 25px;
+}
+nav.navbar-custom button.navbar-toggle:focus,
+nav.navbar-custom button.navbar-toggle:hover {
+	background-color: #294875;
+}
+
+nav.navbar-custom ul.nav li a {
+	font-size: 25px;
+    color:#fff;
+    padding: 15px 5px;
+    margin: 1px;
+	letter-spacing: 1px;
+}
+nav.navbar-custom ul.nav li a:focus,
+nav.navbar-custom ul.nav li a:hover {
+	color:#3c65af;
+    border-bottom: 1px solid #ff0000;
+}
+
+/*Início*/
+div#inicio {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: -25px 0 -25px 0;
+    text-align: center;
+}
+
+div#inicio h1 {
+    color: #f0f0f0;
+    letter-spacing: 4px;
+    font-size: 40px;
+    padding: 10px 50px;
+    background: rgba(0, 0, 0, 0.8);
+}
+div#inicio span {
+    background: #3c65af;
+    padding: 0 15px;
+    font-weight: bold;
+}
+
+div#inicio a.btn {
+    background: #3c65af;
+    color: #f0f0f0;
+    border-radius: 5px;
+    font-size: 20px;
+    letter-spacing: 2px;
+    padding: 12px 42px;
+    margin: 5px;
+    transition: all .5s ease;
+}
+div#inicio a.btn:hover {
+    color: #fff;
+    background: #294875;
+}
+
+/*Todas as Sections*/
+section img.img-center {
+	margin: 0 auto;
+}
+section h1 {
+    font-weight: bold;
+    font-size: 40px;
+}
+section h2 {
+    font-size: 30px;
+}
+section h3 {
+    font-size: 25px;
+}
+section p {
+    font-size: 20px;
+}
+
+/*Benefícios*/
+section#beneficio {
+    background-color: #294875;
+    color: #fff;
+    min-height: 100%;
+    padding: 65px 50px 0 50px;
+}
+
+section#beneficio div.img-sections {
+    margin: 15px 0;
+    padding: 10px;
+    min-height: 450px;
+}
+
+/*Depoimentos*/
+section#depoimento {
+    background-color: #101010;
+    color: #f0f0f0;
+    min-height: 100%;
+    padding: 65px 50px 0 50px;
+}
+
+div#quote-carousel {
+    margin-top: 50px;
+    padding: 0 40px 30px 40px;
+}
+div#quote-carousel ol.carousel-indicators {
+    right: 50%;
+    top: auto;
+    bottom: 0px;
+    margin-right: -19px;
+}
+div#quote-carousel ol.carousel-indicators li {
+    background: #294875;
+}
+div#quote-carousel ol.carousel-indicators .active {
+    background: #f0f0f0;
+}
+div#quote-carousel img {
+    width: 100px;
+    height: 100px
+}
+div.item blockquote {
+    border-left: none; 
+    margin: 0;
+}
+div.item blockquote img {
+    margin-bottom: 10px;
+}
+
+/*Estatística*/ 
+section#estatistica {
+    background-color: #294875;
+    min-height: 55%;
+    padding: 65px 50px 0 50px;
+    text-align: center;
+    color: #f0f0f0;
+}
+
+section#estatistica h2.estatistica-info {
+    letter-spacing: 2px;
+    font-size: 40px;
+}
+section#estatistica p.counter-value {
+    font-size: 30px;
+}
+
+/*Cadastre-se*/ 
+section#cadastre-se {
+    padding: 0 50px 25px 50px;
+    min-height: 45%;
+    text-align: center;
+    color: #101010;
+}
+
+section#cadastre-se h1.page-header {
+    border-bottom: 1px solid #252525;
+}
+
+section#cadastre-se a.btn {
+    background: transparent;
+    border: 2px solid #101010;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #101010;
+    font-size: 20px;
+    letter-spacing: 2px;
+    padding: 12px 42px;
+    transition: all .5s ease;
+}
+section#cadastre-se a.btn:hover {
+    border-bottom: 3px solid #000;
+    color: #000;
+}
+
+/*Localização*/
+section#localizacao {
+    background-color: #101010;
+    color: #fff;
+    min-height: 100%;
+    padding: 65px 50px 50px 50px;
+}
+div.map iframe {
+    padding: 0;
+	width: 100%;
+    height: 450px;
+	display: block;
+	pointer-events: none;
+	position: relative;
+}
+div.map iframe.clicked{
+	pointer-events: auto;
+}
+
+/*Desenvolvedores*/ 
+section#desenvolvedores {
+    padding: 0 50px;
+    min-height: 75%;
+    text-align: center;
+    color: #101010;
+}
+
+section#desenvolvedores h1.page-header {
+    border-bottom: 1px solid #252525;
+}
+
+/*Rodapé*/
+footer {
+    padding: 10px 0;
+}
+footer p {
+    font-size: 20px;
+    color: #000;
+}
+
+/*Scroll*/
+a.scroll-top {
+    margin: 0 -16px 0 -16px;
+    cursor: pointer;
+}

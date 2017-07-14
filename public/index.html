@@ -5,11 +5,261 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="img/icon.png">
     <title>Nater Med</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower|Open+Sans+Condensed:300">
+    <script type="text/javascript" src="js/loader.js"></script>
+    <style>
+        #conteudo {
+            opacity: 0
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Nater Med</h1>
+    <!--Conteúdo-->
+    <div id="conteudo">
+        <div class="imgInicio" id="top">
+            <!--Navigation-->
+            <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top wow pulse">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span> MENU <i class="fa fa-bars"></i>
+                        </button>
+                        <a class="navbar-brand" href="#top"><img src="img/logoHorizontal.png" alt="Logo"></a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#beneficio">BENEFÍCIOS</a></li>
+                            <li><a href="#depoimento">DEPOIMENTOS</a></li>
+                            <li><a href="#estatistica">ESTATÍSTICAS</a></li>
+                            <li><a href="#localizacao">LOCALIZAÇÃO</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!--Início-->
+            <div id="inicio" class="wow fadeIn">
+                <h1>AGENDAMENTO <span class="span-slide">ONLINE</span> DE CONSULTAS</h1>
+                <a href="login" class="btn btn-header">ACESSAR</a>
+                <a href="register" class="btn btn-header">CADASTRAR</a>
+            </div>
+        </div>
+        <!--Benefícios-->
+        <section id="beneficio">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 wow slideInUp">
+                        <h1 class="page-header text-center">BENEFÍCIOS</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 text-center img-sections wow fadeInUp">
+                        <img class="img-circle img-responsive img-center" src="img/benef_agendamento.png" alt="img-sections">
+                        <h2>Agendamento online</h2>
+                        <p>Evite filas, acordar cedo e deslocar-se até a UBS (Unidade Básica de Saúde) para agendar sua consulta.</p>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 text-center img-sections wow fadeInUp">
+                        <img class="img-circle img-responsive img-center" src="img/benef_alertas.png" alt="img-sections">
+                        <h2>Alertas</h2>
+                        <p>Alertas via mensagens serão enviados no ato da confirmação do agendamento e/ou no cancelamento de
+                            consultas.
+                        </p>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 text-center img-sections wow fadeInUp">
+                        <img class="img-circle img-responsive img-center" src="img/benef_horarios.png" alt="img-sections">
+                        <h2>Horários acessíveis</h2>
+                        <p>Quadro de horários de consultas, médicos e profissionais na palma de sua mão.</p>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 text-center img-sections wow fadeInUp">
+                        <img class="img-circle img-responsive img-center" src="img/benef_historicos.png" alt="img-sections">
+                        <h2>Históricos</h2>
+                        <p>Confira suas últimas consultas realizadas.</p>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 text-center img-sections wow fadeInUp">
+                        <img class="img-circle img-responsive img-center" src="img/benef_ambulancias.png" alt="img-sections">
+                        <h2>Solicitação de ambulância</h2>
+                        <p>Solicitação de ambulância proporcionando maior comodidade, agilidade e acessibilidade.</p>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 text-center img-sections wow fadeInUp">
+                        <img class="img-circle img-responsive img-center" src="img/benef_avaliacoes.png" alt="img-sections">
+                        <h2>Avaliações</h2>
+                        <p>Você poderá avaliar, dar sugestões, críticas e/ou elogios.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Depoimentos-->
+        <section id="depoimento">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 wow slideInUp">
+                        <h1 class="page-header text-center">DEPOIMENTOS</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-8 wow fadeInUp">
+                        <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#quote-carousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#quote-carousel" data-slide-to="1"></li>
+                                <li data-target="#quote-carousel" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <!-- 1 -->
+                                <div class="item active">
+                                    <blockquote>
+                                        <div class="row">
+                                            <div class="col-sm-3 text-center">
+                                                <img class="img-circle" src="img/dep_doctor-one.png">
+                                                <img class="img-circle" src="img/dep_doctor-two.png">
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p>Depoimento</p>
+                                                <small>Nome</small>
+                                            </div>
+                                        </div>
+                                    </blockquote>
+                                </div>
+                                <!-- 2 -->
+                                <div class="item">
+                                    <blockquote>
+                                        <div class="row">
+                                            <div class="col-sm-3 text-center">
+                                                <img class="img-circle" src="img/dep_farmer.png">
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p>Depoimento</p>
+                                                <small>Nome</small>
+                                            </div>
+                                        </div>
+                                    </blockquote>
+                                </div>
+                                <!-- 3 -->
+                                <div class="item">
+                                    <blockquote>
+                                        <div class="row">
+                                            <div class="col-sm-3 text-center">
+                                                <img class="img-circle" src="img/dep_boss.png">
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p>Depoimento</p>
+                                                <small>Nome</small>
+                                            </div>
+                                        </div>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Estatísticas -->
+        <section id="estatistica">
+            <div class="container-fluid">
+                <div class="row wow slideInUp">
+                    <div class="col-lg-12">
+                        <h1 class="page-header text-center">ESTATÍSTICAS</h1>
+                    </div>
+                </div>
+                <div class="row wow fadeInUp">
+                    <div class="col-sm-6 estatistica-grid" id="counter">
+                        <p class='counter-value' data-count="2650"></p>
+                        <h2 class="estatistica-info">Contas cadastradas</h2>
+                    </div>
+                    <div class="col-sm-6 estatistica-grid">
+                        <p class='counter-value' data-count="8250"></p>
+                        <h2 class="estatistica-info">Consultas realizadas</h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Cadastre-se -->
+        <section id="cadastre-se">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 wow slideInUp">
+                        <h1 class="page-header text-center">CADASTRE-SE E USE GRATUITAMENTE</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center wow fadeInUp">
+                        <a href="register" class="btn btn-header">CADASTRAR</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Localização-->
+        <section id="localizacao">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 wow slideInUp">
+                        <h1 class="page-header text-center">LOCALIZAÇÃO</h1>
+                    </div>
+                </div>
+                <div class="row text-center contato">
+                    <div class="col-sm-4 wow fadeInUp">
+                        <h1><span class="glyphicon glyphicon-home"></span></h1>
+                        <h3>Endereço</h3>
+                        <p>Rua Manoel José Enéas, 236</p><br>
+                    </div>
+                    <div class="col-sm-4 wow fadeInUp">
+                        <h1><span class="glyphicon glyphicon-earphone"></span></h1>
+                        <h3>Telefone</h3>
+                        <p>(35) 3456-1614</p><br>
+                    </div>
+                    <div class="col-sm-4 wow fadeInUp">
+                        <h1><span class="glyphicon glyphicon-send"></span></h1>
+                        <h3>E-mail</h3>
+                        <p>secretariadesaude@natercia.mg.gov.br</p><br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 wow fadeInUp map">
+                        <iframe frameborder="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d842.0609174629357!2d-45.512296235044126!3d-22.12153099890319!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDA3JzE3LjUiUyA0NcKwMzAnNDIuMSJX!5e1!3m2!1spt-BR!2sbr!4v1492562764090"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Rodapé -->
+        <footer>
+            <div class="container-fluid">
+                <div class="row text-center">
+                    <div class="col-lg-12">
+                        <p class="text-center">© 2017 All rights reserved</p>
+                        <a href="#top" class="scroll-top wow flash"><img src="img/arrow-up.png" alt="scroll-top"></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Fim conteúdo -->
+    </div>
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/wow.min.js"></script>
+    <script>
+        // Loader
+        loading()
+        // Animation WOW
+        new WOW().init()
+        // Counter
+        var a = 0; $(window).scroll(function () { var b = $("#counter").offset().top - window.innerHeight; 0 == a && $(window).scrollTop() > b && ($(".counter-value").each(function () { var a = $(this), b = a.attr("data-count"); $({ countNum: a.text() }).animate({ countNum: b }, { duration: 2500, easing: "swing", step: function () { a.text(Math.floor(this.countNum)) }, complete: function () { a.text(this.countNum) } }) }), a = 1) });
+        jQuery("document").ready(function ($) {
+            // Scroll
+            // link = $(".scroll-top"), $(window).scroll(function () { $(this).scrollTop() > 145 ? link.fadeIn(500) : link.fadeOut(500) });
+            // Não aparecer # na URL
+            $('a[href^="#"]').on("click", function (a) { var b = this.hash, c = $(b); $("html, body").stop().animate({ scrollTop: c.offset().top }, 1e3, "swing"), a.preventDefault() });
+            // Intervalo dos depoimentos
+            $("#quote-carousel").carousel({ pause: !0, interval: 5e3 });
+            // Mapa
+            $(".map").click(function () { $(this).find("iframe").addClass("clicked") }).mouseleave(function () { $(this).find("iframe").removeClass("clicked") });
+        })
+    </script>
 </body>
 
 </html>
