@@ -269,3 +269,63 @@ a.scroll-top {
     margin: 0 -16px 0 -16px;
     cursor: pointer;
 }
+
+/*Login e Register*/
+div.backgroundLoginandRegister {
+    background: url(../img/home_login_register.jpg) no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100%;
+    padding: 25px 0;
+}
+section.loginandRegister {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 350px;
+    padding: 25px;
+    border-radius: 10px;
+    background-color: #294875;
+}
+section.loginandRegister h1 {
+    color: #f0f0f0;
+    font-size: 50px;
+    font-weight: normal;
+}
+section.loginandRegister div#divResult {
+    display: none;
+    font-size: 18px;
+}
+section.loginandRegister form.form-users label {
+    color: #f0f0f0;
+    padding: 5px 0;
+    font-size: 15px;
+}
+section.loginandRegister form.form-users .form-control {
+    height: inherit;
+    padding: 10px;
+    font-size: 20px;
+}
+section.loginandRegister form.form-users input[type="number"],
+section.loginandRegister form.form-users input[type="password"] {
+    margin-bottom: 20px;
+}
+section.loginandRegister .btn {
+    width: 100%;
+    color: #f0f0f0;
+    border: 2px solid #f0f0f0;
+    background: transparent;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bolder;
+    letter-spacing: 2px;
+}
+section.loginandRegister .btn-register {
+    padding: 12px 0;
+}
+section.loginandRegister .btn-access {
+    padding: 12px 0;
+}
+section.loginandRegister .btn:hover {
+    border-bottom: 3px solid #fff;
+    color: #fff;
+}

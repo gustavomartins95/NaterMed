@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="img/icon.png">
+    <title>Nater Med</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower|Open+Sans+Condensed:300">
+    <script type="text/javascript" src="js/loader.js"></script>
+    <style>
+        #conteudo {
+            opacity: 0;
+        }
+
+        section.users .btn-access {
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <!--Conteúdo-->
+    <div id="conteudo">
+        <!--Background-->
+        <div class="backgroundLoginandRegister">
+            <!--Início-->
+            <section class="loginandRegister">
+                <a href="/"><img src="img/logoVertical.png" alt="Logo"></a>
+                <h1>LOGIN</h1>
+                <br />
+                <div id="divResult" class="alert alert-dismissible" role="alert">
+                    <strong id="result"></strong>
+                </div>
+                <form class="form-users" method="POST" action="">
+                    <label for="txtCartaosus_Acesso">CARTÃO DO SUS</label>
+                    <input type="number" name="txtCartaosus_Acesso" id="txtCartaosus_Acesso" class="form-control sus" pattern="[0-9]+$" maxlength="15" autofocus>
+                    <label for="txtSenha_Acesso">SENHA</label>
+                    <input type="password" name="txtSenha_Acesso" id="txtSenha_Acesso" maxlength="20" class="form-control">
+                    <input class="btn btn-access" type="submit" id="btn-users" value="ACESSAR">
+                    <label class="question">Não tem conta ?</label>
+                    <a href="register" class="btn btn-register">CADASTRAR</a>
+                </form>
+            </section>
+            <!--Background-->
+        </div>
+        <!-- Fim conteúdo -->
+    </div>
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mask.min.js"></script>
+    <script>
+        // Loader
+        loading();
+        // Mask
+        $(document).ready(function () { $('.sus').mask('000000000000000'); });
+    </script>
+</body>
+
+</html>

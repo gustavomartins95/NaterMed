@@ -13,5 +13,13 @@ module.exports = function (app, passport) {
     app.get('/', function (req, res) {
         res.sendFile(path + 'index.html')
     })
+    /* Registrar */
+    app.get('/register', function (req, res) {
+        res.sendFile(path + 'register.html')
+    })
+    /* Login */
+    app.get('/login', function (req, res) {
+        res.sendFile(path + 'login.html')
+    })
 
 }
