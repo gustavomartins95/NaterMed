@@ -1,6 +1,7 @@
 'use strict'
 
 const path = __dirname + '/public/'
+const controller = require('./controller/controller')
 
 module.exports = function (app, passport) {
 
@@ -14,9 +15,13 @@ module.exports = function (app, passport) {
         res.sendFile(path + 'index.html')
     })
     /* Registrar */
-    app.get('/register', function (req, res) {
-        res.sendFile(path + 'register.html')
-    })
+    app.route('/register')
+        .get(function (req, res) {
+            res.sendFile(path + 'register.html')
+        })
+        .post(function (req, res) {
+            controller.register(req, res)
+        })
     /* Login */
     app.get('/login', function (req, res) {
         res.sendFile(path + 'login.html')
