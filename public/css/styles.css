@@ -329,3 +329,84 @@ section.loginandRegister .btn:hover {
     border-bottom: 3px solid #fff;
     color: #fff;
 }
+
+/*@MEDIA*/
+@media (max-width:767px) {
+    section#estatistica div.estatistica-grid {
+        margin: 20px 0;
+    }
+    nav.navbar-custom {
+        padding: 5px 0;
+    }
+    nav.navbar-custom a.navbar-brand {
+        margin: 10px;
+    }
+    div#quote-carousel ol.carousel-indicators li {
+        display: inline-block;
+        margin: 0px 5px;
+        width: 15px;
+        height: 15px;
+    }
+    div#quote-carousel ol.carousel-indicators li.active {
+        margin: 0px 5px;
+        width: 20px;
+        height: 20px;
+    }
+}
+@media screen and (max-width:480px) {
+    section#beneficio,
+    section#depoimento,
+    section#estatistica {
+        padding: 50px 20px 0 20px;
+    }
+    section#cadastre-se {
+        padding: 0 20px 25px 20px;
+    }
+    section#localizacao {
+        padding: 50px 20px 50px 20px;
+    }
+    section#desenvolvedores {
+        padding: 0 20px;
+    }
+    nav.navbar-custom ul.nav li a,
+    nav.navbar-custom button.navbar-toggle {
+	    font-size: 20px;
+    }
+    div#inicio h1 {
+        font-size: 30px;
+        padding: 10px 20px;
+    }
+    div#inicio a.btn {
+        font-size: 18px;
+        padding: 10px 30px;
+    }
+    section h1 {
+        font-size: 35px;
+    }
+    section h2 {
+        font-size: 28px;
+    }
+    section h3 {
+        font-size: 22px;
+    }
+    section p {
+        font-size: 18px;
+    }
+    div#quote-carousel {
+        margin-top: 50px;
+        padding: 0 0 30px 0;
+    }
+    section#estatistica p {
+        font-size: 25px;
+    }
+    section#estatistica h2 {
+        font-size: 35px;
+    }
+    section#cadastre-se a.btn { 
+        font-size: 18px;
+        padding: 10px 30px;
+    }
+    footer p {
+        font-size: 18px;
+    }
+}
