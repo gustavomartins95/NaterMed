@@ -1,0 +1,26 @@
+{
+  "name": "natermed",
+  "version": "1.0.0",
+  "description": "TCC S.I.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Gustavo Martins - Douglas Oliveira",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.2.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
+    "http-status": "^1.0.1",
+    "mysql": "^2.13.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "standard": "^9.0.2"
+  }
+}
