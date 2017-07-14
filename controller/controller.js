@@ -23,6 +23,12 @@ var controller = {
         service.cadastrarusuario(req.body, dataSession, function (error, status, message) {
             res.status(status).json({ message: message })
         })
+    },
+    // Retornar dados dos usuários
+    retornarusuario: function (res, dataSession) {
+        service.retornarusuario(dataSession, function (error, users) {
+            res.status(httpStatus.OK).json({ users: users })
+        })
     }
 }
 

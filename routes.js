@@ -39,9 +39,24 @@ module.exports = function (app, passport) {
                 }
             )(req, res, next)
         })
-    /* Home usuários */
-    app.get('/indexusuario', isLoggedIn, function (req, res) {
-        res.sendFile(path + 'users/usuario/indexUsuario.html')
+    /* Escolher usuário */
+    app.get('/usuario', isLoggedIn, function (req, res) {
+        res.sendFile(path + 'users/usuario/escolherUsuario.html')
+    })
+    /* Retornar usuários */
+    app.get('/retornarusuario', isLoggedIn, function (req, res) {
+        controller.retornarusuario(res, req.session.passport.user)
+    })
+    /* Salvar usuário escolhido na session */
+    app.post('/escolherusuario', isLoggedIn, function (req, res) {
+        let newDataSession = []
+        newDataSession.idlogin = req.session.passport.user.idlogin
+        newDataSession.nivel_acesso = req.session.passport.user.nivel_acesso
+        newDataSession.idusuario = req.body.idusuario
+        // Atualizar session
+        req.login(newDataSession, function (error) {
+            return res.status(200).json({ message: "Logado" })
+        })
     })
     /* Cadastrar dados dos usuários */
     app.route('/cadastrarusuario')
@@ -51,6 +66,14 @@ module.exports = function (app, passport) {
         .post(isLoggedIn, function (req, res) {
             controller.cadastrarusuario(req, res, req.session.passport.user)
         })
+    /* Home usuários */
+    app.get('/indexusuario', isLoggedIn, function (req, res) {
+        res.sendFile(path + 'users/usuario/indexUsuario.html')
+    })
+    /* Dados da session */
+    app.get('/session', isLoggedIn, function (req, res) {
+        console.log(req.session.passport.user)
+    })
     /* Logout */
     app.get('/logout', function (req, res) {
         req.session.destroy(function (error) {

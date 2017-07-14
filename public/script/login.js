@@ -57,7 +57,7 @@ function sendData() {
             $('#btn-users').val("ACESSAR")
         }
     }).done(function(){
-        window.location = "/indexusuario"
+        window.location = "/usuario"
     }).fail(function (callback) {
         callbackMsg = JSON.parse(callback.responseText)
         sendMsg(callbackMsg.info)

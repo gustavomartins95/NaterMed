@@ -46,7 +46,7 @@ function sendData() {
             $('#btn-users').val("CADASTRAR");
         }
     }).done(function (callback) {
-        window.location = "/indexusuario"
+        window.location = "/usuario"
     }).fail(function (callback) {
         jsonCb = JSON.parse(callback.responseText)
         sendMsg(jsonCb.message);

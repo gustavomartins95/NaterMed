@@ -86,7 +86,24 @@ var service = {
                     callback(null, httpStatus.OK, 'Cadastrado com sucesso.')
                 }
             })
+    },
+    // Retornar dados dos usuários
+    retornarusuario: function (dataSession, callback) {
+        let sql = 'SELECT idusuario, nome_completo FROM usuario WHERE login_idlogin = ?'
+        // Query no Banco de Dados
+        connection.query(sql, [dataSession.idlogin], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                if (result == null || result.length == 0) {
+                    callback(new Error(), httpStatus.UNAUTHORIZED, 'Cartão não encontrado.')
+                } else {
+                    callback(null, result)
+                }
+            }
+        })
     }
+
 }
 
 module.exports = service

@@ -330,6 +330,55 @@ section.loginandRegister .btn:hover {
     color: #fff;
 }
 
+/* Melhorar para display menores \/ */
+/*Margin top*/
+div.marginTopNav {
+    margin-top: 100px;
+}
+
+/*Card usuário*/
+ul.cards {
+    text-align: center;
+    margin-left: -40px;
+}
+ul.cards li {
+    display: inline-block;
+    margin: 10px 10px;
+}
+div.profile-box {
+    width: 300px;
+    min-height: 200px;
+    padding: 5px;
+    background: #fcfcfc;
+    border-radius: 5px;
+    border: 2px solid #c7c7c7;
+    transition: all 700ms ease;
+}
+div.profile-box:hover {
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3)
+}
+div.profile-title h1 {
+    font-size: 30px;
+    color: #101010;
+}
+
+div.profile-content p {
+    font-size: 20px;
+    color: #252525;
+}
+div.profile-button {
+    bottom: 0;
+}
+div.profile-button button {
+    margin-top: 10px;
+    font-size: 18px;
+    padding: 5px 20px;
+    background-color: #20385a;
+    border-color: #20385a;
+    color: #fff;
+    text-decoration: none;
+}
+
 div.divVertical {
     top: 0;
     width: 100%;
