@@ -74,6 +74,8 @@ module.exports = function (app, passport) {
     app.get('/agendar', isLoggedIn, function (req, res) {
         res.sendFile(path + 'users/usuario/agendarUsuario.html')
     })
+    /* Horários */
+    
     /* Dados da session */
     app.get('/session', isLoggedIn, function (req, res) {
         console.log(req.session.passport.user)
