@@ -29,6 +29,7 @@ function validationRegister() {
     if (msgErrors) {
         sendMsg(msgErrors)
     } else {
+        sendMsg(msgErrors)
         $('#divResult').removeClass("alert-danger")
         sendData()
     }
