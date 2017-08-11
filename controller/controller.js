@@ -24,6 +24,12 @@ var controller = {
             res.status(status).json({ message: message })
         })
     },
+    // Retornar as cidades
+    retornarcidades: function (res, estado) {
+        service.retornarcidades(estado, function (error, cidades) {
+            res.status(httpStatus.OK).json({ cidades: cidades })
+        })
+    },
     // Retornar dados dos usuários
     retornarusuario: function (res, dataSession) {
         service.retornarusuario(dataSession, function (error, users) {

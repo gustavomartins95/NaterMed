@@ -69,16 +69,16 @@ var service = {
     // Cadastrar dados dos usuários
     cadastrarusuario: function (data, dataSession, callback) {
         let sql = 'INSERT INTO usuario ' +
-            '(login_idlogin, nome_completo, nome_mae, nome_pai, data_nasc, sexo, escolaridade, profissao, estado_civil, ' +
-            'cpf, rg, cns, familia_idfamilia, microarea_idmicroarea, tipo_sang, email, telefone, celular, ' +
-            'estado, cidade, rua, bairro, numero_casa) ' +
-            'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+            '(login_idlogin, nome_completo, nome_mae, nome_pai, data_nasc, sexo, escolaridade, situacao, estado_civil, ' +
+            'naturalidade, cpf, rg, cns, familia, microarea, tipo_sang, email, telefone, celular, ' +
+            'estado, cidade, rua, bairro, numero_casa, necessidades_esp, ambulancia) ' +
+            'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
         // Query no Banco de Dados
         connection.query(sql,
-            [dataSession.idlogin, data.txtNome_Completo, data.txtNome_Mae, data.txtNome_Pai, data.txtData_Nasc,
-            data.txtSexo, data.txtEscolaridade, data.txtSituacao, data.txtEstado_Civil, data.txtCpf, data.txtRg,
-            data.txtCns, data.txtFamilia, data.txtMicroarea, data.txtTipo_Sanguineo, data.txtEmail, data.txtTelefone,
-            data.txtCelular, data.txtEstado, data.txtCidade, data.txtRua, data.txtBairro, data.txtNumero],
+            [dataSession.idlogin, data.txtNome_Completo, data.txtNome_Mae, data.txtNome_Pai, data.txtData_Nasc, data.txtSexo,
+            data.txtEscolaridade, data.txtNaturalidade, data.txtSituacao, data.txtEstado_Civil, data.txtCpf, data.txtRg,
+            data.txtCns, data.txtFamilia, data.txtMicroarea, data.txtTipo_Sanguineo, data.txtEmail, data.txtTelefone, data.txtCelular,
+            data.txtEstado, data.txtCidade, data.txtRua, data.txtBairro, data.txtNumero, data.txtNecessidade, data.txtAmbulancia],
             function (error, result) {
                 if (error) {
                     callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
@@ -86,6 +86,18 @@ var service = {
                     callback(null, httpStatus.OK, 'Cadastrado com sucesso.')
                 }
             })
+    },
+    // Retornar as cidades
+    retornarcidades: function (estado, callback) {
+        let sql = 'SELECT nome FROM cidades WHERE estados = ?'
+        // Query no Banco de Dados
+        connection.query(sql, [estado], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
     },
     // Retornar dados dos usuários
     retornarusuario: function (dataSession, callback) {
@@ -95,15 +107,10 @@ var service = {
             if (error) {
                 callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
             } else {
-                if (result == null || result.length == 0) {
-                    callback(new Error(), httpStatus.UNAUTHORIZED, 'Cartão não encontrado.')
-                } else {
-                    callback(null, result)
-                }
+                callback(null, result)
             }
         })
     }
-
 }
 
 module.exports = service

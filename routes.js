@@ -66,6 +66,10 @@ module.exports = function (app, passport) {
         .post(isLoggedIn, function (req, res) {
             controller.cadastrarusuario(req, res, req.session.passport.user)
         })
+    /* Retornar as cidades */
+    app.get('/retornarcidades/:estado', isLoggedIn, function (req, res) {
+        controller.retornarcidades(res, req.params.estado)
+    })
     /* Home usuários */
     app.get('/indexusuario', isLoggedIn, function (req, res) {
         res.sendFile(path + 'users/usuario/indexUsuario.html')

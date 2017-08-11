@@ -5,16 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="img/icon.png">
+    <link rel="shortcut icon" href="../../img/icon.png">
     <title>Nater Med</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/animate.css">
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower|Open+Sans+Condensed:300">
-    <script type="text/javascript" src="../js/loader.js"></script>
+    <script type="text/javascript" src="../../js/loader.js"></script>
     <style>
         #conteudo {
             opacity: 0
+        }
+
+        .error {
+            color: red;
+            display: none
         }
     </style>
 </head>
@@ -24,110 +29,51 @@
     <div id="conteudo">
         <div id="top" class="divVertical">
             <div class="wow fadeInDown">
-                <img src="img/logoVertical.png" class="img-logo" alt="estetoscópio">
+                <img src="../../img/logoVertical.png" class="img-logo" alt="logo">
             </div>
         </div>
         <!--Cadastrar Usuário-->
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="container">
-                        <h1 class="text-center">Cadastrar novo usuário</h1>
-                        <div id="divResult" class="alert alert-dismissible" role="alert">
-                            <strong id="result"></strong>
-                        </div>
-                        <form method="POST" class="form-users" action="">
-                            <!--Dados Pessoais-->
-                            <fieldset>
-                                <legend>Dados Pessoais</legend>
-                                <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <label for="txtNome_Completo"><span style="color: red;font-size: 18px;">*</span> Nome Completo</label>
-                                        <input type="text" name="txtNome_Completo" id="txtNome_Completo" class="form-control" autofocus>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="txtNome_Mae"><span style="color: red;font-size: 18px;">*</span> Nome da Mãe</label>
-                                        <input type="text" name="txtNome_Mae" class="form-control">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="txtNome_Pai"><span style="color: red;font-size: 18px;">*</span> Nome do Pai</label>
-                                        <input type="text" name="txtNome_Pai" class="form-control">
-                                    </div>
+                    <h1 class="text-center">Cadastrar novo usuário</h1>
+                    <div id="divResult" class="alert alert-dismissible text-center" role="alert">
+                        <strong id="result"></strong>
+                    </div>
+                    <form method="POST" class="form-users" action="">
+                        <!--Dados Pessoais-->
+                        <fieldset>
+                            <legend>Dados Pessoais</legend>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label for="txtNome_Completo"><span style="color: red;font-size: 18px;">*</span> Nome Completo</label>
+                                    <input type="text" name="txtNome_Completo" id="txtNome_Completo" class="form-control" autofocus>
                                 </div>
-                                <div class="row">
-                                    <div class="form-group col-md-2">
-                                        <label for="txtData_Nasc"><span style="color: red;font-size: 18px;">*</span> Data de Nascimento</label>
-                                        <input type="date" name="txtData_Nasc" class="form-control">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="txtSexo"><span style="color: red;font-size: 18px;">*</span> Sexo</label>
-                                        <select name="txtSexo" class="form-control"> 
-                                            <option value="M">Masculino</option>
-                                            <option value="F">Feminino</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="txtEscolaridade"><span style="color: red;font-size: 18px;">*</span> Escolaridade</label>
-                                        <select name="txtEscolaridade" class="form-control">
-                                            <option value="1">Fundamental Incompleto</option>
-                                            <option value="2">Fundamental Completo</option>
-                                            <option value="3">Médio Incompleto</option>
-                                            <option value="4">Médio Completo</option>
-                                            <option value="5">Superior Incompleto</option>
-                                            <option value="6">Superior Completo</option>
-                                            <option value="7">Pós-graduação Incompleto</option>
-                                            <option value="8">Pós-graduação Completo</option>
-                                            <option value="9">Pós-graduação Mestrado Incompleto</option>
-                                            <option value="10">Pós-graduação Mestrado Completo</option>
-                                            <option value="11">Pós-graduação Doutorado Incompleto</option>
-                                            <option value="12">Pós-graduação Doutorado Completo</option>                                            
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="txtSituacao"><span style="color: red;font-size: 18px;">*</span> Situação</label>
-                                        <select name="txtSituacao" class="form-control"> 
-                                            <option value="Empregado">Empregado</option>
-                                            <option value="Desempregado">Desempregado</option>
-                                            <option value="Inativo">Inativo</option>
-                                            <option value="Autônomo">Autônomo</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="txtEstado_Civil"><span style="color: red;font-size: 18px;">*</span> Estado Civil</label>
-                                        <select name="txtEstado_Civil" class="form-control"> 
-                                            <option value="Solteiro">Solteiro</option>
-                                            <option value="Casado">Casado</option>
-                                            <option value="Divorciado">Divorciado</option>
-                                            <option value="Viúvo">Viúvo</option>
-                                            <option value="Separado">Separado</option>
-                                        </select>
-                                    </div>
+                                <div class="form-group col-md-3">
+                                    <label for="txtNome_Mae"><span style="color: red;font-size: 18px;">*</span> Nome da Mãe</label>
+                                    <input type="text" name="txtNome_Mae" id="txtNome_Mae" class="form-control">
                                 </div>
-                                <div class="row">
-                                    <div class="form-group col-md-2">
-                                        <label for="txtCpf"><span style="color: red;font-size: 18px;">*</span> CPF</label>
-                                        <input type="text" name="txtCpf" class="form-control">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="txtRg"><span style="color: red;font-size: 18px;">*</span> RG</label>
-                                        <input type="text" name="txtRg" class="form-control">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="txtCns"><span style="color: red;font-size: 18px;">*</span> Cartão SUS</label>
-                                        <input type="text" name="txtCns" class="form-control">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="txtFamilia">Identificação da Família</label>
-                                        <input type="number" name="txtFamilia" class="form-control">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="txtMicroarea">Microárea</label>
-                                        <input type="number" name="txtMicroarea" class="form-control">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="txtTipo_Sanguineo">Tipo Sanguíneo</label>
-                                        <select name="txtTipo_Sanguineo" class="form-control"> 
-                                            <option value="">Não sei</option>
+                                <div class="form-group col-md-3">
+                                    <label for="txtNome_Pai">Nome do Pai</label>
+                                    <input type="text" name="txtNome_Pai" class="form-control">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="txtNaturalidade"><span style="color: red;font-size: 18px;">*</span> Naturalidade</label>
+                                    <input type="text" name="txtNaturalidade" id="txtNaturalidade" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label for="txtSexo"><span style="color: red;font-size: 18px;">*</span> Sexo</label>
+                                    <select name="txtSexo" class="form-control"> 
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Feminino">Feminino</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="txtTipo_Sanguineo"><span style="color: red;font-size: 18px;">*</span> Tipo Sanguíneo</label>
+                                    <select name="txtTipo_Sanguineo" class="form-control"> 
+                                            <option value="Não Declarado">Não Declarado</option>
                                             <option value="A+">A+</option>
                                             <option value="A-">A-</option>
                                             <option value="B+">B+</option>
@@ -137,34 +83,111 @@
                                             <option value="O+">O+</option>
                                             <option value="O-">O-</option>
                                         </select>
-                                    </div>
                                 </div>
-                            </fieldset>
-                            <!--Contato-->
-                            <fieldset>
-                                <legend>Contatos</legend>
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="txtEmail">Email</label>
-                                        <input type="text" name="txtEmail" class="form-control">
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="txtTelefone">Telefone</label>
-                                        <input type="text" name="txtTelefone" class="form-control">
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="txtCelular"><span style="color: red;font-size: 18px;">*</span> Celular</label>
-                                        <input type="text" name="txtCelular" id="txtCelular" maxlength=14 class="form-control">
-                                    </div>
+                                <div class="form-group col-md-4">
+                                    <label for="txtEscolaridade"><span style="color: red;font-size: 18px;">*</span> Escolaridade</label>
+                                    <select name="txtEscolaridade" class="form-control">
+                                            <option value="Não Declarado">Não Declarado</option>
+                                            <option value="Fundamental Incompleto">Fundamental Incompleto</option>
+                                            <option value="Fundamental Completo">Fundamental Completo</option>
+                                            <option value="Médio Incompleto">Médio Incompleto</option>
+                                            <option value="Médio Completo">Médio Completo</option>
+                                            <option value="Superior Incompleto">Superior Incompleto</option>
+                                            <option value="Superior Completo">Superior Completo</option>
+                                            <option value="Pós-graduação Incompleto">Pós-graduação Incompleto</option>
+                                            <option value="Pós-graduação Completo">Pós-graduação Completo</option>
+                                            <option value="Pós-graduação Mestrado Incompleto">Pós-graduação Mestrado Incompleto</option>
+                                            <option value="Pós-graduação Mestrado Completo">Pós-graduação Mestrado Completo</option>
+                                            <option value="Pós-graduação Doutorado Incompleto">Pós-graduação Doutorado Incompleto</option>
+                                            <option value="Pós-graduação Doutorado Completo">Pós-graduação Doutorado Completo</option>                                            
+                                        </select>
                                 </div>
-                            </fieldset>
-                            <!--Endereço-->
-                            <fieldset>
-                                <legend>Endereço</legend>
-                                <div class="row">
-                                    <div class="form-group col-md-2">
-                                        <label for="txtEstado"><span style="color: red;font-size: 18px;">*</span> Estado</label>
-                                        <select name="txtEstado" class="form-control"> 
+                                <div class="form-group col-md-2">
+                                    <label for="txtSituacao"><span style="color: red;font-size: 18px;">*</span> Situação</label>
+                                    <select name="txtSituacao" class="form-control"> 
+                                            <option value="Não Declarado">Não Declarado</option>
+                                            <option value="Empregado">Empregado</option>
+                                            <option value="Desempregado">Desempregado</option>
+                                            <option value="Inativo">Inativo</option>
+                                            <option value="Autônomo">Autônomo</option>
+                                        </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="txtEstado_Civil"><span style="color: red;font-size: 18px;">*</span> Estado Civil</label>
+                                    <select name="txtEstado_Civil" class="form-control">
+                                            <option value="Não Declarado">Não Declarado</option>
+                                            <option value="Solteiro">Solteiro</option>
+                                            <option value="Casado">Casado</option>
+                                            <option value="Divorciado">Divorciado</option>
+                                            <option value="Viúvo">Viúvo</option>
+                                            <option value="Separado">Separado</option>
+                                        </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label for="txtData_Nasc"><span style="color: red;font-size: 18px;">*</span> Data de Nascimento</label>
+                                    <input type="text" name="txtData_Nasc" id="txtData_Nasc" class="mask-date form-control" minlength="10" maxlength="10">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="txtCpf"><span style="color: red;font-size: 18px;">*</span> CPF</label>
+                                    <input type="text" name="txtCpf" id="inp-cpf" class="mask-cpf form-control" minlength="14" maxlength="14">
+                                    <input type="checkbox" name="txtCpf" id="che-cpf" value="Não Declarado"> Não Declarado
+                                    <p class="error error-cpf"></p>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="txtRg"><span style="color: red;font-size: 18px;">*</span> RG</label>
+                                    <input type="text" name="txtRg" id="inp-rg" class="form-control" minlength="15" maxlength="15">
+                                    <input type="checkbox" name="txtRg" id="che-rg" value="Não Declarado"> Não Declarado
+                                    <p class="error error-rg"></p>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="txtCns"><span style="color: red;font-size: 18px;">*</span> Cartão SUS</label>
+                                    <input type="text" name="txtCns" id="inp-cns" class="mask-cns form-control" minlength="15" maxlength="15">
+                                    <input type="checkbox" name="txtCns" id="che-cns" value="Não Declarado"> Não Declarado
+                                    <p class="error error-cns"></p>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="txtFamilia"><span style="color: red;font-size: 18px;">*</span> Identificação da Família</label>
+                                    <input type="number" name="txtFamilia" id="inp-familia" class="form-control" min="1">
+                                    <input type="checkbox" name="txtFamilia" id="che-familia" value="Não Declarado"> Não
+                                    Declarado
+                                    <p class="error error-familia"></p>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="txtMicroarea"><span style="color: red;font-size: 18px;">*</span> Microárea</label>
+                                    <input type="number" name="txtMicroarea" id="inp-microarea" class="form-control" min="1">
+                                    <input type="checkbox" name="txtMicroarea" id="che-microarea" value="Não Declarado">                                    Não Declarado
+                                    <p class="error error-microarea"></p>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <!--Contato-->
+                        <fieldset>
+                            <legend>Contatos</legend>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="txtEmail">Email</label>
+                                    <input type="email" name="txtEmail" class="form-control">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="txtTelefone">Telefone</label>
+                                    <input type="text" name="txtTelefone" class="mask-telefone form-control" minlength="14" maxlength=14>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="txtCelular"><span style="color: red;font-size: 18px;">*</span> Celular</label>
+                                    <input type="text" name="txtCelular" id="txtCelular" class="mask-celular form-control" minlength="14" maxlength=14>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <!--Endereço-->
+                        <fieldset>
+                            <legend>Endereço</legend>
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label for="txtEstado"><span style="color: red;font-size: 18px;">*</span> Estado</label>
+                                    <select name="txtEstado" class="form-control" id="txtEstado"> 
+                                            <option value="Vazio">Escolher estado</option> 
                                             <option value="Acre">Acre</option> 
                                             <option value="Alagoas">Alagoas</option> 
                                             <option value="Amazonas">Amazonas</option> 
@@ -193,51 +216,76 @@
                                             <option value="São Paulo">São Paulo</option> 
                                             <option value="Tocantins">Tocantins</option> 
                                         </select>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="txtCidade"><span style="color: red;font-size: 18px;">*</span> Cidade</label>
-                                        <input type="text" name="txtCidade" class="form-control">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="txtRua">Rua</label>
-                                        <input type="text" name="txtRua" class="form-control">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="txtBairro">Bairro</label>
-                                        <input type="text" name="txtBairro" class="form-control">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="txtNumero">Número</label>
-                                        <input type="text" name="txtNumero" class="form-control">
-                                    </div>
                                 </div>
-                            </fieldset>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <input type="submit" class="btn btn-success" value="Cadastrar">
-                                    <input type="reset" class="btn btn-warning" value="Limpar campos">
-                                    <a href="/usuario" class="btn btn-default" role="button">Voltar</a>
+                                <div class="form-group col-md-3">
+                                    <label for="txtCidade"><span style="color: red;font-size: 18px;">*</span> Cidade</label>
+                                    <select name="txtCidade" class="form-control" id="txtCidade"> 
+                                        <option value="">Escolha um estado</option> 
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="txtRua">Rua</label>
+                                    <input type="text" name="txtRua" class="form-control">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="txtBairro">Bairro</label>
+                                    <input type="text" name="txtBairro" class="form-control">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="txtNumero">Número</label>
+                                    <input type="number" name="txtNumero" class="form-control" min="1">
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                        </fieldset>
+                        <!--Adicionais-->
+                        <fieldset>
+                            <legend>Adicionais</legend>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="txtNecessidade"><span style="color: red;font-size: 18px;">*</span> Tem alguma necessidade especial ?</label>
+                                    <label class="radio-inline"><input type="radio" name="txtNecessidade" value="Sim" checked> Sim</label>
+                                    <label class="radio-inline"><input type="radio" name="txtNecessidade" value="Não"> Não</label>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="txtAmbulancia"><span style="color: red;font-size: 18px;">*</span> Precisa de ambulância para o deslocamento ?</label>
+                                    <label class="radio-inline"><input type="radio" name="txtAmbulancia" value="Sim" checked> Sim</label>
+                                    <label class="radio-inline"><input type="radio" name="txtAmbulancia" value="Não"> Não</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="submit" class="btn btn-success" value="Cadastrar">
+                                <input type="reset" class="btn btn-warning" value="Limpar campos">
+                                <a href="/usuario" class="btn btn-default" role="button">Voltar</a>
+                            </div>
+                        </div>
+                    </form>
+                    <br />
                 </div>
             </div>
         </div>
         <!-- Fim conteúdo -->
     </div>
 </body>
-<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../js/wow.min.js"></script>
+<script type="text/javascript" src="../../js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../js/wow.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.mask.min.js"></script>
 <!--Validando dados do formulário-->
-<script type="text/javascript" src="../script/usuario/cadastrarDadosUsuario.js"></script>
+<script type="text/javascript" src="../../script/usuario/cadastrarDadosUsuario.js"></script>
+<script type="text/javascript" src="../../script/usuario/retornarCidades.js"></script>
 <script>
     // Loader
     loading()
     // Animation WOW
     new WOW().init()
-
+    // Mask
+    $('.mask-date').mask('00/00/0000', { placeholder: "__/__/____" })
+    $('.mask-cpf').mask('000.000.000-00', { placeholder: "___.___.___-__" })
+    $('.mask-cns').mask('000000000000000', { placeholder: "_______________" })
+    $('.mask-telefone').mask('(00) 0000-0000', { placeholder: "(__) ____-____" })
+    $('.mask-celular').mask('(00) 00000-0000', { placeholder: "(__) _____-____" })
 </script>
 
 </html>
