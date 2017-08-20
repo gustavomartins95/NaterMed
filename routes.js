@@ -78,6 +78,16 @@ module.exports = function (app, passport) {
     app.get('/agendar', isLoggedIn, function (req, res) {
         res.sendFile(path + 'users/usuario/agendarUsuario.html')
     })
+    /* Operações do agendar consulta */
+    app.get('/retonaragendamento/:date', isLoggedIn, function (req, res) {
+        controller.retonaragendamento(res, req.params.date, req.session.passport.user)
+    })
+    app.post('/realizaragendamento', isLoggedIn, function (req, res) {
+        controller.realizaragendamento(req, res, req.session.passport.user)
+    })
+    app.post('/desmarcaragendamento', isLoggedIn, function (req, res) {
+        controller.desmarcaragendamento(req, res, req.session.passport.user)
+    })
     /* Horários */
     app.get('/horarios', isLoggedIn, function (req, res) {
         res.sendFile(path + 'users/horarios.html')

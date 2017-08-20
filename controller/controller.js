@@ -35,6 +35,22 @@ var controller = {
         service.retornarusuario(dataSession, function (error, users) {
             res.status(httpStatus.OK).json({ users: users })
         })
+    },
+    // Operações do agendar consulta
+    retonaragendamento: function (res, date, dataSession) {
+        service.retonaragendamento(date, function (error, status, data) {
+            res.status(status).json({ data: data, userid: dataSession.idusuario, date: date })
+        })
+    },
+    realizaragendamento: function (req, res, dataSession) {
+        service.realizaragendamento(req.body, dataSession, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    desmarcaragendamento: function (req, res, dataSession) {
+        service.desmarcaragendamento(req.body, dataSession, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
     }
 }
 

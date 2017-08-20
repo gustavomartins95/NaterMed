@@ -339,7 +339,7 @@ div.marginTopNav {
 /*Card usuário*/
 ul.cards {
     text-align: center;
-    margin-left: -40px;
+    margin-left: -55px;
 }
 ul.cards li {
     display: inline-block;
@@ -402,6 +402,42 @@ table#horarios > tbody > tr > td {
     padding: 15px 5px;
     font-size: 18px;
     text-align: center;
+}
+
+/* Table agendamento */
+table#agendamento,
+table.k-content {
+    font-size: 18px;
+}
+
+table#agendamento > thead >tr > th,
+table.k-content > thead >tr > th {
+    padding: 25px;
+    font-size: 18px;
+    text-align: center;
+}
+
+table#agendamento > tbody > tr > td {
+    font-size: 18px;
+    text-align: center;
+}
+
+span.necessidadeOkay {
+    color: #1ab921;
+    background: #fff;
+    border-radius: 45px;
+    padding: 5px;
+    border: 2px solid;
+    box-shadow: 0px 0px 11px -5px #000;
+}
+
+span.necessidadeNo {
+    color: #de2315;
+    background: #fff;
+    border-radius: 45px;
+    padding: 5px;
+    border: 2px solid;
+    box-shadow: 0px 0px 11px -5px #000;
 }
 
 /*@MEDIA*/
