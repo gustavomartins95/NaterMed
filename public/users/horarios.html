@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="img/icon.png">
+    <link rel="shortcut icon" href="../img/icon.png">
     <title>Nater Med</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/animate.css">
@@ -29,12 +29,15 @@
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="sr-only">Toggle navigation</span> MENU <i class="fa fa-bars"></i>
                     </button>
-                    <img src="../img/logoHorizontal.png" alt="Logo">
+                    <a class="navbar-brand" href=""><img src="../img/logoHorizontal.png" alt="Logo"></a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/agendar">AGENDAR CONSULTA</a></li>
+                        <li><a href="/indexusuario">HOME</a></li>
+                        <li><a href="/agendar">CONSULTA</a></li>
+                        <li><a href="/">HISTÓRICO</a></li>
                         <li><a href="/horarios">HORÁRIOS</a></li>
+                        <li><a href="/usuario">USUÁRIO</a></li>
                         <li><a href="/logout">SAIR</a></li>
                     </ul>
                 </div>
@@ -49,50 +52,62 @@
                             <thead>
                                 <tr>
                                     <th>Profissionais</th>
+                                    <th>Domingo</th>
                                     <th>Segunda</th>
                                     <th>Terça</th>
                                     <th>Quarta</th>
                                     <th>Quinta</th>
                                     <th>Sexta</th>
+                                    <th>Sábado</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>Dentista</td>
+                                    <td>-</td>
                                     <td>Início às 7:00H, Fichas indeterminadas</td>
                                     <td>Início às 7:00H, Fichas indeterminadas</td>
                                     <td>Início às 7:00H, Fichas indeterminadas</td>
                                     <td>Início às 7:00H, Fichas indeterminadas</td>
                                     <td>Início às 7:00H, Fichas indeterminadas</td>
+                                    <td>-</td>
                                 </tr>
                                 <tr>
                                     <td>Ginecologista</td>
                                     <td>-</td>
+                                    <td>-</td>
                                     <td>Início às 7:00H, 20 Fichas</td>
                                     <td>-</td>
                                     <td>Início às 7:00H, 20 Fichas</td>
+                                    <td>-</td>
                                     <td>-</td>
                                 </tr>
                                 <tr>
                                     <td>Pediatra</td>
+                                    <td>-</td>
                                     <td>Início às 12:00H, 20 Fichas</td>
                                     <td>Início às 7:00H, 15 Fichas</td>
                                     <td>Início às 7:00H, 15 Fichas</td>
                                     <td>Início às 9:00H, 15 Fichas</td>
                                     <td>-</td>
+                                    <td>-</td>
                                 </tr>
                                 <tr>
                                     <td>Psiquiatra</td>
+                                    <td>-</td>
                                     <td>Início às 7:00H, 10 Fichas</td>
                                     <td>Início às 13:00H, 10 Fichas</td>
                                     <td>Início às 13:00H, 10 Fichas</td>
                                     <td>Início às 13:00H, Fichas indeterminadas</td>
                                     <td>Início às 13:00H, Fichas indeterminadas</td>
+                                    <td>-</td>
                                 </tr>
                                 <tr>
                                     <td>Nutricionista</td>
                                     <td>-</td>
+                                    <td>-</td>
                                     <td>Início às 10:00H, 25 Fichas</td>
+                                    <td>-</td>
                                     <td>-</td>
                                     <td>-</td>
                                     <td>-</td>
@@ -101,17 +116,21 @@
                                     <td>Psicólogo</td>
                                     <td>-</td>
                                     <td>-</td>
+                                    <td>-</td>
                                     <td>Início às 7:00H, 5 Fichas</td>
                                     <td>-</td>
                                     <td>Início às 13:00H, 5 Fichas</td>
+                                    <td>-</td>
                                 </tr>
                                 <tr>
-                                    <td>Clinico geral</td>
+                                    <td>Clínico geral</td>
+                                    <td>-</td>
                                     <td>Início às 8:00H, 20 Fichas</td>
                                     <td>Início às 8:00H, 20 Fichas</td>
                                     <td>Início às 8:00H, 20 Fichas</td>
                                     <td>Início às 8:00H, 20 Fichas</td>
                                     <td>Início às 8:00H, 20 Fichas</td>
+                                    <td>-</td>
                                 </tr>
                             </tbody>
                         </table>
