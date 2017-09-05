@@ -60,7 +60,7 @@ function sendData() {
             }, 1500)
         }
     }).done(function(){
-        window.location = "/usuario"
+        window.location = "/access"
     }).fail(function (callback) {
         callbackMsg = JSON.parse(callback.responseText)
         sendMsg(callbackMsg.info)

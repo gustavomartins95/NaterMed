@@ -39,6 +39,21 @@ module.exports = function (app, passport) {
                 }
             )(req, res, next)
         })
+    /* Rotas de acesso */
+    app.get('/access', isLoggedIn, function (req, res) {
+        if (req.session.passport.user.nivel_acesso == '1')
+            res.redirect('/indexsecretaria')
+        else if (req.session.passport.user.nivel_acesso == '2')
+            res.redirect('/indexprofissional')
+        else if (req.session.passport.user.nivel_acesso == '3')
+            res.redirect('/usuario')
+        else
+            res.redirect('/logout')
+    })
+    /*
+        Níveis de acesso:
+        3: USUÁRIOS
+    */
     /* Escolher usuário */
     app.get('/usuario', isLoggedIn, function (req, res) {
         res.sendFile(path + 'users/usuario/escolherUsuario.html')
@@ -87,6 +102,22 @@ module.exports = function (app, passport) {
     })
     app.post('/desmarcaragendamento', isLoggedIn, function (req, res) {
         controller.desmarcaragendamento(req, res, req.session.passport.user)
+    })
+    /*
+        Níveis de acesso:
+        2: PROFISSIONAL
+    */
+    /* Home profissional */
+    app.get('/indexprofissional', isLoggedIn, function (req, res) {
+        res.sendFile(path + 'users/profissional/indexProfissional.html')
+    })
+    /*
+        Níveis de acesso:
+        1: SECRETARIA
+    */
+    /* Home secretaria */
+    app.get('/indexsecretaria', isLoggedIn, function (req, res) {
+        res.sendFile(path + 'users/secretaria/indexSecretaria.html')
     })
     /* Horários */
     app.get('/horarios', isLoggedIn, function (req, res) {
