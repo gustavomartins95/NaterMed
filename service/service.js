@@ -66,6 +66,10 @@ var service = {
             })
         }
     },
+    /*
+        Níveis de acesso:
+        3: USUÁRIOS
+    */
     // Cadastrar dados dos usuários
     cadastrarusuario: function (data, dataSession, callback) {
         let sql = 'INSERT INTO usuario ' +
@@ -190,6 +194,38 @@ var service = {
                 callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
             } else {
                 callback(null, httpStatus.OK, 'Consulta desmarcada com sucesso.')
+            }
+        })
+    },
+    /*
+        Níveis de acesso:
+        2: PROFISSIONAL
+    */
+    // Retornar dados dos profissionais
+    retornarprofissional: function (dataSession, callback) {
+        let sql = 'SELECT idprofissional, nome_completo FROM profissional WHERE login_idlogin = ?'
+        // Query no Banco de Dados
+        connection.query(sql, [dataSession.idlogin], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
+    /*
+        Níveis de acesso:
+        1: SECRETARIA
+    */
+    // Retornar dados da secretaria
+    retornarsecretaria: function (dataSession, callback) {
+        let sql = 'SELECT idsecretaria, nome_completo FROM secretaria WHERE login_idlogin = ?'
+        // Query no Banco de Dados
+        connection.query(sql, [dataSession.idlogin], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
             }
         })
     }

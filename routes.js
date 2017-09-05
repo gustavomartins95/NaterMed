@@ -42,9 +42,9 @@ module.exports = function (app, passport) {
     /* Rotas de acesso */
     app.get('/access', isLoggedIn, function (req, res) {
         if (req.session.passport.user.nivel_acesso == '1')
-            res.redirect('/indexsecretaria')
+            res.redirect('/secretaria')
         else if (req.session.passport.user.nivel_acesso == '2')
-            res.redirect('/indexprofissional')
+            res.redirect('/profissional')
         else if (req.session.passport.user.nivel_acesso == '3')
             res.redirect('/usuario')
         else
@@ -107,6 +107,25 @@ module.exports = function (app, passport) {
         Níveis de acesso:
         2: PROFISSIONAL
     */
+    /* Escolher profissional */
+    app.get('/profissional', isLoggedIn, isAuthorized(['2']), function (req, res) {
+        res.sendFile(path + 'users/profissional/escolherProfissional.html')
+    })
+    /* Retornar profissional */
+    app.get('/retornarprofissional', isLoggedIn, isAuthorized(['2']), function (req, res) {
+        controller.retornarprofissional(res, req.session.passport.user)
+    })
+    /* Salvar profissional escolhido na session */
+    app.post('/escolherprofissional', isLoggedIn, isAuthorized(['2']), function (req, res) {
+        let newDataSession = []
+        newDataSession.idlogin = req.session.passport.user.idlogin
+        newDataSession.nivel_acesso = req.session.passport.user.nivel_acesso
+        newDataSession.idusuario = req.body.idprofissional
+        // Atualizar session
+        req.login(newDataSession, function (error) {
+            return res.status(200).json({ message: "Logado" })
+        })
+    })
     /* Home profissional */
     app.get('/indexprofissional', isLoggedIn, isAuthorized(['2']), function (req, res) {
         res.sendFile(path + 'users/profissional/indexProfissional.html')
@@ -115,10 +134,32 @@ module.exports = function (app, passport) {
         Níveis de acesso:
         1: SECRETARIA
     */
+    /* Escolher secretaria */
+    app.get('/secretaria', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        res.sendFile(path + 'users/secretaria/escolherSecretaria.html')
+    })
+    /* Retornar secretaria */
+    app.get('/retornarsecretaria', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.retornarsecretaria(res, req.session.passport.user)
+    })
+    /* Salvar secretaria escolhido na session */
+    app.post('/escolhersecretaria', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        let newDataSession = []
+        newDataSession.idlogin = req.session.passport.user.idlogin
+        newDataSession.nivel_acesso = req.session.passport.user.nivel_acesso
+        newDataSession.idusuario = req.body.idsecretaria
+        // Atualizar session
+        req.login(newDataSession, function (error) {
+            return res.status(200).json({ message: "Logado" })
+        })
+    })
     /* Home secretaria */
     app.get('/indexsecretaria', isLoggedIn, isAuthorized(['1']), function (req, res) {
         res.sendFile(path + 'users/secretaria/indexSecretaria.html')
     })
+    /*
+        Todos os níveis de acesso
+    */
     /* Horários */
     app.get('/horarios', isLoggedIn, isAuthorized(['1', '2', '3']), function (req, res) {
         res.sendFile(path + 'users/horarios.html')

@@ -18,6 +18,10 @@ var controller = {
             else callback(error)
         })
     },
+    /*
+        Níveis de acesso:
+        3: USUÁRIOS
+    */
     // Cadastrar dados dos usuários
     cadastrarusuario: function (req, res, dataSession) {
         service.cadastrarusuario(req.body, dataSession, function (error, status, message) {
@@ -50,6 +54,26 @@ var controller = {
     desmarcaragendamento: function (req, res, dataSession) {
         service.desmarcaragendamento(req.body, dataSession, function (error, status, message) {
             res.status(status).json({ message: message })
+        })
+    },
+    /*
+        Níveis de acesso:
+        2: PROFISSIONAL
+    */
+    // Retornar dados dos profissionais
+    retornarprofissional: function (res, dataSession) {
+        service.retornarprofissional(dataSession, function (error, users) {
+            res.status(httpStatus.OK).json({ users: users })
+        })
+    },
+    /*
+        Níveis de acesso:
+        1: SECRETARIA
+    */
+    // Retornar dados da secretaria
+    retornarsecretaria: function (res, dataSession) {
+        service.retornarsecretaria(dataSession, function (error, users) {
+            res.status(httpStatus.OK).json({ users: users })
         })
     }
 }
