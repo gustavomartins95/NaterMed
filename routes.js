@@ -55,15 +55,15 @@ module.exports = function (app, passport) {
         3: USUÁRIOS
     */
     /* Escolher usuário */
-    app.get('/usuario', isLoggedIn, function (req, res) {
+    app.get('/usuario', isLoggedIn, isAuthorized(['3']), function (req, res) {
         res.sendFile(path + 'users/usuario/escolherUsuario.html')
     })
     /* Retornar usuários */
-    app.get('/retornarusuario', isLoggedIn, function (req, res) {
+    app.get('/retornarusuario', isLoggedIn, isAuthorized(['3']), function (req, res) {
         controller.retornarusuario(res, req.session.passport.user)
     })
     /* Salvar usuário escolhido na session */
-    app.post('/escolherusuario', isLoggedIn, function (req, res) {
+    app.post('/escolherusuario', isLoggedIn, isAuthorized(['3']), function (req, res) {
         let newDataSession = []
         newDataSession.idlogin = req.session.passport.user.idlogin
         newDataSession.nivel_acesso = req.session.passport.user.nivel_acesso
@@ -75,32 +75,32 @@ module.exports = function (app, passport) {
     })
     /* Cadastrar dados dos usuários */
     app.route('/cadastrarusuario')
-        .get(isLoggedIn, function (req, res) {
+        .get(isLoggedIn, isAuthorized(['3']), function (req, res) {
             res.sendFile(path + 'users/usuario/cadastrarUsuario.html')
         })
-        .post(isLoggedIn, function (req, res) {
+        .post(isLoggedIn, isAuthorized(['3']), function (req, res) {
             controller.cadastrarusuario(req, res, req.session.passport.user)
         })
     /* Retornar as cidades */
-    app.get('/retornarcidades/:estado', isLoggedIn, function (req, res) {
+    app.get('/retornarcidades/:estado', isLoggedIn, isAuthorized(['3']), function (req, res) {
         controller.retornarcidades(res, req.params.estado)
     })
     /* Home usuários */
-    app.get('/indexusuario', isLoggedIn, function (req, res) {
+    app.get('/indexusuario', isLoggedIn, isAuthorized(['3']), function (req, res) {
         res.sendFile(path + 'users/usuario/indexUsuario.html')
     })
     /* Agendar */
-    app.get('/agendar', isLoggedIn, function (req, res) {
+    app.get('/agendar', isLoggedIn, isAuthorized(['3']), function (req, res) {
         res.sendFile(path + 'users/usuario/agendarUsuario.html')
     })
     /* Operações do agendar consulta */
-    app.get('/retonaragendamento/:date', isLoggedIn, function (req, res) {
+    app.get('/retonaragendamento/:date', isLoggedIn, isAuthorized(['3']), function (req, res) {
         controller.retonaragendamento(res, req.params.date, req.session.passport.user)
     })
-    app.post('/realizaragendamento', isLoggedIn, function (req, res) {
+    app.post('/realizaragendamento', isLoggedIn, isAuthorized(['3']), function (req, res) {
         controller.realizaragendamento(req, res, req.session.passport.user)
     })
-    app.post('/desmarcaragendamento', isLoggedIn, function (req, res) {
+    app.post('/desmarcaragendamento', isLoggedIn, isAuthorized(['3']), function (req, res) {
         controller.desmarcaragendamento(req, res, req.session.passport.user)
     })
     /*
@@ -108,7 +108,7 @@ module.exports = function (app, passport) {
         2: PROFISSIONAL
     */
     /* Home profissional */
-    app.get('/indexprofissional', isLoggedIn, function (req, res) {
+    app.get('/indexprofissional', isLoggedIn, isAuthorized(['2']), function (req, res) {
         res.sendFile(path + 'users/profissional/indexProfissional.html')
     })
     /*
@@ -116,15 +116,15 @@ module.exports = function (app, passport) {
         1: SECRETARIA
     */
     /* Home secretaria */
-    app.get('/indexsecretaria', isLoggedIn, function (req, res) {
+    app.get('/indexsecretaria', isLoggedIn, isAuthorized(['1']), function (req, res) {
         res.sendFile(path + 'users/secretaria/indexSecretaria.html')
     })
     /* Horários */
-    app.get('/horarios', isLoggedIn, function (req, res) {
+    app.get('/horarios', isLoggedIn, isAuthorized(['1', '2', '3']), function (req, res) {
         res.sendFile(path + 'users/horarios.html')
     })
     /* Dados da session */
-    app.get('/session', isLoggedIn, function (req, res) {
+    app.get('/session', isLoggedIn, isAuthorized(['1', '2', '3']), function (req, res) {
         console.log(req.session.passport.user)
     })
     /* Logout */
@@ -148,4 +148,13 @@ function isLoggedIn(req, res, next) {
         return next()
     else
         res.redirect('/logout')
+}
+
+function isAuthorized(access) {
+    return function (req, res, next) {
+        if (access.indexOf(req.session.passport.user.nivel_acesso) != -1)
+            return next()
+        else
+            res.redirect('/logout')
+    }
 }
