@@ -84,7 +84,15 @@ function sendData() {
         type: "post",
         dataType: "json",
         async: true,
-        data: $("form").serialize()
+        data: $("form").serialize(),
+        beforeSend: function () {
+            $('#btn-loading').button('loading')
+        },
+        complete: function () {
+            setTimeout(function () {
+                $('#btn-loading').button('reset')
+            }, 1500)
+        }
     }).done(function (callback) {
         window.location = "/usuario"
     }).fail(function (callback) {

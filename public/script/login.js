@@ -52,10 +52,12 @@ function sendData() {
         async: true,
         data: $("form").serialize(),
         beforeSend: function () {
-            $('#btn-users').val("AGUARDE ...")
+            $('#btn-loading').button('loading')
         },
         complete: function () {
-            $('#btn-users').val("ACESSAR")
+            setTimeout(function () {
+                $('#btn-loading').button('reset')
+            }, 1500)
         }
     }).done(function(){
         window.location = "/usuario"
