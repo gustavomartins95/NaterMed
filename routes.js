@@ -85,6 +85,22 @@ module.exports = function (app, passport) {
     app.get('/retornarcidades/:estado', isLoggedIn, isAuthorized(['3']), function (req, res) {
         controller.retornarcidades(res, req.params.estado)
     })
+    /* Editar usuário */
+    app.route('/editarusuario')
+        .get(isLoggedIn, isAuthorized(['3']), function (req, res) {
+            res.sendFile(path + 'users/usuario/editarUsuario.html')
+        })
+        .post(isLoggedIn, isAuthorized(['3']), function (req, res) {
+            controller.editarusuario(req, res, req.session.passport.user)
+        })
+    /* Retornar dados usuários */
+    app.get('/retornardadosusuario', isLoggedIn, isAuthorized(['3']), function (req, res) {
+        controller.retornardadosusuario(res, req.session.passport.user)
+    })
+    /* Excluir dados do usuário */
+    app.post('/excluirusuario', isLoggedIn, isAuthorized(['3']), function (req, res) {
+        controller.excluirusuario(res, req.session.passport.user)
+    })
     /* Home usuários */
     app.get('/indexusuario', isLoggedIn, isAuthorized(['3']), function (req, res) {
         res.sendFile(path + 'users/usuario/indexUsuario.html')
@@ -102,6 +118,10 @@ module.exports = function (app, passport) {
     })
     app.post('/desmarcaragendamento', isLoggedIn, isAuthorized(['3']), function (req, res) {
         controller.desmarcaragendamento(req, res, req.session.passport.user)
+    })
+    /* Horários */
+    app.get('/horarios', isLoggedIn, isAuthorized(['3']), function (req, res) {
+        res.sendFile(path + 'users/usuario/horariosUsuario.html')
     })
     /*
         Níveis de acesso:
@@ -160,10 +180,6 @@ module.exports = function (app, passport) {
     /*
         Todos os níveis de acesso
     */
-    /* Horários */
-    app.get('/horarios', isLoggedIn, isAuthorized(['1', '2', '3']), function (req, res) {
-        res.sendFile(path + 'users/horarios.html')
-    })
     /* Dados da session */
     app.get('/session', isLoggedIn, isAuthorized(['1', '2', '3']), function (req, res) {
         console.log(req.session.passport.user)

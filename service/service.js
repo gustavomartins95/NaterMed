@@ -80,7 +80,7 @@ var service = {
         // Query no Banco de Dados
         connection.query(sql,
             [dataSession.idlogin, data.txtNome_Completo, data.txtNome_Mae, data.txtNome_Pai, data.txtData_Nasc, data.txtSexo,
-            data.txtEscolaridade, data.txtNaturalidade, data.txtSituacao, data.txtEstado_Civil, data.txtCpf, data.txtRg,
+            data.txtEscolaridade, data.txtSituacao, data.txtEstado_Civil, data.txtNaturalidade, data.txtCpf, data.txtRg,
             data.txtCns, data.txtFamilia, data.txtMicroarea, data.txtTipo_Sanguineo, data.txtEmail, data.txtTelefone, data.txtCelular,
             data.txtEstado, data.txtCidade, data.txtRua, data.txtBairro, data.txtNumero, data.txtNecessidade, data.txtAmbulancia],
             function (error, result) {
@@ -90,6 +90,53 @@ var service = {
                     callback(null, httpStatus.OK, 'Cadastrado com sucesso.')
                 }
             })
+    },
+    // Editar dados do usuário
+    editarusuario: function (data, dataSession, callback) {
+        let sql = 'UPDATE usuario SET ' +
+            'nome_completo=?, nome_mae=?, nome_pai=?, data_nasc=?, sexo=?, escolaridade=?, situacao=?, estado_civil=?, ' +
+            'naturalidade=?, cpf=?, rg=?, cns=?, familia=?, microarea=?, tipo_sang=?, email=?, telefone=?, celular=?, ' +
+            'estado=?, cidade=?, rua=?, bairro=?, numero_casa=?, necessidades_esp=?, ambulancia=? ' +
+            'WHERE idusuario = ? && login_idlogin = ?'
+        // Query no Banco de Dados
+        connection.query(sql,
+            [data.txtNome_Completo, data.txtNome_Mae, data.txtNome_Pai, data.txtData_Nasc, data.txtSexo,
+            data.txtEscolaridade, data.txtSituacao, data.txtEstado_Civil, data.txtNaturalidade, data.txtCpf, data.txtRg,
+            data.txtCns, data.txtFamilia, data.txtMicroarea, data.txtTipo_Sanguineo, data.txtEmail, data.txtTelefone, data.txtCelular,
+            data.txtEstado, data.txtCidade, data.txtRua, data.txtBairro, data.txtNumero, data.txtNecessidade, data.txtAmbulancia,
+            dataSession.idusuario, dataSession.idlogin],
+            function (error, result) {
+                if (error) {
+                    console.log(error)
+                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    callback(null, httpStatus.OK, 'Usuário atualizado com sucesso.')
+                }
+            })
+    },
+    // Retornar dados dos usuários
+    retornardadosusuario: function (dataSession, callback) {
+        let sql = 'SELECT * FROM usuario WHERE idusuario = ? && login_idlogin = ?'
+        // Query no Banco de Dados
+        connection.query(sql, [dataSession.idusuario, dataSession.idlogin], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
+    // Excluir dados do usuário
+    excluirusuario: function (dataSession, callback) {
+        let sql = 'DELETE FROM usuario WHERE idusuario = ? && login_idlogin = ?'
+        // Query no Banco de Dados
+        connection.query(sql, [dataSession.idusuario, dataSession.idlogin], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, httpStatus.OK, 'Usuário excluído com sucesso. Você será redirecionado a seleção de usuário existente.')
+            }
+        })
     },
     // Retornar as cidades
     retornarcidades: function (estado, callback) {

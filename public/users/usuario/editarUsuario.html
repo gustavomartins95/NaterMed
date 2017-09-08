@@ -32,17 +32,17 @@
                 <img src="../../img/logoVertical.png" class="img-logo" alt="logo">
             </div>
         </div>
-        <!--Cadastrar Usuário-->
+        <!--Editar Usuário-->
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="text-center">Cadastrar novo usuário</h1>
+                    <h1 class="text-center">Editar usuário</h1>
                     <div id="divResult" class="alert alert-dismissible text-center" role="alert">
                         <strong id="result"></strong>
                     </div>
                     <form method="POST" class="form-users" action="">
-                        <!-- Cadastrar -->
-                        <input type="hidden" name="txtIdentificacao" id="txtIdentificacao" value="cadastrar">
+                        <!-- Editar -->
+                        <input type="hidden" name="txtIdentificacao" id="txtIdentificacao" value="editar">
                         <!--Dados Pessoais-->
                         <fieldset>
                             <legend>Dados Pessoais</legend>
@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="txtNome_Pai">Nome do Pai</label>
-                                    <input type="text" name="txtNome_Pai" class="form-control">
+                                    <input type="text" name="txtNome_Pai" id="txtNome_Pai" class="form-control">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="txtNaturalidade"><span style="color: red;font-size: 18px;">*</span> Naturalidade</label>
@@ -67,14 +67,14 @@
                             <div class="row">
                                 <div class="form-group col-md-2">
                                     <label for="txtSexo"><span style="color: red;font-size: 18px;">*</span> Sexo</label>
-                                    <select name="txtSexo" class="form-control"> 
+                                    <select name="txtSexo" id="txtSexo" class="form-control"> 
                                         <option value="Masculino">Masculino</option>
                                         <option value="Feminino">Feminino</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="txtTipo_Sanguineo"><span style="color: red;font-size: 18px;">*</span> Tipo Sanguíneo</label>
-                                    <select name="txtTipo_Sanguineo" class="form-control"> 
+                                    <select name="txtTipo_Sanguineo" id="txtTipo_Sanguineo" class="form-control"> 
                                             <option value="Não Declarado">Não Declarado</option>
                                             <option value="A+">A+</option>
                                             <option value="A-">A-</option>
@@ -88,7 +88,7 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="txtEscolaridade"><span style="color: red;font-size: 18px;">*</span> Escolaridade</label>
-                                    <select name="txtEscolaridade" class="form-control">
+                                    <select name="txtEscolaridade" id="txtEscolaridade" class="form-control">
                                             <option value="Não Declarado">Não Declarado</option>
                                             <option value="Fundamental Incompleto">Fundamental Incompleto</option>
                                             <option value="Fundamental Completo">Fundamental Completo</option>
@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="txtSituacao"><span style="color: red;font-size: 18px;">*</span> Situação</label>
-                                    <select name="txtSituacao" class="form-control"> 
+                                    <select name="txtSituacao" id="txtSituacao" class="form-control"> 
                                             <option value="Não Declarado">Não Declarado</option>
                                             <option value="Empregado">Empregado</option>
                                             <option value="Desempregado">Desempregado</option>
@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="txtEstado_Civil"><span style="color: red;font-size: 18px;">*</span> Estado Civil</label>
-                                    <select name="txtEstado_Civil" class="form-control">
+                                    <select name="txtEstado_Civil" id="txtEstado_Civil" class="form-control">
                                             <option value="Não Declarado">Não Declarado</option>
                                             <option value="Solteiro">Solteiro</option>
                                             <option value="Casado">Casado</option>
@@ -170,11 +170,11 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="txtEmail">Email</label>
-                                    <input type="email" name="txtEmail" class="form-control">
+                                    <input type="email" name="txtEmail" id="txtEmail" class="form-control">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="txtTelefone">Telefone</label>
-                                    <input type="text" name="txtTelefone" class="mask-telefone form-control" minlength="14" maxlength=14>
+                                    <input type="text" name="txtTelefone" id="txtTelefone" class="mask-telefone form-control" minlength="14" maxlength=14>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="txtCelular"><span style="color: red;font-size: 18px;">*</span> Celular</label>
@@ -227,15 +227,15 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="txtRua">Rua</label>
-                                    <input type="text" name="txtRua" class="form-control">
+                                    <input type="text" name="txtRua" id="txtRua" class="form-control">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="txtBairro">Bairro</label>
-                                    <input type="text" name="txtBairro" class="form-control">
+                                    <input type="text" name="txtBairro" id="txtBairro" class="form-control">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="txtNumero">Número</label>
-                                    <input type="number" name="txtNumero" class="form-control" min="1">
+                                    <input type="number" name="txtNumero" id="txtNumero" class="form-control" min="1">
                                 </div>
                             </div>
                         </fieldset>
@@ -245,19 +245,19 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="txtNecessidade"><span style="color: red;font-size: 18px;">*</span> Tem alguma necessidade especial ?</label>
-                                    <label class="radio-inline"><input type="radio" name="txtNecessidade" value="1" checked> Sim</label>
-                                    <label class="radio-inline"><input type="radio" name="txtNecessidade" value="0"> Não</label>
+                                    <label class="radio-inline"><input type="radio" name="txtNecessidade" id="txtNecessidadeSim" value="1"> Sim</label>
+                                    <label class="radio-inline"><input type="radio" name="txtNecessidade" id="txtNecessidadeNao" value="0"> Não</label>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="txtAmbulancia"><span style="color: red;font-size: 18px;">*</span> Precisa de ambulância para o deslocamento ?</label>
-                                    <label class="radio-inline"><input type="radio" name="txtAmbulancia" value="1" checked> Sim</label>
-                                    <label class="radio-inline"><input type="radio" name="txtAmbulancia" value="0"> Não</label>
+                                    <label class="radio-inline"><input type="radio" name="txtAmbulancia" id="txtAmbulanciaSim" value="1"> Sim</label>
+                                    <label class="radio-inline"><input type="radio" name="txtAmbulancia" id="txtAmbulanciaNao" value="0"> Não</label>
                                 </div>
                             </div>
                         </fieldset>
                         <div class="row">
                             <div class="col-md-12">
-                                <input type="submit" class="btn btn-success" id="btn-loading" data-loading-text="AGUARDE ..." value="Cadastrar">
+                                <input type="submit" class="btn btn-success" id="btn-loading" data-loading-text="AGUARDE ..." value="Atualizar">
                                 <input type="reset" class="btn btn-warning" value="Limpar campos">
                                 <a href="/usuario" class="btn btn-default" role="button">Voltar</a>
                             </div>
@@ -277,6 +277,7 @@
 <!--Validando dados do formulário-->
 <script type="text/javascript" src="../../script/usuario/cadastrarDadosUsuario.js"></script>
 <script type="text/javascript" src="../../script/usuario/retornarCidades.js"></script>
+<script type="text/javascript" src="../../script/usuario/editarDadosUsuario.js"></script>
 <script>
     // Loader
     loading()

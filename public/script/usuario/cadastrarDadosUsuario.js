@@ -79,24 +79,47 @@ function sendMsg(msg) {
 
 // Enviar formulário via AJAX
 function sendData() {
-    $.ajax({
-        url: "/cadastrarusuario",
-        type: "post",
-        dataType: "json",
-        async: true,
-        data: $("form").serialize(),
-        beforeSend: function () {
-            $('#btn-loading').button('loading')
-        },
-        complete: function () {
-            setTimeout(function () {
-                $('#btn-loading').button('reset')
-            }, 1500)
-        }
-    }).done(function (callback) {
-        window.location = "/usuario"
-    }).fail(function (callback) {
-        jsonCb = JSON.parse(callback.responseText)
-        sendMsg(jsonCb.message)
-    })
+    if ($('#txtIdentificacao').val() == 'editar') {
+        $.ajax({
+            url: "/editarusuario",
+            type: "post",
+            dataType: "json",
+            async: true,
+            data: $("form").serialize(),
+            beforeSend: function () {
+                $('#btn-loading').button('loading')
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $('#btn-loading').button('reset')
+                }, 1500)
+            }
+        }).done(function (callback) {
+            window.location = "/usuario"
+        }).fail(function (callback) {
+            jsonCb = JSON.parse(callback.responseText)
+            sendMsg(jsonCb.message)
+        })
+    } else {
+        $.ajax({
+            url: "/cadastrarusuario",
+            type: "post",
+            dataType: "json",
+            async: true,
+            data: $("form").serialize(),
+            beforeSend: function () {
+                $('#btn-loading').button('loading')
+            },
+            complete: function () {
+                setTimeout(function () {
+                    $('#btn-loading').button('reset')
+                }, 1500)
+            }
+        }).done(function (callback) {
+            window.location = "/usuario"
+        }).fail(function (callback) {
+            jsonCb = JSON.parse(callback.responseText)
+            sendMsg(jsonCb.message)
+        })
+    }
 }

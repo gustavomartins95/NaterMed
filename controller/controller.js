@@ -28,6 +28,24 @@ var controller = {
             res.status(status).json({ message: message })
         })
     },
+    // Editar dados do usuário
+    editarusuario: function (req, res, dataSession) {
+        service.editarusuario(req.body, dataSession, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    // Retornar dados dos usuários
+    retornardadosusuario: function (res, dataSession) {
+        service.retornardadosusuario(dataSession, function (error, users) {
+            res.status(httpStatus.OK).json({ users: users })
+        })
+    },
+    // Excluir dados do usuário
+    excluirusuario: function (res, dataSession) {
+        service.excluirusuario(dataSession, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
     // Retornar as cidades
     retornarcidades: function (res, estado) {
         service.retornarcidades(estado, function (error, cidades) {
