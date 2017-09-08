@@ -91,6 +91,38 @@ var service = {
                 }
             })
     },
+    // Editar login do usuário
+    editarloginusuario: function (data, dataSession, callback) {
+        let hashedPassword = bcrypt.hashSync(data.txtSenha_Acesso, 10),
+            sql = 'UPDATE login SET ' +
+                'cartaosus_acesso=?, senha_acesso=? ' +
+                'WHERE idlogin = ?'
+        // Query no Banco de Dados
+        connection.query(sql,
+            [data.txtCartaosus_Acesso, hashedPassword, dataSession.idlogin],
+            function (error, result) {
+                if (error) {
+                    if (error.code == 'ER_DUP_ENTRY')
+                        callback(error, httpStatus.CONFLICT, 'Cartão ' + data.txtCartaosus_Acesso + ' já está em uso.')
+                    else
+                        callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    callback(null, httpStatus.OK, 'Login atualizado com sucesso.')
+                }
+            })
+    },
+    // Retornar login dos usuários
+    retornarloginusuario: function (dataSession, callback) {
+        let sql = 'SELECT cartaosus_acesso FROM login WHERE idlogin = ?'
+        // Query no Banco de Dados
+        connection.query(sql, [dataSession.idlogin], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
     // Editar dados do usuário
     editarusuario: function (data, dataSession, callback) {
         let sql = 'UPDATE usuario SET ' +
@@ -107,7 +139,6 @@ var service = {
             dataSession.idusuario, dataSession.idlogin],
             function (error, result) {
                 if (error) {
-                    console.log(error)
                     callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
                 } else {
                     callback(null, httpStatus.OK, 'Usuário atualizado com sucesso.')

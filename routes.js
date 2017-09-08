@@ -85,6 +85,18 @@ module.exports = function (app, passport) {
     app.get('/retornarcidades/:estado', isLoggedIn, isAuthorized(['3']), function (req, res) {
         controller.retornarcidades(res, req.params.estado)
     })
+    /* Editar login usuário */
+    app.route('/editarloginusuario')
+        .get(isLoggedIn, isAuthorized(['3']), function (req, res) {
+            res.sendFile(path + 'users/usuario/editarLoginUsuario.html')
+        })
+        .post(isLoggedIn, isAuthorized(['3']), function (req, res) {
+            controller.editarloginusuario(req, res, req.session.passport.user)
+        })
+    /* Retornar login usuários */
+    app.get('/retornarloginusuario', isLoggedIn, isAuthorized(['3']), function (req, res) {
+        controller.retornarloginusuario(res, req.session.passport.user)
+    })
     /* Editar usuário */
     app.route('/editarusuario')
         .get(isLoggedIn, isAuthorized(['3']), function (req, res) {

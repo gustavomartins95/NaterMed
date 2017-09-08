@@ -28,6 +28,18 @@ var controller = {
             res.status(status).json({ message: message })
         })
     },
+    // Editar login do usuário
+    editarloginusuario: function (req, res, dataSession) {
+        service.editarloginusuario(req.body, dataSession, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    // Retornar login dos usuários
+    retornarloginusuario: function (res, dataSession) {
+        service.retornarloginusuario(dataSession, function (error, login) {
+            res.status(httpStatus.OK).json({ login: login })
+        })
+    },
     // Editar dados do usuário
     editarusuario: function (req, res, dataSession) {
         service.editarusuario(req.body, dataSession, function (error, status, message) {

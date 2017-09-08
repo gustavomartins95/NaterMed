@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="../../img/icon.png">
+    <title>Nater Med</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower|Open+Sans+Condensed:300">
+    <script type="text/javascript" src="../../js/loader.js"></script>
+    <style>
+        #conteudo {
+            opacity: 0
+        }
+    </style>
+</head>
+
+<body>
+    <!--Conteúdo-->
+    <div id="conteudo">
+        <div id="top" class="divVertical">
+            <div class="wow fadeInDown">
+                <img src="../../img/logoVertical.png" class="img-logo" alt="logo">
+            </div>
+        </div>
+        <!--Editar Login Usuário-->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-center">Editar login</h1>
+                    <div id="divResult" class="alert alert-dismissible text-center" role="alert">
+                        <strong id="result"></strong>
+                    </div>
+                    <form method="POST" class="form-users" action="">
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="txtCartaosus_Acesso"><span style="color: red;font-size: 18px;">*</span> Novo Cartão do SUS</label>
+                                <input type="number" name="txtCartaosus_Acesso" id="txtCartaosus_Acesso" class="form-control sus" pattern="[0-9]+$" maxlength="15"
+                                    autofocus>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="txtSenha_Acesso"><span style="color: red;font-size: 18px;">*</span> Nova senha</label>
+                                <input type="password" name="txtSenha_Acesso" id="txtSenha_Acesso" maxlength="20" class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="txtConfirmsenha_Acesso"><span style="color: red;font-size: 18px;">*</span> Confirmar senha</label>
+                                <input type="password" name="txtConfirmsenha_Acesso" id="txtConfirmsenha_Acesso" maxlength="20" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="submit" class="btn btn-success" id="btn-loading" data-loading-text="AGUARDE ..." value="Atualizar">
+                                <input type="reset" class="btn btn-warning" value="Limpar campos">
+                                <a href="/usuario" class="btn btn-default" role="button">Voltar</a>
+                            </div>
+                        </div>
+                    </form>
+                    </br>
+                </div>
+            </div>
+        </div>
+        <!-- Fim conteúdo -->
+    </div>
+</body>
+<script type="text/javascript" src="../../js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../js/wow.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.mask.min.js"></script>
+<!--Validando dados do formulário-->
+<script type="text/javascript" src="../../script/usuario/editarLoginUsuario.js"></script>
+<script type="text/javascript" src="../../script/usuario/retornarLoginUsuario.js"></script>
+<script>
+    // Loader
+    loading()
+    // Animation WOW
+    new WOW().init()
+    // Mask
+    $('.mask-cns').mask('000000000000000', { placeholder: "_______________" })
+
+</script>
+
+</html>
