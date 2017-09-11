@@ -4,6 +4,12 @@ const service = require('../service/service'),
     httpStatus = require('http-status')
 
 var controller = {
+    // Retornar estatística
+    retornarestatistica: function (res) {
+        service.retornarestatistica(function (error, data) {
+            res.status(httpStatus.OK).json({ data: data })
+        })
+    },
     // Registrar novo login/cartão
     register: function (req, res) {
         service.register(req.body, function (error, status, message) {

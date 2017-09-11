@@ -6,6 +6,19 @@ const async = require('async'),
     httpStatus = require('http-status')
 
 var service = {
+    // Retornar estatística
+    retornarestatistica: function (callback) {
+        let sql = '(SELECT COUNT(*) AS qtd FROM agendamento) ' +
+            'UNION (SELECT COUNT(*) FROM usuario)'
+        // Query no Banco de Dados
+        connection.query(sql, function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
     // Registrar novo login/cartão
     register: function (data, callback) {
         let hashedPassword = bcrypt.hashSync(data.txtSenha_Acesso, 10),

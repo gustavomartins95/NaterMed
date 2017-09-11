@@ -14,6 +14,10 @@ module.exports = function (app, passport) {
     app.get('/', function (req, res) {
         res.sendFile(path + 'index.html')
     })
+    /* Retornar estatística */
+    app.get('/retornarestatistica', function (req, res) {
+        controller.retornarestatistica(res)
+    })
     /* Registrar */
     app.route('/register')
         .get(function (req, res) {
