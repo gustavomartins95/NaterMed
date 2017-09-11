@@ -14,10 +14,6 @@ function validationRegister() {
     if ($('#txtCartaosus_Acesso').val() == "" || $('#txtSenha_Acesso').val() == "") {
         msgErrors = ("Todos os campos são obrigatórios.<br />")
     } else {
-        // Tamanho do cartão
-        if ($('#txtCartaosus_Acesso').val().length < 15 || $('#txtCartaosus_Acesso').val().length > 15) {
-            msgErrors = ("O cartão deve conter 15 caracteres.<br />")
-        }
         // Tamanho da senha
         if ($('#txtSenha_Acesso').val().length < 6) {
             msgErrors += ("A senha deve conter no mínimo 6 caracteres.<br />")
