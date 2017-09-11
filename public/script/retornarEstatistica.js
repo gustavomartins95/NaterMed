@@ -10,6 +10,6 @@ jQuery(document).ready(function () {
     })
 })
 function criarProfile(dados) {
-    $('#counter-contas').attr('data-count', dados[0].qtd)
-    $('#counter-consultas').attr('data-count', dados[1].qtd)
+    $('#counter-consultas').attr('data-count', dados[0].qtd)
+    $('#counter-contas').attr('data-count', dados[1].qtd)
 }
