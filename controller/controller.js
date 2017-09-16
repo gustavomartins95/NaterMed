@@ -111,6 +111,32 @@ var controller = {
         service.retornarsecretaria(dataSession, function (error, users) {
             res.status(httpStatus.OK).json({ users: users })
         })
+    },
+    /* Operações do profissional */
+    cadastrarprofissional: function (req, res) {
+        service.cadastrarprofissional(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    retornartableprofissional: function (res) {
+        service.retornartableprofissional(function (error, professionals) {
+            res.status(httpStatus.OK).json({ professionals: professionals })
+        })
+    },
+    retornareditartableprofissional: function (res, idprofissional) {
+        service.retornareditartableprofissional(idprofissional, function (error, professionals) {
+            res.status(httpStatus.OK).json({ professionals: professionals })
+        })
+    },
+    editarprofissional: function (req, res) {
+        service.editarprofissional(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    excluirtableprofissional: function (req, res) {
+        service.excluirtableprofissional(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
     }
 }
 

@@ -85,10 +85,6 @@ module.exports = function (app, passport) {
         .post(isLoggedIn, isAuthorized(['3']), function (req, res) {
             controller.cadastrarusuario(req, res, req.session.passport.user)
         })
-    /* Retornar as cidades */
-    app.get('/retornarcidades/:estado', isLoggedIn, isAuthorized(['3']), function (req, res) {
-        controller.retornarcidades(res, req.params.estado)
-    })
     /* Editar login usuário */
     app.route('/editarloginusuario')
         .get(isLoggedIn, isAuthorized(['3']), function (req, res) {
@@ -193,9 +189,39 @@ module.exports = function (app, passport) {
     app.get('/indexsecretaria', isLoggedIn, isAuthorized(['1']), function (req, res) {
         res.sendFile(path + 'users/secretaria/indexSecretaria.html')
     })
+    /* Operações do profissional */
+    app.route('/cadastrarprofissional')
+        .get(isLoggedIn, isAuthorized(['1']), function (req, res) {
+            res.sendFile(path + 'users/secretaria/cadastrarProfissional.html')
+        })
+        .post(isLoggedIn, isAuthorized(['1']), function (req, res) {
+            controller.cadastrarprofissional(req, res)
+        })
+    app.get('/listarprofissional', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        res.sendFile(path + 'users/secretaria/listarProfissional.html')
+    })
+    app.get('/retornartableprofissional', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.retornartableprofissional(res)
+    })
+    app.get('/editartableprofissional/:id?', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        res.sendFile(path + 'users/secretaria/editarProfissional.html')
+    })
+    app.get('/retornareditartableprofissional/:id?', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.retornareditartableprofissional(res, req.query.id)
+    })
+    app.post('/editarprofissional', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.editarprofissional(req, res)
+    })
+    app.post('/excluirtableprofissional', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.excluirtableprofissional(req, res)
+    })
     /*
         Todos os níveis de acesso
     */
+    /* Retornar as cidades */
+    app.get('/retornarcidades/:estado', isLoggedIn, isAuthorized(['1', '3']), function (req, res) {
+        controller.retornarcidades(res, req.params.estado)
+    })
     /* Dados da session */
     app.get('/session', isLoggedIn, isAuthorized(['1', '2', '3']), function (req, res) {
         console.log(req.session.passport.user)

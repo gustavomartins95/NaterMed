@@ -319,6 +319,175 @@ var service = {
                 callback(null, result)
             }
         })
+    },
+    /* Operações do profissional */
+    cadastrarprofissional: function (data, callback) {
+        connection.beginTransaction(function (err) {
+            if (err) { throw err }
+            async.waterfall([
+                dbCadastrarLogin,
+                dbCadastrarProfissional
+            ], function (error, status, message) {
+                if (error) {
+                    return connection.rollback(function () {
+                        callback(error, status, message)
+                    })
+                } else {
+                    connection.commit(function (err) {
+                        if (err) {
+                            return connection.rollback(function () {
+                                callback(err, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                            })
+                        }
+                        callback(error, status, message)
+                    })
+                }
+            })
+            function dbCadastrarLogin(cb) {
+                let hashedPassword = bcrypt.hashSync(data.txtSenha_Acesso, 10),
+                    dataAtual = new Date(),
+                    sql = 'INSERT INTO login (cartaosus_acesso, senha_acesso, nivel_acesso, data_cadastro) VALUES (?, ?, ?, ?)'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtCartaosus_Acesso, hashedPassword, '2', dataAtual], function (error, result) {
+                    if (error) {
+                        if (error.code == 'ER_DUP_ENTRY')
+                            cb(error, httpStatus.CONFLICT, 'Cartão ' + data.txtCartaosus_Acesso + ' já está em uso.')
+                        else
+                            cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        cb(null, result.insertId)
+                    }
+                })
+            }
+            function dbCadastrarProfissional(dbId, cb) {
+                let sql = 'INSERT INTO profissional ' +
+                    '(login_idlogin, especialidade, nome_completo, data_nasc, naturalidade, sexo, ' +
+                    'estado, cidade, rua, bairro, numero_casa, celular, telefone, email, cpf, rg, cns) ' +
+                    'VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+                // Query no Banco de Dados
+                connection.query(sql,
+                    [dbId, data.txtEspecialidade, data.txtNome_Completo, data.txtData_Nasc, data.txtNaturalidade, data.txtSexo,
+                        data.txtEstado, data.txtCidade, data.txtRua, data.txtBairro, data.txtNumero, data.txtCelular,
+                        data.txtTelefone, data.txtEmail, data.txtCpf, data.txtRg, data.txtCns],
+                    function (error, result) {
+                        if (error) {
+                            cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                        } else {
+                            cb(null, httpStatus.OK, 'Cadastrado com sucesso.')
+                        }
+                    })
+            }
+        })
+    },
+    retornartableprofissional: function (callback) {
+        let sql = 'SELECT * FROM profissional'
+        // Query no Banco de Dados
+        connection.query(sql, function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
+    retornareditartableprofissional: function (idprofissional, callback) {
+        let sql = 'SELECT * FROM profissional WHERE idprofissional=? LIMIT 1'
+        // Query no Banco de Dados
+        connection.query(sql, [idprofissional], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
+    editarprofissional: function (data, callback) {
+        let sql = 'UPDATE profissional SET ' +
+            'nome_completo=?, especialidade=?, naturalidade=?, sexo=?, data_nasc=?, cpf=?, rg=?, cns=?, ' +
+            'estado=?, cidade=?, rua=?, bairro=?, numero_casa=?, celular=?, telefone=?, email=? ' +
+            'WHERE idprofissional=?'
+        // Query no Banco de Dados
+        connection.query(sql,
+            [data.txtNome_Completo, data.txtEspecialidade, data.txtNaturalidade, data.txtSexo, data.txtData_Nasc,
+            data.txtCpf, data.txtRg, data.txtCns, data.txtEstado, data.txtCidade, data.txtRua, data.txtBairro,
+            data.txtNumero, data.txtCelular, data.txtTelefone, data.txtEmail, data.txtIdProfissional],
+            function (error, result) {
+                if (error) {
+                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    callback(null, httpStatus.OK, 'Profissional atualizado com sucesso.')
+                }
+            })
+    },
+    excluirtableprofissional: function (data, callback) {
+        connection.beginTransaction(function (err) {
+            if (err) { throw err }
+            async.waterfall([
+                dbSelectLogin,
+                dbExcluirLogin,
+                dbExcluirHorario,
+                dbExcluirProfissional
+            ], function (error, status, message) {
+                if (error) {
+                    return connection.rollback(function () {
+                        callback(error, status, message)
+                    })
+                } else {
+                    connection.commit(function (err) {
+                        if (err) {
+                            return connection.rollback(function () {
+                                callback(err, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                            })
+                        }
+                        callback(error, status, message)
+                    })
+                }
+            })
+            function dbSelectLogin(cb) {
+                let sql = 'SELECT login_idlogin FROM profissional WHERE idprofissional = ?'
+                // Query no Banco de Dados
+                connection.query(sql, [data.id], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        cb(null, result[0])
+                    }
+                })
+            }
+            function dbExcluirLogin(dbResult, cb) {
+                let sql = 'DELETE FROM login WHERE idlogin = ?'
+                // Query no Banco de Dados
+                connection.query(sql, [dbResult.login_idlogin], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        cb(null)
+                    }
+                })
+            }
+            function dbExcluirHorario(cb) {
+                let sql = 'DELETE FROM horario WHERE profissional_idprofissional = ?'
+                // Query no Banco de Dados
+                connection.query(sql, [data.id], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        cb(null)
+                    }
+                })
+            }
+            function dbExcluirProfissional(cb) {
+                let sql = 'DELETE FROM profissional WHERE idprofissional = ?'
+                // Query no Banco de Dados
+                connection.query(sql, [data.id], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        cb(null, httpStatus.OK, 'Profissional excluído com sucesso.')
+                    }
+                })
+            }
+        })
     }
 }
 

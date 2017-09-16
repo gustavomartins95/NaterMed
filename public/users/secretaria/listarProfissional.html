@@ -61,11 +61,47 @@
                 </div>
             </div>
         </nav>
-        <!-- Fim conteúdo -->
+        <!-- Opções profissional -->
+        <div class="container-fluid marginTopNav">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1>Listar profissionais</h1>
+                    <a href="/cadastrarprofissional" class="btn btn-primary" role="button">CADASTRAR NOVO PROFISSIONAL</a>
+                </div>
+            </div>
+        </div>
+        <br />
+        <!-- Listar profissional -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table id="horarios" class="table table-hover table-condensed table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Nome completo</th>
+                                    <th>Especialidade</th>
+                                    <th>Celular</th>
+                                    <th>Email</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyDadosProfissionais"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fim conteúdo -->
     </div>
     <script type="text/javascript" src="../../js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../js/wow.min.js"></script>
+    <script type="text/javascript" src="../../js/bootbox.min.js"></script>
+    <!-- Operações do profissional -->
+    <script type="text/javascript" src="../../script/secretaria/retornarTableProfissional.js"></script>
+    <script type="text/javascript" src="../../script/secretaria/excluirTableProfissional.js"></script>
     <script>
         // Loader
         loading();
