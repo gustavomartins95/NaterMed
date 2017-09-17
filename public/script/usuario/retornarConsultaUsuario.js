@@ -1,20 +1,26 @@
 // Retorna dados do agendamento
-function retonaragendamento(dataAgenda) {
+function retonaragendamento(dataAgenda, qtd_ficha) {
     $.ajax({
-        url: "/retonaragendamento/" + dataAgenda,
+        url: "/retonaragendamento?id=" + $('#txtEsp :selected').val() + "&date=" + dataAgenda,
         type: "get",
         dataType: "json",
         async: true,
     }).done(function (callback) {
-        criarTable(callback.data, callback.userid, callback.date)
+        criarTable(callback.data, callback.userid, callback.date, qtd_ficha)
     })
 }
-function criarTable(data, user, date) {
+function criarTable(data, user, date, qtd_ficha) {
     // Limpa table
     $("#tbodyDados tr").remove()
     index = 0
-    for (ficha = 1; ficha <= 20; ficha++) {
-        var agendamento = { ficha: ficha, date: date }
+    for (ficha = 1; ficha <= qtd_ficha; ficha++) {
+        // Profissional escolhido
+        agendamento = {
+            ficha: ficha, date: date,
+            id_profissional: $('#txtEsp :selected').val(),
+            nome_profissional: $('#txtEsp :selected').data('nome_completo'),
+            especialidade: $('#txtEsp :selected').data('especialidade')
+        }
         if (typeof data[index] == 'undefined') {
             newTrItem = $("<tr class='success'>" +
                 "<td>" + ficha + "</td>" +

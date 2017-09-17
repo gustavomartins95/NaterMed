@@ -64,13 +64,23 @@
         </nav>
         <!--Opções-->
         <div class="container-fluid marginTopNav">
-            <h1 class="text-center">Em casos de urgências e necessidades especiais, prevalece a ordem de atendimento do Posto de Sáude.</h1>
+            <h1 class="text-center">Em casos de urgências e necessidades especiais, prevalece a ordem de atendimento do Posto de Sáude.</h1><br />
+            <div class="row">
+                <div class="col-md-offset-1 col-md-10">
+                    <h3>Selecione o profissional</h3>
+                    <select name="txtEsp" id="txtEsp" class="form-control"> 
+                        <option value="Não Declarado">Não Declarado</option>
+                    </select>
+                </div>
+            </div>
+            <br />
             <div class="row">
                 <div class="col-md-6">
                     <div class="demo-section k-content">
                         <div id="calendar"></div>
                         <div class="text-center">
-                            <p>* Consultas continuaram sendo feitas presencialmente.</p>
+                            <p>* Agendamentos de consultas continuaram sendo feitas presencialmente.</p>
+                            <p>* Após o início dos atendimentos só poderão ser marcadas consultas na UBS.</p>
                             <p>* Não é possível agendar consultas aos sábados e domingos.</p>
                         </div>
                     </div>
@@ -105,32 +115,15 @@
     <script type="text/javascript" src="../../js/wow.min.js"></script>
     <script type="text/javascript" src="../../js/bootbox.min.js"></script>
     <!-- Operações do agendar consulta -->
+    <script type="text/javascript" src="../../script/usuario/funcoesConsultaUsuario.js"></script>
     <script type="text/javascript" src="../../script/usuario/retornarConsultaUsuario.js"></script>
     <script type="text/javascript" src="../../script/usuario/agendarConsultaUsuario.js"></script>
     <script type="text/javascript" src="../../script/usuario/desmarcarConsultaUsuario.js"></script>
-    <!--Excluir e editar usuário-->
-    <script type="text/javascript" src="../../script/usuario/excluirUsuario.js"></script>
     <script>
         // Loader
         loading()
         // Animation WOW
         new WOW().init()
-        // Data de hoje
-        date = new Date()
-        diaAtual = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-        mesAtual = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
-        anoAtual = date.getFullYear()
-        // Calendar
-        $("#calendar").kendoCalendar({
-            change: function () {
-                // Retornar dados da data escolhida
-                retonaragendamento(kendo.toString(this.value(), 'u'))
-            },
-            min: new Date(anoAtual, (mesAtual - 1), diaAtual),
-            max: new Date(anoAtual, 11, 31),
-            disableDates: ["sa", "su"],
-            footer: "#: kendo.toString(data, 'D') #"
-        })
     </script>
 </body>
 

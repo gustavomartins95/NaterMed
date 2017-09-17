@@ -14,6 +14,8 @@ function realizaragendamento(agendamento) {
             }
         },
         callback: function (result) {
+            // Semana
+            semana = ["su", "mo", "tu", "we", "th", "fr", "sa"]
             if (result) {
                 $.ajax({
                     url: "/realizaragendamento",
@@ -25,7 +27,9 @@ function realizaragendamento(agendamento) {
                     bootbox.alert({
                         message: callback.message,
                         callback: function () {
-                            retonaragendamento(agendamento.date)
+                            diaSelecionado = new Date(agendamento.date)
+                            retonaragendamento(agendamento.date,
+                                $('#txtEsp :selected').data('ficha' + semana[diaSelecionado.getDay() + 1]))
                         }
                     })
                 }).fail(function (callback) {
@@ -33,7 +37,9 @@ function realizaragendamento(agendamento) {
                     bootbox.alert({
                         message: jsonCb.message,
                         callback: function () {
-                            retonaragendamento(agendamento.date)
+                            diaSelecionado = new Date(agendamento.date)
+                            retonaragendamento(agendamento.date,
+                                $('#txtEsp :selected').data('ficha' + semana[diaSelecionado.getDay() + 1]))
                         }
                     })
                 })

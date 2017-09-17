@@ -122,8 +122,11 @@ module.exports = function (app, passport) {
         res.sendFile(path + 'users/usuario/agendarUsuario.html')
     })
     /* Operações do agendar consulta */
-    app.get('/retonaragendamento/:date', isLoggedIn, isAuthorized(['3']), function (req, res) {
-        controller.retonaragendamento(res, req.params.date, req.session.passport.user)
+    app.get('/retonarhorarioagendamento', isLoggedIn, isAuthorized(['3']), function (req, res) {
+        controller.retonarhorarioagendamento(res)
+    })
+    app.get('/retonaragendamento/:id?:date?', isLoggedIn, isAuthorized(['3']), function (req, res) {
+        controller.retonaragendamento(res, req.query.id, req.query.date, req.session.passport.user)
     })
     app.post('/realizaragendamento', isLoggedIn, isAuthorized(['3']), function (req, res) {
         controller.realizaragendamento(req, res, req.session.passport.user)

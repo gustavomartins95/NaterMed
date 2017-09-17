@@ -207,10 +207,22 @@ var service = {
         })
     },
     // Operações do agendar consulta
-    retonaragendamento: function (date, callback) {
-        let sql = 'SELECT * FROM agendamento WHERE data_agendamento = ? ORDER BY numero_ficha LIMIT 20'
+    retonarhorarioagendamento: function (date, callback) {
+        let sql = 'SELECT * FROM horario WHERE profissional_especialidade="Clínico Geral" || profissional_especialidade="Pediatra"'
         // Query no Banco de Dados
         connection.query(sql, [date], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, httpStatus.OK, result)
+            }
+        })
+    },
+    retonaragendamento: function (id, date, callback) {
+        let sql = 'SELECT * FROM agendamento WHERE profissional_idprofissional = ? && ' +
+            'data_agendamento = ? ORDER BY numero_ficha'
+        // Query no Banco de Dados
+        connection.query(sql, [id, date], function (error, result) {
             if (error) {
                 callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
             } else {
@@ -228,7 +240,7 @@ var service = {
             callback(error, status, message)
         })
         function dbNecessAmbu(cb) {
-            let sql = 'SELECT necessidades_esp, ambulancia FROM usuario WHERE idusuario = ?'
+            let sql = 'SELECT necessidades_esp, ambulancia, nome_completo FROM usuario WHERE idusuario = ?'
             connection.query(sql, [dataSession.idusuario], function (error, result) {
                 if (error) {
                     cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
@@ -238,8 +250,9 @@ var service = {
             })
         }
         function dbCheckIdUser(dbResult, cb) {
-            let sql = 'SELECT idagendamento FROM agendamento WHERE data_agendamento = ? && usuario_idusuario = ?'
-            connection.query(sql, [data.date, dataSession.idusuario], function (error, result) {
+            let sql = 'SELECT idagendamento FROM agendamento WHERE data_agendamento = ? ' +
+                '&& usuario_idusuario = ? && profissional_idprofissional = ?'
+            connection.query(sql, [data.date, dataSession.idusuario, data.id_profissional], function (error, result) {
                 if (error) {
                     cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
                 } else {
@@ -251,8 +264,9 @@ var service = {
             })
         }
         function dbCheckDate(dbResult, cb) {
-            let sql = 'SELECT idagendamento FROM agendamento WHERE data_agendamento = ? && numero_ficha = ?'
-            connection.query(sql, [data.date, data.ficha], function (error, result) {
+            let sql = 'SELECT idagendamento FROM agendamento WHERE data_agendamento = ? ' +
+                '&& numero_ficha = ? && profissional_idprofissional = ?'
+            connection.query(sql, [data.date, data.ficha, data.id_profissional], function (error, result) {
                 if (error) {
                     cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
                 } else {
@@ -265,9 +279,13 @@ var service = {
         }
         function dbMark(dbResult, cb) {
             let sql = 'INSERT INTO agendamento ' +
-                '(profissional_idprofissional, usuario_idusuario, data_agendamento, numero_ficha, necessidades_esp, ambulancia)' +
-                ' VALUES (?, ?, ?, ?, ?, ?)'
-            connection.query(sql, ['1', dataSession.idusuario, data.date, data.ficha, dbResult.necessidades_esp, dbResult.ambulancia],
+                '(profissional_idprofissional, usuario_idusuario, ' +
+                'profissional_nome_completo, profissional_especialidade, nome_completo_usuario, ' +
+                'data_agendamento, numero_ficha, necessidades_esp, ambulancia)' +
+                ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+            connection.query(sql,
+                [data.id_profissional, dataSession.idusuario, data.nome_profissional, data.especialidade,
+                dbResult.nome_completo, data.date, data.ficha, dbResult.necessidades_esp, dbResult.ambulancia],
                 function (error, result) {
                     if (error) {
                         cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')

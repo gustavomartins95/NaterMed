@@ -77,13 +77,19 @@ var controller = {
         })
     },
     // Operações do agendar consulta
-    retonaragendamento: function (res, date, dataSession) {
-        service.retonaragendamento(date, function (error, status, data) {
+    retonarhorarioagendamento: function (res, date, dataSession) {
+        service.retonarhorarioagendamento(date, function (error, status, hour) {
+            res.status(status).json({ hour: hour })
+        })
+    },
+    retonaragendamento: function (res, id, date, dataSession) {
+        service.retonaragendamento(id, date, function (error, status, data) {
             res.status(status).json({ data: data, userid: dataSession.idusuario, date: date })
         })
     },
     realizaragendamento: function (req, res, dataSession) {
         service.realizaragendamento(req.body, dataSession, function (error, status, message) {
+            console.log(error)
             res.status(status).json({ message: message })
         })
     },
