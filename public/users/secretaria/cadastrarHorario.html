@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="../../img/icon.png">
+    <title>Nater Med</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower|Open+Sans+Condensed:300">
+    <script type="text/javascript" src="../../js/loader.js"></script>
+    <style>
+        #conteudo {
+            opacity: 0;
+        }
+
+        .error {
+            color: red;
+            display: none
+        }
+
+        .nav-tabs>li.active>a,
+        .nav-tabs>li.active>a:focus,
+        .nav-tabs>li.active>a:hover {
+            border-width: 0;
+        }
+
+        .nav-tabs>li>a {
+            font-size: 18px;
+            font-weight: 500;
+            color: #353535;
+            border: none
+        }
+
+        .nav-tabs>li.active>a,
+        .nav-tabs>li>a:hover {
+            border: none;
+            color: #3c65af !important;
+            background: transparent;
+        }
+
+        .nav-tabs>li>a::after {
+            content: "";
+            background: #ff0000;
+            height: 2px;
+            position: absolute;
+            width: 100%;
+            left: 0px;
+            bottom: -1px;
+            transition: all 200ms ease 0s;
+            transform: scale(0);
+        }
+
+        .nav-tabs>li.active>a::after,
+        .nav-tabs>li:hover>a::after {
+            transform: scale(1);
+        }
+
+
+        .tab-pane {
+            padding: 15px 0;
+        }
+
+        .tab-content {
+            padding: 20px
+        }
+    </style>
+</head>
+
+<body>
+    <!--Conteúdo-->
+    <div id="conteudo">
+        <!--Navigation-->
+        <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top wow pulse">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span> MENU <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href=""><img src="../../img/logoHorizontal.png" alt="Logo"></a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/indexsecretaria">HOME</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">LISTAR <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/listarhorario">HORÁRIOS</a></li>
+                                <li><a href="/listarmedicamento">MEDICAMENTOS</a></li>
+                                <li><a href="/listarnoticia">NOTÍCIAS</a></li>
+                                <li><a href="/listarprofissional">PROFISSIONAIS</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CONSULTA <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/agendarconsulta">AGENDAR</a></li>
+                                <li><a href="/secretaria/relatorio">RELATÓRIO</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">OUTROS <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/secretaria">ALTERAR USUÁRIO</a></li>
+                                <li><a href="/logout">SAIR</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+            </div>
+        </nav>
+        <!--Cadastrar horário dos profissionais-->
+        <div class="container marginTopNav">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8 col-md-offset-2">
+                    <h1 class="text-center">Cadastrar horário dos profissionais</h1>
+                    <div id="divResult" class="alert alert-dismissible text-center" role="alert">
+                        <strong id="result"></strong>
+                    </div>
+                    <form method="POST" class="form-users" action="">
+                        <!-- Cadastrar -->
+                        <input type="hidden" name="txtIdentificacao" id="txtIdentificacao" value="cadastrar">
+                        <div class="form-group col-md-12">
+                            <label for="txtProfissional">Escolha o profissional</label>
+                            <p>Só é possível cadastrar um horário por profissional.</p>
+                            <select name="txtProfissional" id="txtProfissional" class="form-control"> 
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#monday" aria-controls="monday" role="tab" data-toggle="tab">Segunda-Feira</a></li>
+                                    <li role="presentation"><a href="#tuesday" aria-controls="tuesday" role="tab" data-toggle="tab">Terça-Feira</a></li>
+                                    <li role="presentation"><a href="#wednesday" aria-controls="wednesday" role="tab" data-toggle="tab">Quarta-Feira</a></li>
+                                    <li role="presentation"><a href="#thursday" aria-controls="thursday" role="tab" data-toggle="tab">Quinta-Feira</a></li>
+                                    <li role="presentation"><a href="#friday" aria-controls="friday" role="tab" data-toggle="tab">Sexta-Feira</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="monday">
+                                        <div class="row">
+                                            <div class="form-group col-md-4 text-center">
+                                                <label for="txt_diamo">Atende na segunda-feira ?</label>
+                                                <input type="checkbox" name="txt_diamo" id="txt_diamo" class="form-control" value="mo">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="txt_horamo">Início do atedimento</label>
+                                                <input type="time" name="txt_horamo" id="txt_horamo" class="form-control" disabled>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="txt_fichamo">Quantidade de ficha</label>
+                                                <input type="number" name="txt_fichamo" id="txt_fichamo" min="0" class="form-control mask-ficha" disabled>
+                                            </div>
+                                        </div>
+                                        <p class="error error-mo"></p>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="tuesday">
+                                        <div class="row">
+                                            <div class="form-group col-md-4 text-center">
+                                                <label for="txt_diatu">Atende na terça-feira ?</label>
+                                                <input type="checkbox" name="txt_diatu" id="txt_diatu" class="form-control" value="tu">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="txt_horatu">Início do atedimento</label>
+                                                <input type="time" name="txt_horatu" id="txt_horatu" class="form-control" disabled>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="txt_fichatu">Quantidade de ficha</label>
+                                                <input type="number" name="txt_fichatu" id="txt_fichatu" min="0" class="form-control mask-ficha" disabled>
+                                            </div>
+                                        </div>
+                                        <p class="error error-tu"></p>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="wednesday">
+                                        <div class="row">
+                                            <div class="form-group col-md-4 text-center">
+                                                <label for="txt_diawe">Atende na quarta-feira ?</label>
+                                                <input type="checkbox" name="txt_diawe" id="txt_diawe" class="form-control" value="we">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="txt_horawe">Início do atedimento</label>
+                                                <input type="time" name="txt_horawe" id="txt_horawe" class="form-control" disabled>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="txt_fichawe">Quantidade de ficha</label>
+                                                <input type="number" name="txt_fichawe" id="txt_fichawe" min="0" class="form-control mask-ficha" disabled>
+                                            </div>
+                                        </div>
+                                        <p class="error error-we"></p>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="thursday">
+                                        <div class="row">
+                                            <div class="form-group col-md-4 text-center">
+                                                <label for="txt_diath">Atende na quinta-feira ?</label>
+                                                <input type="checkbox" name="txt_diath" id="txt_diath" class="form-control" value="th">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="txt_horath">Início do atedimento</label>
+                                                <input type="time" name="txt_horath" id="txt_horath" class="form-control" disabled>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="txt_fichath">Quantidade de ficha</label>
+                                                <input type="number" name="txt_fichath" id="txt_fichath" min="0" class="form-control mask-ficha" disabled>
+                                            </div>
+                                        </div>
+                                        <p class="error error-th"></p>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="friday">
+                                        <div class="row">
+                                            <div class="form-group col-md-4 text-center">
+                                                <label for="txt_diafr">Atende na sexta-feira ?</label>
+                                                <input type="checkbox" name="txt_diafr" id="txt_diafr" class="form-control" value="fr">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="txt_horafr">Início do atedimento</label>
+                                                <input type="time" name="txt_horafr" id="txt_horafr" class="form-control" disabled>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="txt_fichafr">Quantidade de ficha</label>
+                                                <input type="number" name="txt_fichafr" id="txt_fichafr" min="0" class="form-control mask-ficha" disabled>
+                                            </div>
+                                        </div>
+                                        <p class="error error-fr"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="submit" class="btn btn-success" id="btn-loading" data-loading-text="AGUARDE ..." value="Cadastrar">
+                                <input type="reset" class="btn btn-warning" value="Limpar campos">
+                                <a href="/listarhorario" class="btn btn-default" role="button">Voltar</a>
+                            </div>
+                        </div>
+                    </form>
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Fim conteúdo -->
+    </div>
+    <script type="text/javascript" src="../../js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../js/wow.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.mask.min.js"></script>
+    <!--Validando dados do formulário-->
+    <script type="text/javascript" src="../../script/secretaria/cadastrarProfissionalHorario.js"></script>
+    <script type="text/javascript" src="../../script/secretaria/retornarProfCadastrarHorario.js"></script>
+    <script>
+        // Loader
+        loading();
+        // Animation WOW
+        new WOW().init();
+        // Mask
+        $('.mask-ficha').mask('000', { placeholder: "___" })
+    </script>
+</body>
+
+</html>

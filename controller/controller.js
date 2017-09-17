@@ -137,6 +137,37 @@ var controller = {
         service.excluirtableprofissional(req.body, function (error, status, message) {
             res.status(status).json({ message: message })
         })
+    },
+    /* Operações do horário */
+    cadastrarhorario: function (req, res) {
+        service.cadastrarhorario(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    retornarprofcadastrarhorario: function (res) {
+        service.retornarprofcadastrarhorario(function (error, professionals) {
+            res.status(httpStatus.OK).json({ professionals: professionals })
+        })
+    },
+    retornartablehorario: function (res) {
+        service.retornartablehorario(function (error, hour) {
+            res.status(httpStatus.OK).json({ hour: hour })
+        })
+    },
+    retornareditartablehorario: function (res, idhorario) {
+        service.retornareditartablehorario(idhorario, function (error, hour) {
+            res.status(httpStatus.OK).json({ hour: hour })
+        })
+    },
+    editarhorario: function (req, res) {
+        service.editarhorario(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    excluirtablehorario: function (req, res) {
+        service.excluirtablehorario(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
     }
 }
 

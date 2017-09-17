@@ -215,6 +215,35 @@ module.exports = function (app, passport) {
     app.post('/excluirtableprofissional', isLoggedIn, isAuthorized(['1']), function (req, res) {
         controller.excluirtableprofissional(req, res)
     })
+    /* Operações do horário */
+    app.route('/cadastrarhorario')
+        .get(isLoggedIn, isAuthorized(['1']), function (req, res) {
+            res.sendFile(path + 'users/secretaria/cadastrarHorario.html')
+        })
+        .post(isLoggedIn, isAuthorized(['1']), function (req, res) {
+            controller.cadastrarhorario(req, res)
+        })
+    app.get('/retornarprofcadastrarhorario', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.retornarprofcadastrarhorario(res)
+    })
+    app.get('/listarhorario', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        res.sendFile(path + 'users/secretaria/listarHorario.html')
+    })
+    app.get('/retornartablehorario', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.retornartablehorario(res)
+    })
+    app.get('/editartablehorario/:id?', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        res.sendFile(path + 'users/secretaria/editarHorario.html')
+    })
+    app.get('/retornareditartablehorario/:id?', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.retornareditartablehorario(res, req.query.id)
+    })
+    app.post('/editarhorario', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.editarhorario(req, res)
+    })
+    app.post('/excluirtablehorario', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.excluirtablehorario(req, res)
+    })
     /*
         Todos os níveis de acesso
     */

@@ -402,22 +402,60 @@ var service = {
         })
     },
     editarprofissional: function (data, callback) {
-        let sql = 'UPDATE profissional SET ' +
-            'nome_completo=?, especialidade=?, naturalidade=?, sexo=?, data_nasc=?, cpf=?, rg=?, cns=?, ' +
-            'estado=?, cidade=?, rua=?, bairro=?, numero_casa=?, celular=?, telefone=?, email=? ' +
-            'WHERE idprofissional=?'
-        // Query no Banco de Dados
-        connection.query(sql,
-            [data.txtNome_Completo, data.txtEspecialidade, data.txtNaturalidade, data.txtSexo, data.txtData_Nasc,
-            data.txtCpf, data.txtRg, data.txtCns, data.txtEstado, data.txtCidade, data.txtRua, data.txtBairro,
-            data.txtNumero, data.txtCelular, data.txtTelefone, data.txtEmail, data.txtIdProfissional],
-            function (error, result) {
+        connection.beginTransaction(function (err) {
+            if (err) { throw err }
+            async.waterfall([
+                dbUpdateProfissional,
+                dbUpdateHorario
+            ], function (error, status, message) {
                 if (error) {
-                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    return connection.rollback(function () {
+                        callback(error, status, message)
+                    })
                 } else {
-                    callback(null, httpStatus.OK, 'Profissional atualizado com sucesso.')
+                    connection.commit(function (err) {
+                        if (err) {
+                            return connection.rollback(function () {
+                                callback(err, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                            })
+                        }
+                        callback(error, status, message)
+                    })
                 }
             })
+            function dbUpdateProfissional(cb) {
+                let sql = 'UPDATE profissional SET ' +
+                    'nome_completo=?, especialidade=?, naturalidade=?, sexo=?, data_nasc=?, cpf=?, rg=?, cns=?, ' +
+                    'estado=?, cidade=?, rua=?, bairro=?, numero_casa=?, celular=?, telefone=?, email=? ' +
+                    'WHERE idprofissional=?'
+                // Query no Banco de Dados
+                connection.query(sql,
+                    [data.txtNome_Completo, data.txtEspecialidade, data.txtNaturalidade, data.txtSexo, data.txtData_Nasc,
+                    data.txtCpf, data.txtRg, data.txtCns, data.txtEstado, data.txtCidade, data.txtRua, data.txtBairro,
+                    data.txtNumero, data.txtCelular, data.txtTelefone, data.txtEmail, data.txtIdProfissional],
+                    function (error, result) {
+                        if (error) {
+                            cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                        } else {
+                            cb(null)
+                        }
+                    })
+            }
+            function dbUpdateHorario(cb) {
+                let sql = 'UPDATE horario SET ' +
+                    'profissional_nome_completo=?, profissional_especialidade=? ' +
+                    'WHERE profissional_idprofissional=?'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtNome_Completo, data.txtEspecialidade, data.txtIdProfissional],
+                    function (error, result) {
+                        if (error) {
+                            cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                        } else {
+                            cb(null, httpStatus.OK, 'Profissional atualizado com sucesso.')
+                        }
+                    })
+            }
+        })
     },
     excluirtableprofissional: function (data, callback) {
         connection.beginTransaction(function (err) {
@@ -486,6 +524,115 @@ var service = {
                         cb(null, httpStatus.OK, 'Profissional excluído com sucesso.')
                     }
                 })
+            }
+        })
+    },
+    /* Operações do horário */
+    cadastrarhorario: function (data, callback) {
+        async.waterfall([
+            dbProfissional,
+            dbHorario
+        ], function (error, status, message) {
+            callback(error, status, message)
+        })
+        function dbProfissional(cb) {
+            let sql = 'SELECT idprofissional, nome_completo, especialidade ' +
+                'FROM profissional WHERE idprofissional = ? LIMIT 1'
+            // Query no Banco de Dados
+            connection.query(sql, [data.txtProfissional], function (error, result) {
+                if (error) {
+                    cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    cb(null, result[0])
+                }
+            })
+        }
+        function dbHorario(dbResult, cb) {
+            let sql = 'INSERT INTO horario ' +
+                '(profissional_idprofissional, profissional_nome_completo, profissional_especialidade, diamo, horamo, ' +
+                'fichamo, diatu, horatu, fichatu, diawe, horawe, fichawe, diath, horath, fichath, diafr, horafr, fichafr) ' +
+                'VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+            // Query no Banco de Dados
+            connection.query(sql,
+                [dbResult.idprofissional, dbResult.nome_completo, dbResult.especialidade,
+                data.txt_diamo, data.txt_horamo, data.txt_fichamo,
+                data.txt_diatu, data.txt_horatu, data.txt_fichatu,
+                data.txt_diawe, data.txt_horawe, data.txt_fichawe,
+                data.txt_diath, data.txt_horath, data.txt_fichath,
+                data.txt_diafr, data.txt_horafr, data.txt_fichafr],
+                function (error, result) {
+                    if (error) {
+                        if (error.code == 'ER_DUP_ENTRY')
+                            cb(error, httpStatus.CONFLICT, 'Só é possível cadastrar um horário por profissional.')
+                        else
+                            cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        cb(null, httpStatus.OK, 'Cadastrado com sucesso.')
+                    }
+                })
+        }
+    },
+    retornarprofcadastrarhorario: function (callback) {
+        let sql = 'SELECT idprofissional, nome_completo, especialidade FROM profissional'
+        // Query no Banco de Dados
+        connection.query(sql, function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
+    retornartablehorario: function (callback) {
+        let sql = 'SELECT * FROM horario ORDER BY profissional_especialidade'
+        // Query no Banco de Dados
+        connection.query(sql, function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
+    retornareditartablehorario: function (idhorario, callback) {
+        let sql = 'SELECT * FROM horario WHERE idhorario=? LIMIT 1'
+        // Query no Banco de Dados
+        connection.query(sql, [idhorario], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
+    editarhorario: function (data, callback) {
+        let sql = 'UPDATE horario SET ' +
+            'diamo=?, horamo=?, fichamo=?, diatu=?, horatu=?, fichatu=?, diawe=?, horawe=?, fichawe=?, ' +
+            'diath=?, horath=?, fichath=?, diafr=?, horafr=?, fichafr=? ' +
+            'WHERE profissional_idprofissional=?'
+        // Query no Banco de Dados
+        connection.query(sql,
+            [data.txt_diamo, data.txt_horamo, data.txt_fichamo,
+            data.txt_diatu, data.txt_horatu, data.txt_fichatu,
+            data.txt_diawe, data.txt_horawe, data.txt_fichawe,
+            data.txt_diath, data.txt_horath, data.txt_fichath,
+            data.txt_diafr, data.txt_horafr, data.txt_fichafr, data.txtProfissional],
+            function (error, result) {
+                if (error) {
+                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    callback(null, httpStatus.OK, 'Horário atualizado com sucesso.')
+                }
+            })
+    },
+    excluirtablehorario: function (data, callback) {
+        let sql = 'DELETE FROM horario WHERE idhorario = ?'
+        // Query no Banco de Dados
+        connection.query(sql, [data.id], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, httpStatus.OK, 'Horário excluído com sucesso.')
             }
         })
     }
