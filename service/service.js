@@ -306,6 +306,20 @@ var service = {
             }
         })
     },
+    retornartablemarcadas: function (dataSession, callback) {
+        let dataAtual = new Date(),
+            sql = 'SELECT profissional_nome_completo, profissional_especialidade, data_agendamento, ' +
+                'numero_ficha FROM agendamento WHERE "data_agendamento" >= ? && usuario_idusuario = ? ' +
+                'ORDER BY data_agendamento'
+        // Query no Banco de Dados
+        connection.query(sql, [dataAtual, dataSession.idusuario], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
     /*
         Níveis de acesso:
         2: PROFISSIONAL
@@ -398,7 +412,7 @@ var service = {
         })
     },
     retornartableprofissional: function (callback) {
-        let sql = 'SELECT * FROM profissional'
+        let sql = 'SELECT * FROM profissional ORDER BY especialidade'
         // Query no Banco de Dados
         connection.query(sql, function (error, result) {
             if (error) {

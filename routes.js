@@ -134,6 +134,13 @@ module.exports = function (app, passport) {
     app.post('/desmarcaragendamento', isLoggedIn, isAuthorized(['3']), function (req, res) {
         controller.desmarcaragendamento(req, res, req.session.passport.user)
     })
+    /* Consultas marcadas */
+    app.get('/retornaragenda', isLoggedIn, isAuthorized(['3']), function (req, res) {
+        res.sendFile(path + 'users/usuario/retornarAgenda.html')
+    })
+    app.get('/retornartablemarcadas', isLoggedIn, isAuthorized(['3']), function (req, res) {
+        controller.retornartablemarcadas(res, req.session.passport.user)
+    })
     /* Horários */
     app.get('/horarios', isLoggedIn, isAuthorized(['3']), function (req, res) {
         res.sendFile(path + 'users/usuario/horariosUsuario.html')

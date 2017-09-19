@@ -98,6 +98,11 @@ var controller = {
             res.status(status).json({ message: message })
         })
     },
+    retornartablemarcadas: function (res, dataSession) {
+        service.retornartablemarcadas(dataSession, function (error, consulta) {
+            res.status(httpStatus.OK).json({ consulta: consulta })
+        })
+    },
     /*
         Níveis de acesso:
         2: PROFISSIONAL

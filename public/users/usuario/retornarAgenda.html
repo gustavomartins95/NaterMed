@@ -10,17 +10,11 @@
     <link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/animate.css">
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../css/calendar/kendo.common.min.css">
-    <link rel="stylesheet" href="../../css/calendar/kendo.default.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower|Open+Sans+Condensed:300">
     <script type="text/javascript" src="../../js/loader.js"></script>
     <style>
         #conteudo {
             opacity: 0;
-        }
-
-        #calendar {
-            width: 100%;
         }
     </style>
 </head>
@@ -63,45 +57,22 @@
                 </div>
             </div>
         </nav>
-        <!--Opções-->
+        <!-- Agenda -->
         <div class="container-fluid marginTopNav">
-            <h1 class="text-center">Em casos de urgências e necessidades especiais, prevalece a ordem de atendimento do Posto de Sáude.</h1><br />
+            <h1 class="text-center">Consultas marcadas</h1><br />
             <div class="row">
-                <div class="col-md-offset-1 col-md-10">
-                    <h3>Selecione o profissional</h3>
-                    <select name="txtEsp" id="txtEsp" class="form-control"> 
-                        <option value="Não Declarado">Não Declarado</option>
-                    </select>
-                </div>
-            </div>
-            <br />
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="demo-section k-content">
-                        <div id="calendar"></div>
-                        <div class="text-center">
-                            <p>* Agendamentos de consultas continuaram sendo feitas presencialmente.</p>
-                            <p>* Após o início dos atendimentos só poderão ser marcadas consultas na UBS.</p>
-                            <p>* Não é possível agendar consultas aos sábados e domingos.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="table-responsive">
-                        <table id="agendamento" class="table table-hover table-condensed">
+                        <table id="horarios" class="table table-hover table-condensed table-bordered">
                             <thead>
                                 <tr>
-                                    <th class="thFicha">Ficha de Atendimento</th>
-                                    <th class="thNecessidades">Necessidades Especiais</th>
-                                    <th class="thMarcar">Marcar Consultar</th>
+                                    <th>Profissionais</th>
+                                    <th>Especialidades</th>
+                                    <th>Data do agendamento</th>
+                                    <th>Número da ficha</th>
                                 </tr>
                             </thead>
                             <tbody id="tbodyDados">
-                                <tr class="danger">
-                                    <td></td>
-                                    <td>ESCOLHA UMA DATA</td>
-                                    <td></td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -112,19 +83,15 @@
     </div>
     <script type="text/javascript" src="../../js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../js/kendo.all.min.js"></script>
     <script type="text/javascript" src="../../js/wow.min.js"></script>
     <script type="text/javascript" src="../../js/bootbox.min.js"></script>
-    <!-- Operações do agendar consulta -->
-    <script type="text/javascript" src="../../script/usuario/funcoesConsultaUsuario.js"></script>
-    <script type="text/javascript" src="../../script/usuario/retornarConsultaUsuario.js"></script>
-    <script type="text/javascript" src="../../script/usuario/agendarConsultaUsuario.js"></script>
-    <script type="text/javascript" src="../../script/usuario/desmarcarConsultaUsuario.js"></script>
+    <!--Excluir e editar usuário-->
+    <script type="text/javascript" src="../../script/usuario/retornarTableMarcadas.js"></script>
     <script>
         // Loader
-        loading()
+        loading();
         // Animation WOW
-        new WOW().init()
+        new WOW().init();
     </script>
 </body>
 
