@@ -141,6 +141,10 @@ module.exports = function (app, passport) {
     app.get('/retornartablemarcadas', isLoggedIn, isAuthorized(['3']), function (req, res) {
         controller.retornartablemarcadas(res, req.session.passport.user)
     })
+    /* Horários */
+    app.get('/horariosusuario', isLoggedIn, isAuthorized(['3']), function (req, res) {
+        res.sendFile(path + 'users/usuario/horariosProfissionais.html')
+    })
     /*
         Níveis de acesso:
         2: PROFISSIONAL
@@ -167,6 +171,10 @@ module.exports = function (app, passport) {
     /* Home profissional */
     app.get('/indexprofissional', isLoggedIn, isAuthorized(['2']), function (req, res) {
         res.sendFile(path + 'users/profissional/indexProfissional.html')
+    })
+    /* Horários */
+    app.get('/horariosprofissional', isLoggedIn, isAuthorized(['2']), function (req, res) {
+        res.sendFile(path + 'users/profissional/horariosProfissionais.html')
     })
     /*
         Níveis de acesso:
@@ -250,10 +258,7 @@ module.exports = function (app, passport) {
     /*
         Todos os níveis de acesso
     */
-    /* Horários dos profissionais - Retornar dados */
-    app.get('/horarios', isLoggedIn, isAuthorized(['2', '3']), function (req, res) {
-        res.sendFile(path + 'users/horariosProfissionais.html')
-    })
+    /* Retornar dados do horários dos profissionais */
     app.get('/retornartablehorario', isLoggedIn, isAuthorized(['1', '2', '3']), function (req, res) {
         controller.retornartablehorario(res)
     })
