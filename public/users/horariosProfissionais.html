@@ -66,86 +66,15 @@
                             <thead>
                                 <tr>
                                     <th>Profissionais</th>
-                                    <th>Domingo</th>
+                                    <th>Especialidades</th>
                                     <th>Segunda</th>
                                     <th>Terça</th>
                                     <th>Quarta</th>
                                     <th>Quinta</th>
                                     <th>Sexta</th>
-                                    <th>Sábado</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Dentista</td>
-                                    <td>-</td>
-                                    <td>Início às 7:00H, Fichas indeterminadas</td>
-                                    <td>Início às 7:00H, Fichas indeterminadas</td>
-                                    <td>Início às 7:00H, Fichas indeterminadas</td>
-                                    <td>Início às 7:00H, Fichas indeterminadas</td>
-                                    <td>Início às 7:00H, Fichas indeterminadas</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>Ginecologista</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>Início às 7:00H, 20 Fichas</td>
-                                    <td>-</td>
-                                    <td>Início às 7:00H, 20 Fichas</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>Pediatra</td>
-                                    <td>-</td>
-                                    <td>Início às 12:00H, 20 Fichas</td>
-                                    <td>Início às 7:00H, 15 Fichas</td>
-                                    <td>Início às 7:00H, 15 Fichas</td>
-                                    <td>Início às 9:00H, 15 Fichas</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>Psiquiatra</td>
-                                    <td>-</td>
-                                    <td>Início às 7:00H, 10 Fichas</td>
-                                    <td>Início às 13:00H, 10 Fichas</td>
-                                    <td>Início às 13:00H, 10 Fichas</td>
-                                    <td>Início às 13:00H, Fichas indeterminadas</td>
-                                    <td>Início às 13:00H, Fichas indeterminadas</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>Nutricionista</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>Início às 10:00H, 25 Fichas</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>Psicólogo</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>Início às 7:00H, 5 Fichas</td>
-                                    <td>-</td>
-                                    <td>Início às 13:00H, 5 Fichas</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>Clínico geral</td>
-                                    <td>-</td>
-                                    <td>Início às 8:00H, 20 Fichas</td>
-                                    <td>Início às 8:00H, 20 Fichas</td>
-                                    <td>Início às 8:00H, 20 Fichas</td>
-                                    <td>Início às 8:00H, 20 Fichas</td>
-                                    <td>Início às 8:00H, 20 Fichas</td>
-                                    <td>-</td>
-                                </tr>
+                            <tbody id="tbodyDadosHorarios">
                             </tbody>
                         </table>
                     </div>
@@ -158,8 +87,10 @@
     <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../js/wow.min.js"></script>
     <script type="text/javascript" src="../../js/bootbox.min.js"></script>
-    <!--Excluir e editar usuário-->
+    <!--Excluir usuário-->
     <script type="text/javascript" src="../../script/usuario/excluirUsuario.js"></script>
+    <!-- Retornar table horário (mesmo da secretaria) -->
+    <script type="text/javascript" src="../../script/usuario/retornarTableHorario.js"></script>
     <script>
         // Loader
         loading();
