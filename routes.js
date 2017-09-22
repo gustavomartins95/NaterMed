@@ -255,6 +255,32 @@ module.exports = function (app, passport) {
     app.post('/excluirtablehorario', isLoggedIn, isAuthorized(['1']), function (req, res) {
         controller.excluirtablehorario(req, res)
     })
+    /* Operações do medicamento */
+    app.route('/cadastrarmedicamento')
+        .get(isLoggedIn, isAuthorized(['1']), function (req, res) {
+            res.sendFile(path + 'users/secretaria/cadastrarmedicamento.html')
+        })
+        .post(isLoggedIn, isAuthorized(['1']), function (req, res) {
+            controller.cadastrarmedicamento(req, res, req.session.passport.user.idlogin)
+        })
+    app.get('/listarmedicamento', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        res.sendFile(path + 'users/secretaria/listarMedicamento.html')
+    })
+    app.get('/retornartablemedicamento', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.retornartablemedicamento(res)
+    })
+    app.get('/editartablemedicamento/:id?', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        res.sendFile(path + 'users/secretaria/editarMedicamento.html')
+    })
+    app.get('/retornareditartablemedicamento/:id?', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.retornareditartablemedicamento(res, req.query.id)
+    })
+    app.post('/editarmedicamento', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.editarmedicamento(req, res)
+    })
+    app.post('/excluirtablemedicamento', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.excluirtablemedicamento(req, res)
+    })
     /*
         Todos os níveis de acesso
     */

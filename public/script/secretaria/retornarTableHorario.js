@@ -25,16 +25,16 @@ function criarTable(hour) {
                 columns += "<td>Início às " + hour[index].horamo.split(':', 2).join(':') + "H, " + hour[index].fichamo + " Fichas</td>" :
                 columns += "<td>-</td>"
             hour[index].diatu ?
-                columns += "<td>Início às " + hour[index].horatu.split(':', 2).join(':') + ":H, " + hour[index].fichatu + " Fichas</td>" :
+                columns += "<td>Início às " + hour[index].horatu.split(':', 2).join(':') + "H, " + hour[index].fichatu + " Fichas</td>" :
                 columns += "<td>-</td>"
             hour[index].diawe ?
-                columns += "<td>Início às " + hour[index].horawe.split(':', 2).join(':') + ":H, " + hour[index].fichawe + " Fichas</td>" :
+                columns += "<td>Início às " + hour[index].horawe.split(':', 2).join(':') + "H, " + hour[index].fichawe + " Fichas</td>" :
                 columns += "<td>-</td>"
             hour[index].diath ?
-                columns += "<td>Início às " + hour[index].horath.split(':', 2).join(':') + ":H, " + hour[index].fichath + " Fichas</td>" :
+                columns += "<td>Início às " + hour[index].horath.split(':', 2).join(':') + "H, " + hour[index].fichath + " Fichas</td>" :
                 columns += "<td>-</td>"
             hour[index].diafr ?
-                columns += "<td>Início às " + hour[index].horafr.split(':', 2).join(':') + ":H, " + hour[index].fichafr + " Fichas</td>" :
+                columns += "<td>Início às " + hour[index].horafr.split(':', 2).join(':') + "H, " + hour[index].fichafr + " Fichas</td>" :
                 columns += "<td>-</td>"
 
             columns += "<td class='actions'>"

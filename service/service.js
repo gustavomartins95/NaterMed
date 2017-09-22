@@ -795,6 +795,71 @@ var service = {
                 callback(null, httpStatus.OK, 'Horário excluído com sucesso.')
             }
         })
+    },
+    /* Operações do medicamento */
+    cadastrarmedicamento: function (data, idsecretaria, callback) {
+        let sql = 'INSERT INTO medicamento (secretaria_idsecretaria, nome, posologia, laboratorio, ' +
+            'via_administracao, generico, estoque) VALUES (?, ?, ?, ?, ?, ?, ?)'
+        // Query no Banco de Dados
+        connection.query(sql,
+            [idsecretaria, data.txtNome, data.txtPosologia, data.txtLaboratorio,
+                data.txtViaAdministracao, data.txtGenerico, data.txtEstoque],
+            function (error, result) {
+                if (error) {
+                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    callback(null, httpStatus.OK, 'Cadastrado com sucesso.')
+                }
+            })
+    },
+    retornartablemedicamento: function (callback) {
+        let sql = 'SELECT * FROM medicamento ORDER BY nome'
+        // Query no Banco de Dados
+        connection.query(sql, function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
+    retornareditartablemedicamento: function (idmedicamento, callback) {
+        let sql = 'SELECT * FROM medicamento WHERE idmedicamento=? LIMIT 1'
+        // Query no Banco de Dados
+        connection.query(sql, [idmedicamento], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
+    editarmedicamento: function (data, callback) {
+        let sql = 'UPDATE medicamento SET ' +
+            'nome=?, posologia=?, laboratorio=?, via_administracao=?, generico=?, estoque=? ' +
+            'WHERE idmedicamento=?'
+        // Query no Banco de Dados
+        connection.query(sql,
+            [data.txtNome, data.txtPosologia, data.txtLaboratorio, data.txtViaAdministracao,
+                data.txtGenerico, data.txtEstoque, data.txtIdMedicamento],
+            function (error, result) {
+                if (error) {
+                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    callback(null, httpStatus.OK, 'Medicamento atualizado com sucesso.')
+                }
+            })
+    },
+    excluirtablemedicamento: function (data, callback) {
+        let sql = 'DELETE FROM medicamento WHERE idmedicamento = ?'
+        // Query no Banco de Dados
+        connection.query(sql, [data.id], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, httpStatus.OK, 'Medicamento excluído com sucesso.')
+            }
+        })
     }
 }
 

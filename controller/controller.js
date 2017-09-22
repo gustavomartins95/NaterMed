@@ -179,6 +179,32 @@ var controller = {
         service.excluirtablehorario(req.body, function (error, status, message) {
             res.status(status).json({ message: message })
         })
+    },
+    /* Operações do medicamento */
+    cadastrarmedicamento: function (req, res, idsecretaria) {
+        service.cadastrarmedicamento(req.body, idsecretaria, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    retornartablemedicamento: function (res) {
+        service.retornartablemedicamento(function (error, medicamento) {
+            res.status(httpStatus.OK).json({ medicamento: medicamento })
+        })
+    },
+    retornareditartablemedicamento: function (res, idmedicamento) {
+        service.retornareditartablemedicamento(idmedicamento, function (error, medicamento) {
+            res.status(httpStatus.OK).json({ medicamento: medicamento })
+        })
+    },
+    editarmedicamento: function (req, res) {
+        service.editarmedicamento(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    excluirtablemedicamento: function (req, res) {
+        service.excluirtablemedicamento(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
     }
 }
 
