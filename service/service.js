@@ -515,8 +515,10 @@ var service = {
         connection.beginTransaction(function (err) {
             if (err) { throw err }
             async.waterfall([
+                dbSelectAgendamento,
                 dbUpdateProfissional,
-                dbUpdateHorario
+                dbUpdateHorario,
+                dbUpdateAgendamento
             ], function (error, status, message) {
                 if (error) {
                     return connection.rollback(function () {
@@ -533,6 +535,25 @@ var service = {
                     })
                 }
             })
+            function dbSelectAgendamento(cb) {
+                let sql = 'SELECT profissional_especialidade FROM agendamento ' +
+                    'WHERE profissional_idprofissional=?'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtIdProfissional], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        if (result == null || result.length == 0)
+                            cb(null)
+                        else {
+                            if (result[0].profissional_especialidade == data.txtEspecialidade)
+                                cb(null)
+                            else
+                                cb(new Error(), httpStatus.UNAUTHORIZED, 'Não é possível atualizar a especialidade caso haja consulta agendada.')
+                        }
+                    }
+                })
+            }
             function dbUpdateProfissional(cb) {
                 let sql = 'UPDATE profissional SET ' +
                     'nome_completo=?, especialidade=?, naturalidade=?, sexo=?, data_nasc=?, cpf=?, rg=?, cns=?, ' +
@@ -561,6 +582,20 @@ var service = {
                         if (error) {
                             cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
                         } else {
+                            cb(null)
+                        }
+                    })
+            }
+            function dbUpdateAgendamento(cb) {
+                let sql = 'UPDATE agendamento SET ' +
+                    'profissional_nome_completo=?, profissional_especialidade=? ' +
+                    'WHERE profissional_idprofissional=?'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtNome_Completo, data.txtEspecialidade, data.txtIdProfissional],
+                    function (error, result) {
+                        if (error) {
+                            cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                        } else {
                             cb(null, httpStatus.OK, 'Profissional atualizado com sucesso.')
                         }
                     })
@@ -571,6 +606,7 @@ var service = {
         connection.beginTransaction(function (err) {
             if (err) { throw err }
             async.waterfall([
+                dbSelectAgendamento,
                 dbSelectLogin,
                 dbExcluirLogin,
                 dbExcluirHorario,
@@ -591,6 +627,22 @@ var service = {
                     })
                 }
             })
+            function dbSelectAgendamento(cb) {
+                let sql = 'SELECT idagendamento FROM agendamento ' +
+                    'WHERE profissional_idprofissional=?'
+                // Query no Banco de Dados
+                connection.query(sql, [data.id], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        if (result == null || result.length == 0)
+                            cb(null)
+                        else {
+                            cb(new Error(), httpStatus.UNAUTHORIZED, 'Não é possível excluir profissional caso haja consulta agendada.')
+                        }
+                    }
+                })
+            }
             function dbSelectLogin(cb) {
                 let sql = 'SELECT login_idlogin FROM profissional WHERE idprofissional = ?'
                 // Query no Banco de Dados
