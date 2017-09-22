@@ -13,5 +13,4 @@ function criarProfile(dados) {
     console.log(dados)
     $('#counter-contas').attr('data-count', dados[0].qtd)
     $('#counter-agendadas').attr('data-count', dados[1].qtd)
-    $('#counter-realizadas').attr('data-count', dados[2].qtd)
 }

@@ -10,9 +10,7 @@ var service = {
     retornarestatistica: function (callback) {
         let sql = '(SELECT COUNT(*) AS qtd FROM usuario) ' +
             'UNION ALL ' +
-            '(SELECT COUNT(*) FROM agendamento) ' +
-            'UNION ALL ' +
-            '(SELECT COUNT(*) FROM prontuario)'
+            '(SELECT COUNT(*) FROM agendamento)'
         // Query no Banco de Dados
         connection.query(sql, function (error, result) {
             if (error) {
