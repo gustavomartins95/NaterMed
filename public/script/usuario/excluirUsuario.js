@@ -2,7 +2,7 @@
 function excluirusuario() {
     bootbox.confirm({
         title: "Excluir usuário",
-        message: "Deseja realmente excluir seu usuário?",
+        message: "Deseja realmente excluir seu usuário?<br />Será apagado os dados do usuário juntamente com seus agendamentos.",
         buttons: {
             cancel: {
                 label: 'Cancelar',

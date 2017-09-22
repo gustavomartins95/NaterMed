@@ -141,25 +141,64 @@ var service = {
     },
     // Editar dados do usuário
     editarusuario: function (data, dataSession, callback) {
-        let sql = 'UPDATE usuario SET ' +
-            'nome_completo=?, nome_mae=?, nome_pai=?, data_nasc=?, sexo=?, escolaridade=?, situacao=?, estado_civil=?, ' +
-            'naturalidade=?, cpf=?, rg=?, cns=?, familia=?, microarea=?, tipo_sang=?, email=?, telefone=?, celular=?, ' +
-            'estado=?, cidade=?, rua=?, bairro=?, numero_casa=?, necessidades_esp=?, ambulancia=? ' +
-            'WHERE idusuario = ? && login_idlogin = ?'
-        // Query no Banco de Dados
-        connection.query(sql,
-            [data.txtNome_Completo, data.txtNome_Mae, data.txtNome_Pai, data.txtData_Nasc, data.txtSexo,
-            data.txtEscolaridade, data.txtSituacao, data.txtEstado_Civil, data.txtNaturalidade, data.txtCpf, data.txtRg,
-            data.txtCns, data.txtFamilia, data.txtMicroarea, data.txtTipo_Sanguineo, data.txtEmail, data.txtTelefone, data.txtCelular,
-            data.txtEstado, data.txtCidade, data.txtRua, data.txtBairro, data.txtNumero, data.txtNecessidade, data.txtAmbulancia,
-            dataSession.idusuario, dataSession.idlogin],
-            function (error, result) {
+        connection.beginTransaction(function (err) {
+            if (err) { throw err }
+            async.waterfall([
+                dbEditarUsuario,
+                dbEditarAgendamento
+            ], function (error, status, message) {
                 if (error) {
-                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    return connection.rollback(function () {
+                        callback(error, status, message)
+                    })
                 } else {
-                    callback(null, httpStatus.OK, 'Usuário atualizado com sucesso.')
+                    connection.commit(function (err) {
+                        if (err) {
+                            return connection.rollback(function () {
+                                callback(err, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                            })
+                        }
+                        callback(error, status, message)
+                    })
                 }
             })
+            function dbEditarUsuario(cb) {
+                let sql = 'UPDATE usuario SET ' +
+                    'nome_completo=?, nome_mae=?, nome_pai=?, data_nasc=?, sexo=?, escolaridade=?, situacao=?, estado_civil=?, ' +
+                    'naturalidade=?, cpf=?, rg=?, cns=?, familia=?, microarea=?, tipo_sang=?, email=?, telefone=?, celular=?, ' +
+                    'estado=?, cidade=?, rua=?, bairro=?, numero_casa=?, necessidades_esp=?, ambulancia=? ' +
+                    'WHERE idusuario = ? && login_idlogin = ?'
+                // Query no Banco de Dados
+                connection.query(sql,
+                    [data.txtNome_Completo, data.txtNome_Mae, data.txtNome_Pai, data.txtData_Nasc, data.txtSexo,
+                    data.txtEscolaridade, data.txtSituacao, data.txtEstado_Civil, data.txtNaturalidade, data.txtCpf, data.txtRg,
+                    data.txtCns, data.txtFamilia, data.txtMicroarea, data.txtTipo_Sanguineo, data.txtEmail, data.txtTelefone, data.txtCelular,
+                    data.txtEstado, data.txtCidade, data.txtRua, data.txtBairro, data.txtNumero, data.txtNecessidade, data.txtAmbulancia,
+                    dataSession.idusuario, dataSession.idlogin],
+                    function (error, result) {
+                        if (error) {
+                            cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                        } else {
+                            cb(null)
+                        }
+                    })
+            }
+            function dbEditarAgendamento(cb) {
+                let sql = 'UPDATE agendamento SET ' +
+                    'nome_completo_usuario=?, necessidades_esp=?, ambulancia=? ' +
+                    'WHERE usuario_idusuario = ?'
+                // Query no Banco de Dados
+                connection.query(sql,
+                    [data.txtNome_Completo, data.txtNecessidade, data.txtAmbulancia, dataSession.idusuario],
+                    function (error, result) {
+                        if (error) {
+                            cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                        } else {
+                            cb(null, httpStatus.OK, 'Usuário atualizado com sucesso.')
+                        }
+                    })
+            }
+        })
     },
     // Retornar dados dos usuários
     retornardadosusuario: function (dataSession, callback) {
@@ -175,13 +214,48 @@ var service = {
     },
     // Excluir dados do usuário
     excluirusuario: function (dataSession, callback) {
-        let sql = 'DELETE FROM usuario WHERE idusuario = ? && login_idlogin = ?'
-        // Query no Banco de Dados
-        connection.query(sql, [dataSession.idusuario, dataSession.idlogin], function (error, result) {
-            if (error) {
-                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
-            } else {
-                callback(null, httpStatus.OK, 'Usuário excluído com sucesso. Você será redirecionado a seleção de usuário existente.')
+        connection.beginTransaction(function (err) {
+            if (err) { throw err }
+            async.waterfall([
+                dbExcluirAgendamento,
+                dbExcluirUsuario
+            ], function (error, status, message) {
+                if (error) {
+                    return connection.rollback(function () {
+                        callback(error, status, message)
+                    })
+                } else {
+                    connection.commit(function (err) {
+                        if (err) {
+                            return connection.rollback(function () {
+                                callback(err, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                            })
+                        }
+                        callback(error, status, message)
+                    })
+                }
+            })
+            function dbExcluirAgendamento(cb) {
+                let sql = 'DELETE FROM agendamento WHERE usuario_idusuario = ?'
+                // Query no Banco de Dados
+                connection.query(sql, [dataSession.idusuario], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        cb(null)
+                    }
+                })
+            }
+            function dbExcluirUsuario(cb) {
+                let sql = 'DELETE FROM usuario WHERE idusuario = ? && login_idlogin = ?'
+                // Query no Banco de Dados
+                connection.query(sql, [dataSession.idusuario, dataSession.idlogin], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        cb(null, httpStatus.OK, 'Usuário excluído com sucesso. Você será redirecionado a seleção de usuário existente.')
+                    }
+                })
             }
         })
     },
@@ -311,7 +385,8 @@ var service = {
     },
     retornartablemarcadas: function (dataSession, callback) {
         let dataAtual = new Date(),
-            sql = 'SELECT profissional_nome_completo, profissional_especialidade, data_agendamento, ' +
+            sql = 'SELECT profissional_nome_completo, profissional_especialidade, ' +
+                'DATE_FORMAT(data_agendamento, "%d-%m-%Y") AS data_agendamento, ' +
                 'numero_ficha FROM agendamento WHERE "data_agendamento" >= ? && usuario_idusuario = ? ' +
                 'ORDER BY data_agendamento'
         // Query no Banco de Dados
