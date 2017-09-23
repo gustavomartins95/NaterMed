@@ -841,7 +841,7 @@ var service = {
         // Query no Banco de Dados
         connection.query(sql,
             [data.txtNome, data.txtPosologia, data.txtLaboratorio, data.txtViaAdministracao,
-                data.txtGenerico, data.txtEstoque, data.txtIdMedicamento],
+            data.txtGenerico, data.txtEstoque, data.txtIdMedicamento],
             function (error, result) {
                 if (error) {
                     callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
@@ -858,6 +858,70 @@ var service = {
                 callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
             } else {
                 callback(null, httpStatus.OK, 'Medicamento excluído com sucesso.')
+            }
+        })
+    },
+    /* Operações da notícia */
+    cadastrarnoticia: function (data, idsecretaria, callback) {
+        let dataAtual = new Date(),
+            sql = 'INSERT INTO noticia (secretaria_idsecretaria, data_publicacao, titulo, texto, ' +
+                'inicio, termino) VALUES (?, ?, ?, ?, ?, ?)'
+        // Query no Banco de Dados
+        connection.query(sql,
+            [idsecretaria, dataAtual, data.txtTitulo, data.txtTexto, data.txtData_Inicio, data.txtData_Termino],
+            function (error, result) {
+                if (error) {
+                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    callback(null, httpStatus.OK, 'Cadastrado com sucesso.')
+                }
+            })
+    },
+    retornartablenoticia: function (callback) {
+        let sql = 'SELECT * FROM noticia ORDER BY data_publicacao'
+        // Query no Banco de Dados
+        connection.query(sql, function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
+    retornareditartablenoticia: function (idnoticia, callback) {
+        let sql = 'SELECT * FROM noticia WHERE idnoticia=? LIMIT 1'
+        // Query no Banco de Dados
+        connection.query(sql, [idnoticia], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
+    editarnoticia: function (data, callback) {
+        let sql = 'UPDATE noticia SET ' +
+            'titulo=?, texto=?, inicio=?, termino=? ' +
+            'WHERE idnoticia=?'
+        // Query no Banco de Dados
+        connection.query(sql,
+            [data.txtTitulo, data.txtTexto, data.txtData_Inicio, data.txtData_Termino, data.txtIdNoticia],
+            function (error, result) {
+                if (error) {
+                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    callback(null, httpStatus.OK, 'Notícia atualizada com sucesso.')
+                }
+            })
+    },
+    excluirtablenoticia: function (data, callback) {
+        let sql = 'DELETE FROM noticia WHERE idnoticia = ?'
+        // Query no Banco de Dados
+        connection.query(sql, [data.id], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, httpStatus.OK, 'Notícia excluída com sucesso.')
             }
         })
     }

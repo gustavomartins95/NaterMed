@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="../../img/icon.png">
+    <title>Nater Med</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower|Open+Sans+Condensed:300">
+    <script type="text/javascript" src="../../js/loader.js"></script>
+    <style>
+        #conteudo {
+            opacity: 0;
+        }
+
+        textarea {
+            resize: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!--Conteúdo-->
+    <div id="conteudo">
+        <!--Navigation-->
+        <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top wow pulse">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span> MENU <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href=""><img src="../../img/logoHorizontal.png" alt="Logo"></a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/indexsecretaria">HOME</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">LISTAR <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/listarhorario">HORÁRIOS</a></li>
+                                <li><a href="/listarmedicamento">MEDICAMENTOS</a></li>
+                                <li><a href="/listarnoticia">NOTÍCIAS</a></li>
+                                <li><a href="/listarprofissional">PROFISSIONAIS</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CONSULTA <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/agendarconsulta">AGENDAR</a></li>
+                                <li><a href="/secretaria/relatorio">RELATÓRIO</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">OUTROS <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/secretaria">ALTERAR USUÁRIO</a></li>
+                                <li><a href="/logout">SAIR</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--Cadastrar notícia-->
+        <div class="container marginTopNav">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-center">Cadastrar nova notícia</h1>
+                    <div id="divResult" class="alert alert-dismissible text-center" role="alert">
+                        <strong id="result"></strong>
+                    </div>
+                    <form method="POST" class="form-users" action="" enctype="multipart/form-data">
+                        <!-- Cadastrar -->
+                        <input type="hidden" name="txtIdentificacao" id="txtIdentificacao" value="cadastrar">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label for="txtTitulo"><span style="color: red;font-size: 18px;">*</span> Título</label>
+                                <input type="text" name="txtTitulo" id="txtTitulo" class="form-control" autofocus>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="txtData_Inicio">Início da campanha</label>
+                                <input type="text" name="txtData_Inicio" id="txtData_Inicio" class="mask-inicio form-control" minlength="10" maxlength="10">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="txtData_Termino">Término da campanha</label>
+                                <input type="text" name="txtData_Termino" id="txtData_Termino" class="mask-termino form-control" minlength="10" maxlength="10">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="txtImagem">Imagem</label>
+                                <input type="file" name="txtImagem" id="txtImagem" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label for="txtTexto"><span style="color: red;font-size: 18px;">*</span> Texto</label>
+                                <textarea class="form-control" name="txtTexto" id="txtTexto" rows="7"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="submit" class="btn btn-success" id="btn-loading" data-loading-text="AGUARDE ..." value="Cadastrar">
+                                <input type="reset" class="btn btn-warning" value="Limpar campos">
+                                <a href="/listarnoticia" class="btn btn-default" role="button">Voltar</a>
+                            </div>
+                        </div>
+                    </form>
+                    <br />
+                </div>
+            </div>
+        </div>
+        <!-- Fim conteúdo -->
+    </div>
+    <script type="text/javascript" src="../../js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../js/wow.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.mask.min.js"></script>
+    <!--Validando dados do formulário-->
+    <script type="text/javascript" src="../../script/secretaria/cadastrarDadosNoticia.js"></script>
+    <script>
+        // Loader
+        loading();
+        // Animation WOW
+        new WOW().init();
+        // Mask
+        $('.mask-inicio').mask('00/00/0000', { placeholder: "__/__/____" })
+        $('.mask-termino').mask('00/00/0000', { placeholder: "__/__/____" })
+    </script>
+</body>
+
+</html>

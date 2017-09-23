@@ -205,6 +205,32 @@ var controller = {
         service.excluirtablemedicamento(req.body, function (error, status, message) {
             res.status(status).json({ message: message })
         })
+    },
+    /* Operações da notícia */
+    cadastrarnoticia: function (req, res, idsecretaria) {
+        service.cadastrarnoticia(req.body, idsecretaria, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    retornartablenoticia: function (res) {
+        service.retornartablenoticia(function (error, noticia) {
+            res.status(httpStatus.OK).json({ noticia: noticia })
+        })
+    },
+    retornareditartablenoticia: function (res, idnoticia) {
+        service.retornareditartablenoticia(idnoticia, function (error, noticia) {
+            res.status(httpStatus.OK).json({ noticia: noticia })
+        })
+    },
+    editarnoticia: function (req, res) {
+        service.editarnoticia(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    excluirtablenoticia: function (req, res) {
+        service.excluirtablenoticia(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
     }
 }
 

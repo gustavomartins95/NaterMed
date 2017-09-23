@@ -258,7 +258,7 @@ module.exports = function (app, passport) {
     /* Operações do medicamento */
     app.route('/cadastrarmedicamento')
         .get(isLoggedIn, isAuthorized(['1']), function (req, res) {
-            res.sendFile(path + 'users/secretaria/cadastrarmedicamento.html')
+            res.sendFile(path + 'users/secretaria/cadastrarMedicamento.html')
         })
         .post(isLoggedIn, isAuthorized(['1']), function (req, res) {
             controller.cadastrarmedicamento(req, res, req.session.passport.user.idlogin)
@@ -280,6 +280,32 @@ module.exports = function (app, passport) {
     })
     app.post('/excluirtablemedicamento', isLoggedIn, isAuthorized(['1']), function (req, res) {
         controller.excluirtablemedicamento(req, res)
+    })
+    /* Operações da notícia */
+    app.route('/cadastrarnoticia')
+        .get(isLoggedIn, isAuthorized(['1']), function (req, res) {
+            res.sendFile(path + 'users/secretaria/cadastrarNoticia.html')
+        })
+        .post(isLoggedIn, isAuthorized(['1']), function (req, res) {
+            controller.cadastrarnoticia(req, res, req.session.passport.user.idlogin)
+        })
+    app.get('/listarnoticia', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        res.sendFile(path + 'users/secretaria/listarNoticia.html')
+    })
+    app.get('/retornartablenoticia', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.retornartablenoticia(res)
+    })
+    app.get('/editartablenoticia/:id?', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        res.sendFile(path + 'users/secretaria/editarNoticia.html')
+    })
+    app.get('/retornareditartablenoticia/:id?', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.retornareditartablenoticia(res, req.query.id)
+    })
+    app.post('/editarnoticia', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.editarnoticia(req, res)
+    })
+    app.post('/excluirtablenoticia', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.excluirtablenoticia(req, res)
     })
     /*
         Todos os níveis de acesso
