@@ -77,8 +77,8 @@ var controller = {
         })
     },
     // Operações do agendar consulta
-    retonarhorarioagendamento: function (res, date, dataSession) {
-        service.retonarhorarioagendamento(date, function (error, status, hour) {
+    retonarhorarioagendamento: function (res) {
+        service.retonarhorarioagendamento(function (error, status, hour) {
             res.status(status).json({ hour: hour })
         })
     },
@@ -89,7 +89,6 @@ var controller = {
     },
     realizaragendamento: function (req, res, dataSession) {
         service.realizaragendamento(req.body, dataSession, function (error, status, message) {
-            console.log(error)
             res.status(status).json({ message: message })
         })
     },
@@ -229,6 +228,33 @@ var controller = {
     },
     excluirtablenoticia: function (req, res) {
         service.excluirtablenoticia(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    // Gerenciamento da secretaria - Agendamento
+    retonargeralhorarioagendamento: function (res) {
+        service.retonargeralhorarioagendamento(function (error, status, hour) {
+            res.status(status).json({ hour: hour })
+        })
+    },
+    retonargeralusuario: function (res, search) {
+        service.retonargeralusuario(search, function (error, status, message, dataUsers) {
+            if (status == httpStatus.OK) res.status(status).json({ message: message, dataUsers: dataUsers })
+            else res.status(status).json({ message: message })
+        })
+    },
+    retonargeralagendamento: function (res, id, date) {
+        service.retonargeralagendamento(id, date, function (error, status, data) {
+            res.status(status).json({ data: data, date: date })
+        })
+    },
+    realizargeralagendamento: function (req, res) {
+        service.realizargeralagendamento(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    desmarcargeralagendamento: function (req, res) {
+        service.desmarcargeralagendamento(req.body, function (error, status, message) {
             res.status(status).json({ message: message })
         })
     }

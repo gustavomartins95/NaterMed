@@ -282,10 +282,10 @@ var service = {
         })
     },
     // Operações do agendar consulta
-    retonarhorarioagendamento: function (date, callback) {
+    retonarhorarioagendamento: function (callback) {
         let sql = 'SELECT * FROM horario WHERE profissional_especialidade="Clínico Geral" || profissional_especialidade="Pediatra"'
         // Query no Banco de Dados
-        connection.query(sql, [date], function (error, result) {
+        connection.query(sql, function (error, result) {
             if (error) {
                 callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
             } else {
@@ -922,6 +922,122 @@ var service = {
                 callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
             } else {
                 callback(null, httpStatus.OK, 'Notícia excluída com sucesso.')
+            }
+        })
+    },
+    // Gerenciamento da secretaria - Agendamento
+    retonargeralhorarioagendamento: function (callback) {
+        let sql = 'SELECT * FROM horario WHERE profissional_especialidade!="Dentista"'
+        // Query no Banco de Dados
+        connection.query(sql, function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, httpStatus.OK, result)
+            }
+        })
+    },
+    retonargeralusuario: function (search, callback) {
+        let sql = 'SELECT idusuario, nome_completo, nome_mae FROM usuario WHERE nome_completo LIKE "%' + search.txtPesquisar + '%"'
+        // Query no Banco de Dados
+        connection.query(sql, function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                if (result == null || result.length == 0)
+                    callback(null, httpStatus.UNAUTHORIZED, 'Nenhum resultado encontrado.')
+                else
+                    callback(null, httpStatus.OK, result.length + ' usuário(os) encontrado(os).', result)
+            }
+        })
+    },
+    retonargeralagendamento: function (id, date, callback) {
+        let sql = 'SELECT a.usuario_idusuario, a.nome_completo_usuario, a.numero_ficha, a.necessidades_esp, u.nome_mae ' +
+            'FROM agendamento a JOIN usuario u ON a.usuario_idusuario = u.idusuario ' +
+            'WHERE a.profissional_idprofissional = ? && ' +
+            'a.data_agendamento = ? ORDER BY a.numero_ficha'
+        // Query no Banco de Dados
+        connection.query(sql, [id, date], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, httpStatus.OK, result)
+            }
+        })
+    },
+    realizargeralagendamento: function (data, callback) {
+        async.waterfall([
+            dbNecessAmbu,
+            dbCheckIdUser,
+            dbCheckDate,
+            dbMark
+        ], function (error, status, message) {
+            callback(error, status, message)
+        })
+        function dbNecessAmbu(cb) {
+            let sql = 'SELECT necessidades_esp, ambulancia, nome_completo FROM usuario WHERE idusuario = ?'
+            connection.query(sql, [data.idusuario], function (error, result) {
+                if (error) {
+                    cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    cb(null, result[0])
+                }
+            })
+        }
+        function dbCheckIdUser(dbResult, cb) {
+            let sql = 'SELECT idagendamento FROM agendamento WHERE data_agendamento = ? ' +
+                '&& usuario_idusuario = ? && profissional_idprofissional = ?'
+            connection.query(sql, [data.date, data.idusuario, data.id_profissional], function (error, result) {
+                if (error) {
+                    cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    if (result == null || result.length == 0)
+                        cb(null, dbResult)
+                    else
+                        cb(new Error(), httpStatus.UNAUTHORIZED, 'Não é possível marcar mais de uma consulta por usuário no dia.')
+                }
+            })
+        }
+        function dbCheckDate(dbResult, cb) {
+            let sql = 'SELECT idagendamento FROM agendamento WHERE data_agendamento = ? ' +
+                '&& numero_ficha = ? && profissional_idprofissional = ?'
+            connection.query(sql, [data.date, data.ficha, data.id_profissional], function (error, result) {
+                if (error) {
+                    cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    if (result == null || result.length == 0)
+                        cb(null, dbResult)
+                    else
+                        cb(new Error(), httpStatus.CONFLICT, 'Ficha já está em uso.')
+                }
+            })
+        }
+        function dbMark(dbResult, cb) {
+            let sql = 'INSERT INTO agendamento ' +
+                '(profissional_idprofissional, usuario_idusuario, ' +
+                'profissional_nome_completo, profissional_especialidade, nome_completo_usuario, ' +
+                'data_agendamento, numero_ficha, necessidades_esp, ambulancia)' +
+                ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+            connection.query(sql,
+                [data.id_profissional, data.idusuario, data.nome_profissional, data.especialidade,
+                dbResult.nome_completo, data.date, data.ficha, dbResult.necessidades_esp, dbResult.ambulancia],
+                function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        cb(null, httpStatus.OK, 'Agendamento realizado com sucesso.')
+                    }
+                })
+        }
+    },
+    desmarcargeralagendamento: function (data, callback) {
+        let sql = 'DELETE FROM agendamento WHERE data_agendamento = ? && numero_ficha = ? && usuario_idusuario = ?'
+        // Query no Banco de Dados
+        connection.query(sql, [data.date, data.ficha, data.idusuario], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, httpStatus.OK, 'Consulta desmarcada com sucesso.')
             }
         })
     }

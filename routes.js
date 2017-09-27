@@ -307,6 +307,26 @@ module.exports = function (app, passport) {
     app.post('/excluirtablenoticia', isLoggedIn, isAuthorized(['1']), function (req, res) {
         controller.excluirtablenoticia(req, res)
     })
+    /* Agendamento de consultas */
+    app.get('/agendarconsulta', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        res.sendFile(path + 'users/secretaria/agendarConsulta.html')
+    })
+    /* Gerenciamento da secretaria - Agendamento */
+    app.get('/retonargeralhorarioagendamento', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.retonargeralhorarioagendamento(res)
+    })
+    app.post('/retonargeralusuario', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.retonargeralusuario(res, req.body)
+    })
+    app.get('/retonargeralagendamento/:id?:date?', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.retonargeralagendamento(res, req.query.id, req.query.date)
+    })
+    app.post('/realizargeralagendamento', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.realizargeralagendamento(req, res)
+    })
+    app.post('/desmarcargeralagendamento', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.desmarcargeralagendamento(req, res)
+    })
     /*
         Todos os níveis de acesso
     */
