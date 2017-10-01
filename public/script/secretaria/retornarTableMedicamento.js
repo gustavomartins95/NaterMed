@@ -22,7 +22,7 @@ function criarTable(medicamento) {
                 "<td>" + medicamento[index].laboratorio + "</td>" +
                 "<td>" + medicamento[index].via_administracao + "</td>" +
                 "<td>" + ( medicamento[index].generico == "1" ? "Sim" : "Não" ) + "</td>" +
-                "<td>" + ( medicamento[index].estoque == "1" ? "Sim" : "Não" ) + "</td>" +
+                "<td>" + ( medicamento[index].estoque == "1" ? "Disponível" : "Indisponível" ) + "</td>" +
                 "<td><a href='editartablemedicamento?id=" + medicamento[index].idmedicamento + "' class='btn btn-primary' role='button'>Editar</a> " +
                 "<button type='button' class='btn btn-danger' onclick='excluirtablemedicamento(" + JSON.stringify(idmedicamento) + "); return false;'>Excluir</button></td>" +
                 "</tr>")

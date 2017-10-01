@@ -861,6 +861,40 @@ var service = {
             }
         })
     },
+    buscartablemedicamento: function (search, callback) {
+        async.waterfall([
+            dbSql,
+            dbPesquisar
+        ], function (error, status, message, medicamento) {
+            callback(error, status, message, medicamento)
+        })
+        function dbSql(cb) {
+            if (search.opcao == "Todos") {
+                let sql = 'SELECT * FROM medicamento ORDER BY nome'
+                cb(null, sql)
+            } else if (search.opcao == "Nome") {
+                let sql = 'SELECT * FROM medicamento WHERE nome LIKE "%' + search.pesquisar + '%"' +
+                    'ORDER BY nome'
+                cb(null, sql)
+            } else {
+                let sql = 'SELECT * FROM medicamento WHERE estoque = "' + (search.opcao == "Disponível" ? "1" : "0") + '" ORDER BY nome'
+                cb(null, sql)
+            }
+        }
+        function dbPesquisar(sql, cb) {
+            // Query no Banco de Dados
+            connection.query(sql, function (error, result) {
+                if (error) {
+                    cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    if (result == null || result.length == 0)
+                        cb(null, httpStatus.UNAUTHORIZED, 'Nenhum resultado encontrado.')
+                    else
+                        cb(null, httpStatus.OK, result.length + ' medicamento(os) encontrado(os).', result)
+                }
+            })
+        }
+    },
     /* Operações da notícia */
     cadastrarnoticia: function (data, idsecretaria, callback) {
         let dataAtual = new Date(),

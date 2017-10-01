@@ -281,6 +281,9 @@ module.exports = function (app, passport) {
     app.post('/excluirtablemedicamento', isLoggedIn, isAuthorized(['1']), function (req, res) {
         controller.excluirtablemedicamento(req, res)
     })
+    app.post('/buscartablemedicamento', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.buscartablemedicamento(req, res)
+    })
     /* Operações da notícia */
     app.route('/cadastrarnoticia')
         .get(isLoggedIn, isAuthorized(['1']), function (req, res) {
@@ -316,7 +319,7 @@ module.exports = function (app, passport) {
         controller.retonargeralhorarioagendamento(res)
     })
     app.post('/retonargeralusuario', isLoggedIn, isAuthorized(['1']), function (req, res) {
-        controller.retonargeralusuario(res, req.body)
+        controller.retonargeralusuario(req, res)
     })
     app.get('/retonargeralagendamento/:id?:date?', isLoggedIn, isAuthorized(['1']), function (req, res) {
         controller.retonargeralagendamento(res, req.query.id, req.query.date)

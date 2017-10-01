@@ -70,6 +70,42 @@
                 </div>
             </div>
         </div>
+        <!-- Buscar medicamento -->
+        <br />
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <form method="POST" class="form-users" action="">
+                        <div class="input-group">
+                            <div class="input-group-btn search-panel">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span id="search_concept">Opções</span> <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#nome">Nome</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#disponivel">Disponível</a></li>
+                                    <li><a href="#indisponivel">Indisponível</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#all">Todos</a></li>
+                                </ul>
+                            </div>
+                            <input type="text" class="form-control" name="txtPesquisar" id="txtPesquisar" placeholder="Digite no mínimo três caracteres ...">
+                            <span class="input-group-btn">
+                                <input type="submit" class="btn btn-default" id="btn-loading" data-loading-text="AGUARDE ..." value="Pesquisar">
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div id="divResult" class="alert alert-dismissible text-center" role="alert">
+                        <strong id="result"></strong>
+                    </div>
+                </div>
+            </div>
+        </div>
         <br />
         <!-- Listar medicamento -->
         <div class="container-fluid">
@@ -103,6 +139,7 @@
     <script type="text/javascript" src="../../js/bootbox.min.js"></script>
     <!-- Operações do medicamento -->
     <script type="text/javascript" src="../../script/secretaria/retornarTableMedicamento.js"></script>
+    <script type="text/javascript" src="../../script/secretaria/buscarTableMedicamento.js"></script>
     <script type="text/javascript" src="../../script/secretaria/excluirTableMedicamento.js"></script>
     <script>
         // Loader

@@ -205,6 +205,12 @@ var controller = {
             res.status(status).json({ message: message })
         })
     },
+    buscartablemedicamento: function (req, res) {
+        service.buscartablemedicamento(req.body, function (error, status, message, medicamento) {
+            if (status == httpStatus.OK) res.status(status).json({ message: message, medicamento: medicamento })
+            else res.status(status).json({ message: message })
+        })
+    },
     /* Operações da notícia */
     cadastrarnoticia: function (req, res, idsecretaria) {
         service.cadastrarnoticia(req.body, idsecretaria, function (error, status, message) {
@@ -242,8 +248,8 @@ var controller = {
             res.status(status).json({ hour: hour })
         })
     },
-    retonargeralusuario: function (res, search) {
-        service.retonargeralusuario(search, function (error, status, message, dataUsers) {
+    retonargeralusuario: function (req, res) {
+        service.retonargeralusuario(req.body, function (error, status, message, dataUsers) {
             if (status == httpStatus.OK) res.status(status).json({ message: message, dataUsers: dataUsers })
             else res.status(status).json({ message: message })
         })
