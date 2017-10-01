@@ -338,6 +338,10 @@ module.exports = function (app, passport) {
     app.get('/retornarcidades/:estado', isLoggedIn, isAuthorized(['1', '3']), function (req, res) {
         controller.retornarcidades(res, req.params.estado)
     })
+    /* Retornar notícias */
+    app.get('/retornarnoticia', isLoggedIn, isAuthorized(['1', '2', '3']), function (req, res) {
+        controller.retornarnoticia(res)
+    })
     /* Dados da session */
     app.get('/session', isLoggedIn, isAuthorized(['1', '2', '3']), function (req, res) {
         console.log(req.session.passport.user)

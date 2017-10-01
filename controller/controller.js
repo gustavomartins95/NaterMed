@@ -231,6 +231,11 @@ var controller = {
             res.status(status).json({ message: message })
         })
     },
+    retornarnoticia: function (res) {
+        service.retornarnoticia(function (error, noticia) {
+            res.status(httpStatus.OK).json({ noticia: noticia })
+        })
+    },
     // Gerenciamento da secretaria - Agendamento
     retonargeralhorarioagendamento: function (res) {
         service.retonargeralhorarioagendamento(function (error, status, hour) {

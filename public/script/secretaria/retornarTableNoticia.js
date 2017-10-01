@@ -17,9 +17,10 @@ function criarTable(noticia) {
         for (index = 0; index < noticia.length; index++) {
             var idnoticia = { id: noticia[index].idnoticia }
             newTrItem = $("<tr>" +
-                "<td>" + noticia[index].titulo + "</td>" +
+                "<td>" + noticia[index].data_publicacao + "</td>" +
                 "<td>" + noticia[index].inicio + "</td>" +
                 "<td>" + noticia[index].termino + "</td>" +
+                "<td>" + noticia[index].titulo + "</td>" +
                 "<td>" + noticia[index].texto + "</td>" +
                 "<td><a href='editartablenoticia?id=" + noticia[index].idnoticia + "' class='btn btn-primary' role='button'>Editar</a> " +
                 "<button type='button' class='btn btn-danger' onclick='excluirtablenoticia(" + JSON.stringify(idnoticia) + "); return false;'>Excluir</button></td>" +
@@ -27,7 +28,7 @@ function criarTable(noticia) {
             appendTable(newTrItem)
         }
     } else {
-        newTrItem = $("<tr class='danger'><td colspan='5'>Nenhum resultado encontrado.</td></tr>")
+        newTrItem = $("<tr class='danger'><td colspan='6'>Nenhum resultado encontrado.</td></tr>")
         appendTable(newTrItem)
     }
 }

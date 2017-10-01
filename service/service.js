@@ -878,7 +878,8 @@ var service = {
             })
     },
     retornartablenoticia: function (callback) {
-        let sql = 'SELECT * FROM noticia ORDER BY data_publicacao'
+        let sql = 'SELECT DATE_FORMAT(data_publicacao, "%d/%m/%Y") AS data_publicacao, ' +
+            'idnoticia, titulo, texto, inicio, termino FROM noticia ORDER BY idnoticia DESC'
         // Query no Banco de Dados
         connection.query(sql, function (error, result) {
             if (error) {
@@ -922,6 +923,18 @@ var service = {
                 callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
             } else {
                 callback(null, httpStatus.OK, 'Notícia excluída com sucesso.')
+            }
+        })
+    },
+    retornarnoticia: function (callback) {
+        let sql = 'SELECT DATE_FORMAT(data_publicacao, "%d/%m/%Y") AS data_publicacao, ' +
+            'titulo, texto, inicio, termino FROM noticia ORDER BY idnoticia DESC'
+        // Query no Banco de Dados
+        connection.query(sql, function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
             }
         })
     },
