@@ -22,22 +22,6 @@ jQuery(document).ready(function () {
 function validationRegister() {
     // Mensagens de erros
     msgErrors = ""
-    if ($('#txtIdentificacao').val() == 'cadastrar') {
-        // Tamanho do cartão
-        if ($('#txtCartaosus_Acesso').val().length < 15 || $('#txtCartaosus_Acesso').val().length > 15) {
-            msgErrors = ("O cartão deve conter 15 caracteres.<br />")
-        }
-        // Tamanho da senha
-        if ($('#txtSenha_Acesso').val().length < 6) {
-            msgErrors += ("A senha deve conter no mínimo 6 caracteres.<br />")
-        } else if ($('#txtSenha_Acesso').val().length > 20) {
-            msgErrors += ("A senha deve conter no máximo 20 caracteres.<br />")
-        }
-        // Senhas não conferem
-        if ($('#txtSenha_Acesso').val() != $('#txtConfirmsenha_Acesso').val()) {
-            msgErrors += ("As senhas não conferem.<br />")
-        }
-    }
     // Todos os campos estão vazios
     if ($('#txtNome_Completo').val() == "" ||
         $('#txtNaturalidade').val() == "" ||
