@@ -2,7 +2,7 @@
 function excluirtableprofissional(idprofissional) {
     bootbox.confirm({
         title: "Excluir profissional",
-        message: "Será apagado os dados do profissional juntamente com seu login e horário.",
+        message: "Será apagado os dados do profissional juntamente com seu horário.",
         buttons: {
             cancel: {
                 label: 'Cancelar',
