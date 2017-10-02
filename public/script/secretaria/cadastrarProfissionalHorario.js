@@ -37,32 +37,37 @@ jQuery(document).ready(function () {
 // Validações
 function validationRegister() {
     // Verificar
-    msgErrors = "Informe os campos do dia marcado."
+    msgErrors = ""
     errors = ""
     // Informe ao menos um
     if (!$("#txt_diamo, #txt_diatu, #txt_diawe, #txt_diath, #txt_diafr").is(':checked')) {
         errors = 1
         msgErrors = "Nenhum dia foi marcado."
     }
+    if (!$("#txtProfissional").val()) {
+        errors = 1
+        msgErrors ? msgErrors += "<br />Nenhum profissional selecionado." :
+            msgErrors = "Nenhum profissional selecionado."
+    }
     // Informe o input ou marque o checkbox
     $("#txt_diamo").is(':checked') && ($('#txt_horamo').val() == "" || $('#txt_fichamo').val() == "") ?
-        errors = 1 &&
+        (errors = 1) && (msgErrors ? msgErrors += "Informe os campos de segunda-feira." : msgErrors = "Informe os campos de segunda-feira.") &&
         $(".error-mo").css("display", "block").text("Informe os campos de segunda-feira.") :
         $(".error-mo").css("display", "block").text("")
     $("#txt_diatu").is(':checked') && ($('#txt_horatu').val() == "" || $('#txt_fichatu').val() == "") ?
-        errors = 1 &&
+        (errors = 1) && (msgErrors ? msgErrors += "Informe os campos de terça-feira." : msgErrors = "Informe os campos de terça-feira.") &&
         $(".error-tu").css("display", "block").text("Informe os campos de terça-feira.") :
         $(".error-tu").css("display", "block").text("")
     $("#txt_diawe").is(':checked') && ($('#txt_horawe').val() == "" || $('#txt_fichawe').val() == "") ?
-        errors = 1 &&
+        (errors = 1) && (msgErrors ? msgErrors += "Informe os campos de quarta-feira." : msgErrors = "Informe os campos de quarta-feira.") &&
         $(".error-we").css("display", "block").text("Informe os campos de quarta-feira.") :
         $(".error-we").css("display", "block").text("")
     $("#txt_diath").is(':checked') && ($('#txt_horath').val() == "" || $('#txt_fichath').val() == "") ?
-        errors = 1 &&
+        (errors = 1) && (msgErrors ? msgErrors += "Informe os campos de quinta-feira." : msgErrors = "Informe os campos de quinta-feira.") &&
         $(".error-th").css("display", "block").text("Informe os campos de quinta-feira.") :
         $(".error-th").css("display", "block").text("")
     $("#txt_diafr").is(':checked') && ($('#txt_horafr').val() == "" || $('#txt_fichafr').val() == "") ?
-        errors = 1 &&
+        (errors = 1) && (msgErrors ? msgErrors += "Informe os campos de sexta-feira." : msgErrors = "Informe os campos de sexta-feira.") &&
         $(".error-fr").css("display", "block").text("Informe os campos de sexta-feira.") :
         $(".error-fr").css("display", "block").text("")
     // Erros ou Dados
