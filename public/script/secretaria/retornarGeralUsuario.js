@@ -74,8 +74,9 @@ function sendData() {
 
 function criarSelectUsuario(users) {
     for (index = 0; index < users.length; index++) {
-        newOptionItem = $("<option value='" + users[index].idusuario + "'>Paciente: " +
-            users[index].nome_completo + ' - Mãe do Paciente: ' + users[index].nome_mae + "</option>")
+        newOptionItem = $("<option value=" + users[index].idusuario + ">" +
+            "Família: " + users[index].familia + " - Microárea: " + users[index].microarea +
+            " - Paciente: " + users[index].nome_completo + " - Mãe do Paciente: " + users[index].nome_mae + "</option >")
         appendSelectUsuario(newOptionItem)
     }
 }

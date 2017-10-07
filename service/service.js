@@ -921,7 +921,8 @@ var service = {
         })
     },
     retonargeralusuario: function (search, callback) {
-        let sql = 'SELECT idusuario, nome_completo, nome_mae FROM usuario WHERE nome_completo LIKE "%' + search.txtPesquisar + '%"'
+        let sql = 'SELECT idusuario, familia, microarea, nome_completo, nome_mae FROM usuario ' +
+            'WHERE nome_completo LIKE "%' + search.txtPesquisar + '%"'
         // Query no Banco de Dados
         connection.query(sql, function (error, result) {
             if (error) {
@@ -935,8 +936,8 @@ var service = {
         })
     },
     retonargeralagendamento: function (id, date, callback) {
-        let sql = 'SELECT a.usuario_idusuario, a.nome_completo_usuario, a.numero_ficha, a.necessidades_esp, u.nome_mae ' +
-            'FROM agendamento a JOIN usuario u ON a.usuario_idusuario = u.idusuario ' +
+        let sql = 'SELECT a.usuario_idusuario, a.nome_completo_usuario, a.numero_ficha, a.necessidades_esp, u.nome_mae, ' +
+            'u.familia, u.microarea FROM agendamento a JOIN usuario u ON a.usuario_idusuario = u.idusuario ' +
             'WHERE a.profissional_idprofissional = ? && ' +
             'a.data_agendamento = ? ORDER BY a.numero_ficha'
         // Query no Banco de Dados

@@ -27,6 +27,8 @@ function criarTable(data, date, qtd_ficha) {
                 "<td></td>" +
                 "<td></td>" +
                 "<td></td>" +
+                "<td></td>" +
+                "<td></td>" +
                 "<td><button type='button' class='btn btn-success' onclick='realizargeralagendamento(" + JSON.stringify(agendamento) + ")'>Marcar</button></td>" +
                 "</tr>")
             appendTable(newTrItem)
@@ -39,6 +41,8 @@ function criarTable(data, date, qtd_ficha) {
                 if (data[index].necessidades_esp) {
                     newTrItem = $("<tr class='danger'>" +
                         "<td>" + ficha + "</td>" +
+                        "<td>" + data[index].familia + "</td>" +
+                        "<td>" + data[index].microarea + "</td>" +
                         "<td>" + data[index].nome_completo_usuario + "</td>" +
                         "<td>" + data[index].nome_mae + "</td>" +
                         "<td><span class='glyphicon glyphicon-ok necessidadeOkay' aria-hidden='true'></span></td>" +
@@ -48,6 +52,8 @@ function criarTable(data, date, qtd_ficha) {
                 } else {
                     newTrItem = $("<tr class='danger'>" +
                         "<td>" + ficha + "</td>" +
+                        "<td>" + data[index].familia + "</td>" +
+                        "<td>" + data[index].microarea + "</td>" +
                         "<td>" + data[index].nome_completo_usuario + "</td>" +
                         "<td>" + data[index].nome_mae + "</td>" +
                         "<td><span class='glyphicon glyphicon-remove necessidadeNo' aria-hidden='true'></span></td>" +
@@ -60,6 +66,8 @@ function criarTable(data, date, qtd_ficha) {
             } else {
                 newTrItem = $("<tr class='success'>" +
                     "<td>" + ficha + "</td>" +
+                    "<td></td>" +
+                    "<td></td>" +
                     "<td></td>" +
                     "<td></td>" +
                     "<td></td>" +
