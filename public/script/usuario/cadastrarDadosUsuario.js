@@ -5,7 +5,7 @@ jQuery(document).ready(function () {
         validationRegister()
     })
     // Checkbox checked desativa o input
-    $("#che-cpf, #che-rg, #che-cns, #che-familia, #che-microarea").on('change', function () {
+    $("#che-cpf, #che-rg, #che-cns").on('change', function () {
         $("#che-cpf").is(':checked') ?
             $("#inp-cpf").attr('disabled', 'disabled').val('') :
             $("#inp-cpf").removeAttr('disabled')
@@ -15,12 +15,6 @@ jQuery(document).ready(function () {
         $("#che-cns").is(':checked') ?
             $("#inp-cns").attr('disabled', 'disabled').val('') :
             $("#inp-cns").removeAttr('disabled')
-        $("#che-familia").is(':checked') ?
-            $("#inp-familia").attr('disabled', 'disabled').val('') :
-            $("#inp-familia").removeAttr('disabled')
-        $("#che-microarea").is(':checked') ?
-            $("#inp-microarea").attr('disabled', 'disabled').val('') :
-            $("#inp-microarea").removeAttr('disabled')
     })
 })
 
@@ -38,9 +32,7 @@ function validationRegister() {
         $('#txtCelular').val() == "" ||
         ($('#inp-cpf').val() == "" && !$('#che-cpf').is(":checked")) ||
         ($('#inp-rg').val() == "" && !$('#che-rg').is(":checked")) ||
-        ($('#inp-cns').val() == "" && !$('#che-cns').is(":checked")) ||
-        ($('#inp-familia').val() == "" && !$('#che-familia').is(":checked")) ||
-        ($('#inp-microarea').val() == "" && !$('#che-microarea').is(":checked"))) {
+        ($('#inp-cns').val() == "" && !$('#che-cns').is(":checked"))) {
         msgErrors = "Fique atento aos campos obrigatórios indicados pelo asterisco (*)"
     }
     // Informe o input ou marque o checkbox
@@ -53,12 +45,6 @@ function validationRegister() {
     $('#inp-cns').val() == "" && !$('#che-cns').is(":checked") ?
         $(".error-cns").css("display", "block").text("Informe o campo ou marque a opção acima") :
         $(".error-cns").css("display", "block").text("")
-    $('#inp-familia').val() == "" && !$('#che-familia').is(":checked") ?
-        $(".error-familia").css("display", "block").text("Informe o campo ou marque a opção acima") :
-        $(".error-familia").css("display", "block").text("")
-    $('#inp-microarea').val() == "" && !$('#che-microarea').is(":checked") ?
-        $(".error-microarea").css("display", "block").text("Informe o campo ou marque a opção acima") :
-        $(".error-microarea").css("display", "block").text("")
     // Erros ou Dados
     if (msgErrors) {
         sendMsg(msgErrors)

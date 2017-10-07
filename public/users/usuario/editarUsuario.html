@@ -152,16 +152,11 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="txtFamilia"><span style="color: red;font-size: 18px;">*</span> Identificação da Família</label>
-                                    <input type="number" name="txtFamilia" id="inp-familia" class="form-control" min="1">
-                                    <input type="checkbox" name="txtFamilia" id="che-familia" value="Não Declarado"> Não
-                                    Declarado
-                                    <p class="error error-familia"></p>
+                                    <input type="number" name="txtFamilia" id="inp-familia" class="form-control" disabled>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="txtMicroarea"><span style="color: red;font-size: 18px;">*</span> Microárea</label>
-                                    <input type="number" name="txtMicroarea" id="inp-microarea" class="form-control" min="1">
-                                    <input type="checkbox" name="txtMicroarea" id="che-microarea" value="Não Declarado">                                    Não Declarado
-                                    <p class="error error-microarea"></p>
+                                    <input type="number" name="txtMicroarea" id="inp-microarea" class="form-control" disabled>
                                 </div>
                             </div>
                         </fieldset>
@@ -290,6 +285,7 @@
     $('.mask-cns').mask('000000000000000', { placeholder: "_______________" })
     $('.mask-telefone').mask('(00) 0000-0000', { placeholder: "(__) ____-____" })
     $('.mask-celular').mask('(00) 00000-0000', { placeholder: "(__) _____-____" })
+
 </script>
 
 </html>

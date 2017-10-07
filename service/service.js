@@ -163,14 +163,14 @@ var service = {
             function dbEditarUsuario(cb) {
                 let sql = 'UPDATE usuario SET ' +
                     'nome_completo=?, nome_mae=?, nome_pai=?, data_nasc=?, sexo=?, escolaridade=?, situacao=?, estado_civil=?, ' +
-                    'naturalidade=?, cpf=?, rg=?, cns=?, familia=?, microarea=?, tipo_sang=?, email=?, telefone=?, celular=?, ' +
+                    'naturalidade=?, cpf=?, rg=?, cns=?, tipo_sang=?, email=?, telefone=?, celular=?, ' +
                     'estado=?, cidade=?, rua=?, bairro=?, numero_casa=?, necessidades_esp=?, ambulancia=? ' +
                     'WHERE idusuario = ? && login_idlogin = ?'
                 // Query no Banco de Dados
                 connection.query(sql,
                     [data.txtNome_Completo, data.txtNome_Mae, data.txtNome_Pai, data.txtData_Nasc, data.txtSexo,
                     data.txtEscolaridade, data.txtSituacao, data.txtEstado_Civil, data.txtNaturalidade, data.txtCpf, data.txtRg,
-                    data.txtCns, data.txtFamilia, data.txtMicroarea, data.txtTipo_Sanguineo, data.txtEmail, data.txtTelefone, data.txtCelular,
+                    data.txtCns, data.txtTipo_Sanguineo, data.txtEmail, data.txtTelefone, data.txtCelular,
                     data.txtEstado, data.txtCidade, data.txtRua, data.txtBairro, data.txtNumero, data.txtNecessidade, data.txtAmbulancia,
                     dataSession.idusuario, dataSession.idlogin],
                     function (error, result) {

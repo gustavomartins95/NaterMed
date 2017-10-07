@@ -33,14 +33,8 @@ function popularUsuarios(users) {
         $("#inp-cns").attr('disabled', 'disabled').val('')
         $('#che-cns').prop('checked', true)
     } else $('#inp-cns').val(users[0].cns)
-    if (users[0].familia == "Não Declarado") {
-        $("#inp-familia").attr('disabled', 'disabled').val('')
-        $('#che-familia').prop('checked', true)
-    } else $('#inp-familia').val(users[0].familia)
-    if (users[0].microarea == "Não Declarado") {
-        $("#inp-microarea").attr('disabled', 'disabled').val('')
-        $('#che-microarea').prop('checked', true)
-    } else $('#inp-microarea').val(users[0].microarea)
+    $('#inp-familia').val(users[0].familia)
+    $('#inp-microarea').val(users[0].microarea)
 
     $('#txtEmail').val(users[0].email)
     $('#txtTelefone').val(users[0].telefone)
