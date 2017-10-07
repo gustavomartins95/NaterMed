@@ -1,5 +1,7 @@
 // Retorna dados do agendamento
 function retonargeralagendamento(dataAgenda, qtd_ficha) {
+    // Limpa table
+    $("#tbodyDados tr").remove()
     $.ajax({
         url: "/retonargeralagendamento?id=" + $('#txtEsp :selected').val() + "&date=" + dataAgenda,
         type: "get",
