@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "Gustavo Martins - Douglas Oliveira",
+  "author": "Gustavo Martins",
   "license": "ISC",
   "dependencies": {
     "async": "^2.2.0",
@@ -19,8 +19,5 @@
     "mysql": "^2.13.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0"
-  },
-  "devDependencies": {
-    "standard": "^9.0.2"
   }
 }
