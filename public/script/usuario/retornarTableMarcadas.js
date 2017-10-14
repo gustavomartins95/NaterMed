@@ -18,7 +18,7 @@ function criarTable(consulta) {
             newTrItem = $("<tr>" +
                 "<td>" + consulta[index].profissional_nome_completo + "</td>" +
                 "<td>" + consulta[index].profissional_especialidade + "</td>" +
-                "<td>" + consulta[index].data_agendamento + "</td>" +
+                "<td>" + consulta[index].data_agend_format + "</td>" +
                 "<td>" + consulta[index].numero_ficha + "</td>" +
                 "</tr>")
             appendTable(newTrItem)

@@ -384,9 +384,9 @@ var service = {
     retornartablemarcadas: function (dataSession, callback) {
         let dataAtual = new Date(),
             sql = 'SELECT profissional_nome_completo, profissional_especialidade, ' +
-                'DATE_FORMAT(data_agendamento, "%d-%m-%Y") AS data_agendamento, ' +
+                'DATE_FORMAT(data_agendamento, "%d-%m-%Y") AS data_agend_format, ' +
                 'numero_ficha FROM agendamento WHERE "data_agendamento" >= ? && usuario_idusuario = ? ' +
-                'ORDER BY data_agendamento'
+                'ORDER BY data_agendamento ASC'
         // Query no Banco de Dados
         connection.query(sql, [dataAtual, dataSession.idusuario], function (error, result) {
             if (error) {
