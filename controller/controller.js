@@ -242,6 +242,28 @@ var controller = {
             res.status(httpStatus.OK).json({ noticia: noticia })
         })
     },
+    /* Operações do usuário */
+    retornartablegeralusuario: function (res) {
+        service.retornartablegeralusuario(function (error, users) {
+            res.status(httpStatus.OK).json({ users: users })
+        })
+    },
+    retornareditartablegeralusuario: function (res, idusuario) {
+        service.retornareditartablegeralusuario(idusuario, function (error, user) {
+            res.status(httpStatus.OK).json({ user: user })
+        })
+    },
+    editargeralusuario: function (req, res) {
+        service.editargeralusuario(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    buscargeralusuario: function (req, res) {
+        service.buscargeralusuario(req.body, function (error, status, message, users) {
+            if (status == httpStatus.OK) res.status(status).json({ message: message, users: users })
+            else res.status(status).json({ message: message })
+        })
+    },
     // Gerenciamento da secretaria - Agendamento
     retonargeralhorarioagendamento: function (res) {
         service.retonargeralhorarioagendamento(function (error, status, hour) {

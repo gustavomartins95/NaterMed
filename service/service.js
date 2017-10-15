@@ -908,6 +908,141 @@ var service = {
             }
         })
     },
+    /* Operações do usuário */
+    retornartablegeralusuario: function (callback) {
+        let sql = 'SELECT idusuario, familia, microarea, nome_mae, nome_completo, cpf, rg, cns FROM usuario ORDER BY nome_completo'
+        // Query no Banco de Dados
+        connection.query(sql, function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
+    retornareditartablegeralusuario: function (idusuario, callback) {
+        let sql = 'SELECT * FROM usuario WHERE idusuario=? LIMIT 1'
+        // Query no Banco de Dados
+        connection.query(sql, [idusuario], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
+    editargeralusuario: function (data, callback) {
+        connection.beginTransaction(function (err) {
+            if (err) { throw err }
+            async.waterfall([
+                dbEditarUsuario,
+                dbEditarAgendamento
+            ], function (error, status, message) {
+                if (error) {
+                    return connection.rollback(function () {
+                        callback(error, status, message)
+                    })
+                } else {
+                    connection.commit(function (err) {
+                        if (err) {
+                            return connection.rollback(function () {
+                                callback(err, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                            })
+                        }
+                        callback(error, status, message)
+                    })
+                }
+            })
+            function dbEditarUsuario(cb) {
+                let sql = 'UPDATE usuario SET ' +
+                    'nome_completo=?, nome_mae=?, nome_pai=?, data_nasc=?, sexo=?, escolaridade=?, situacao=?, estado_civil=?, ' +
+                    'naturalidade=?, cpf=?, rg=?, cns=?, familia=?, microarea=?, tipo_sang=?, email=?, telefone=?, celular=?, ' +
+                    'estado=?, cidade=?, rua=?, bairro=?, numero_casa=?, necessidades_esp=?, ambulancia=? ' +
+                    'WHERE idusuario = ?'
+                // Query no Banco de Dados
+                connection.query(sql,
+                    [data.txtNome_Completo, data.txtNome_Mae, data.txtNome_Pai, data.txtData_Nasc, data.txtSexo,
+                    data.txtEscolaridade, data.txtSituacao, data.txtEstado_Civil, data.txtNaturalidade, data.txtCpf, data.txtRg,
+                    data.txtCns, data.txtFamilia, data.txtMicroarea, data.txtTipo_Sanguineo, data.txtEmail, data.txtTelefone, data.txtCelular,
+                    data.txtEstado, data.txtCidade, data.txtRua, data.txtBairro, data.txtNumero, data.txtNecessidade, data.txtAmbulancia,
+                    data.txtIdUsuario],
+                    function (error, result) {
+                        if (error) {
+                            cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                        } else {
+                            cb(null)
+                        }
+                    })
+            }
+            function dbEditarAgendamento(cb) {
+                let sql = 'UPDATE agendamento SET ' +
+                    'nome_completo_usuario=?, necessidades_esp=?, ambulancia=? ' +
+                    'WHERE usuario_idusuario = ?'
+                // Query no Banco de Dados
+                connection.query(sql,
+                    [data.txtNome_Completo, data.txtNecessidade, data.txtAmbulancia, data.txtIdUsuario],
+                    function (error, result) {
+                        if (error) {
+                            cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                        } else {
+                            cb(null, httpStatus.OK, 'Usuário atualizado com sucesso.')
+                        }
+                    })
+            }
+        })
+    },
+    buscargeralusuario: function (search, callback) {
+        async.waterfall([
+            dbSql,
+            dbPesquisar
+        ], function (error, status, message, users) {
+            callback(error, status, message, users)
+        })
+        function dbSql(cb) {
+            if (search.opcao == "Todos") {
+                let sql = 'SELECT idusuario, familia, microarea, nome_mae, nome_completo, cpf, rg, cns ' +
+                    'FROM usuario ORDER BY nome_completo'
+                cb(null, sql)
+            } else if (search.opcao == "Nome") {
+                let sql = 'SELECT idusuario, familia, microarea, nome_mae, nome_completo, cpf, rg, cns ' +
+                    'FROM usuario WHERE nome_completo LIKE "%' + search.pesquisar + '%" ORDER BY nome_completo'
+                cb(null, sql)
+            } else if (search.opcao == "Família") {
+                let sql = 'SELECT idusuario, familia, microarea, nome_mae, nome_completo, cpf, rg, cns ' +
+                    'FROM usuario WHERE familia LIKE "%' + search.pesquisar + '%" ORDER BY nome_completo'
+                cb(null, sql)
+            } else if (search.opcao == "Microárea") {
+                let sql = 'SELECT idusuario, familia, microarea, nome_mae, nome_completo, cpf, rg, cns ' +
+                    'FROM usuario WHERE microarea LIKE "%' + search.pesquisar + '%" ORDER BY nome_completo'
+                cb(null, sql)
+            } else if (search.opcao == "CPF") {
+                let sql = 'SELECT idusuario, familia, microarea, nome_mae, nome_completo, cpf, rg, cns ' +
+                    'FROM usuario WHERE cpf LIKE "%' + search.pesquisar + '%" ORDER BY nome_completo'
+                cb(null, sql)
+            } else if (search.opcao == "RG") {
+                let sql = 'SELECT idusuario, familia, microarea, nome_mae, nome_completo, cpf, rg, cns ' +
+                    'FROM usuario WHERE rg LIKE "%' + search.pesquisar + '%" ORDER BY nome_completo'
+                cb(null, sql)
+            } else {
+                let sql = 'SELECT idusuario, familia, microarea, nome_mae, nome_completo, cpf, rg, cns ' +
+                    'FROM usuario WHERE cns LIKE "%' + search.pesquisar + '%" ORDER BY nome_completo'
+                cb(null, sql)
+            }
+        }
+        function dbPesquisar(sql, cb) {
+            // Query no Banco de Dados
+            connection.query(sql, function (error, result) {
+                if (error) {
+                    cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    if (result == null || result.length == 0)
+                        cb(null, httpStatus.UNAUTHORIZED, 'Nenhum resultado encontrado.')
+                    else
+                        cb(null, httpStatus.OK, result.length + ' usuario(os) encontrado(os).', result)
+                }
+            })
+        }
+    },
     // Gerenciamento da secretaria - Agendamento
     retonargeralhorarioagendamento: function (callback) {
         let sql = 'SELECT * FROM horario WHERE profissional_especialidade!="Dentista"'

@@ -310,6 +310,25 @@ module.exports = function (app, passport) {
     app.post('/excluirtablenoticia', isLoggedIn, isAuthorized(['1']), function (req, res) {
         controller.excluirtablenoticia(req, res)
     })
+    /* Operações do usuário */
+    app.get('/listargeralusuario', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        res.sendFile(path + 'users/secretaria/listarUsuario.html')
+    })
+    app.get('/retornartablegeralusuario', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.retornartablegeralusuario(res)
+    })
+    app.get('/editartablegeralusuario/:id?', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        res.sendFile(path + 'users/secretaria/editarUsuario.html')
+    })
+    app.get('/retornareditartablegeralusuario/:id?', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.retornareditartablegeralusuario(res, req.query.id)
+    })
+    app.post('/editargeralusuario', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.editargeralusuario(req, res)
+    })
+    app.post('/buscargeralusuario', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.buscargeralusuario(req, res)
+    })
     /* Agendamento de consultas */
     app.get('/agendarconsulta', isLoggedIn, isAuthorized(['1']), function (req, res) {
         res.sendFile(path + 'users/secretaria/agendarConsulta.html')

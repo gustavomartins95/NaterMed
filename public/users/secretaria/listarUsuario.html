@@ -16,10 +16,6 @@
         #conteudo {
             opacity: 0;
         }
-
-        textarea {
-            resize: none;
-        }
     </style>
 </head>
 
@@ -66,65 +62,95 @@
                 </div>
             </div>
         </nav>
-        <!--Cadastrar notícia-->
-        <div class="container marginTopNav">
+        <!-- Opções usuários -->
+        <div class="container-fluid marginTopNav">
             <div class="row">
-                <div class="col-md-12">
-                    <h1 class="text-center">Cadastrar nova notícia</h1>
-                    <div id="divResult" class="alert alert-dismissible text-center" role="alert">
-                        <strong id="result"></strong>
-                    </div>
-                    <form method="POST" class="form-users" action="" enctype="multipart/form-data">
-                        <!-- Cadastrar -->
-                        <input type="hidden" name="txtIdentificacao" id="txtIdentificacao" value="cadastrar">
-                        <div class="row">
-                            <div class="form-group col-md-8">
-                                <label for="txtTitulo"><span style="color: red;font-size: 18px;">*</span> Título</label>
-                                <input type="text" name="txtTitulo" id="txtTitulo" class="form-control" autofocus>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="txtData_Inicio">Início</label>
-                                <input type="text" name="txtData_Inicio" id="txtData_Inicio" class="mask-inicio form-control" minlength="10" maxlength="10">
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="txtData_Termino">Término</label>
-                                <input type="text" name="txtData_Termino" id="txtData_Termino" class="mask-termino form-control" minlength="10" maxlength="10">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <label for="txtTexto"><span style="color: red;font-size: 18px;">*</span> Texto</label>
-                                <textarea class="form-control" name="txtTexto" id="txtTexto" rows="7"></textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input type="submit" class="btn btn-success" id="btn-loading" data-loading-text="AGUARDE ..." value="Cadastrar">
-                                <input type="reset" class="btn btn-warning" value="Limpar campos">
-                                <a href="/listarnoticia" class="btn btn-default" role="button">Voltar</a>
-                            </div>
-                        </div>
-                    </form>
-                    <br />
+                <div class="col-md-12 text-center">
+                    <h1>Listar usuários</h1>
                 </div>
             </div>
         </div>
-        <!-- Fim conteúdo -->
+        <!-- Buscar medicamento -->
+        <br />
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <form method="POST" class="form-users" action="">
+                        <div class="input-group">
+                            <div class="input-group-btn search-panel">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span id="search_concept">Opções</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#nome">Nome</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#familia">Família</a></li>
+                                    <li><a href="#microarea">Microárea</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#cpf">CPF</a></li>
+                                    <li><a href="#rg">RG</a></li>
+                                    <li><a href="#cns">CNS</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#all">Todos</a></li>
+                                </ul>
+                            </div>
+                            <input type="text" class="form-control" name="txtPesquisar" id="txtPesquisar" placeholder="...">
+                            <span class="input-group-btn">
+                                <input type="submit" class="btn btn-default" id="btn-loading" data-loading-text="AGUARDE ..." value="Pesquisar">
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div id="divResult" class="alert alert-dismissible text-center" role="alert">
+                        <strong id="result"></strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <!-- Listar usuários -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table id="horarios" class="table table-hover table-condensed table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Família</th>
+                                    <th>Microárea</th>
+                                    <th>Nome completo</th>
+                                    <th>Nome da mãe</th>
+                                    <th>CPF</th>
+                                    <th>RG</th>
+                                    <th>CNS</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyDadosUsuarios"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fim conteúdo -->
     </div>
     <script type="text/javascript" src="../../js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../js/wow.min.js"></script>
-    <script type="text/javascript" src="../../js/jquery.mask.min.js"></script>
-    <!--Validando dados do formulário-->
-    <script type="text/javascript" src="../../script/secretaria/cadastrarDadosNoticia.js"></script>
+    <script type="text/javascript" src="../../js/bootbox.min.js"></script>
+    <!-- Operações do usuários -->
+    <script type="text/javascript" src="../../script/secretaria/retornarTableUsuario.js"></script>
+    <script type="text/javascript" src="../../script/secretaria/buscarTableUsuario.js"></script>
     <script>
         // Loader
         loading();
         // Animation WOW
         new WOW().init();
-        // Mask
-        $('.mask-inicio').mask('00/00/0000', { placeholder: "__/__/____" })
-        $('.mask-termino').mask('00/00/0000', { placeholder: "__/__/____" })
     </script>
 </body>
 
