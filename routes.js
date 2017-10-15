@@ -145,6 +145,13 @@ module.exports = function (app, passport) {
     app.get('/horariosusuario', isLoggedIn, isAuthorized(['3']), function (req, res) {
         res.sendFile(path + 'users/usuario/horariosProfissionais.html')
     })
+    /* Operações do relatório */
+    app.get('/relatoriousuario', isLoggedIn, isAuthorized(['3']), function (req, res) {
+        res.sendFile(path + 'users/usuario/relatorioUsuario.html')
+    })
+    app.post('/retornarrelatoriousuario', isLoggedIn, isAuthorized(['3']), function (req, res) {
+        controller.retornarrelatoriousuario(req, res, req.session.passport.user)
+    })
     /*
         Níveis de acesso:
         2: PROFISSIONAL

@@ -396,6 +396,25 @@ var service = {
             }
         })
     },
+    /* Operações do relatório */
+    retornarrelatoriousuario: function (data, dataSession, callback) {
+        let sql = 'SELECT profissional_nome_completo, EXTRACT(MONTH FROM data_agendamento) AS mes, ' +
+            'COUNT(*) as qtd_agen FROM agendamento WHERE usuario_idusuario = ? AND ' +
+            'EXTRACT(YEAR FROM data_agendamento) = ? ' +
+            'GROUP BY profissional_nome_completo, EXTRACT(MONTH FROM data_agendamento) ' +
+            'ORDER BY EXTRACT(MONTH FROM data_agendamento)'
+        // Query no Banco de Dados
+        connection.query(sql, [dataSession.idusuario, data.txtAno], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                if (result == null || result.length == 0)
+                    callback(new Error(), httpStatus.UNAUTHORIZED, 'Nenhum resultado encontrado.')
+                else
+                    callback(null, httpStatus.OK, 'Resultados encontrados.', result)
+            }
+        })
+    },
     /*
         Níveis de acesso:
         2: PROFISSIONAL

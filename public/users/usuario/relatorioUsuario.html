@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="../../img/icon.png">
+    <title>Nater Med</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower|Open+Sans+Condensed:300">
+    <script type="text/javascript" src="../../js/loader.js"></script>
+    <style>
+        #conteudo {
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!--Conteúdo-->
+    <div id="conteudo">
+        <!--Navigation-->
+        <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top wow pulse">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span> MENU <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href=""><img src="../../img/logoHorizontal.png" alt="Logo"></a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/indexusuario">HOME</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CONSULTA <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/agendar">AGENDAR</a></li>
+                                <li><a href="/retornaragenda">MARCADAS</a></li>
+                                <li><a href="/historicousuario">HISTÓRICO</a></li>
+                                <li><a href="/relatoriousuario">RELATÓRIO</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/horariosusuario">HORÁRIOS</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">OUTROS <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/usuario">SELEÇÃO DE USUÁRIO EXISTENTE</a></li>
+                                <li><a href="/editarusuario">EDITAR USUÁRIO</a></li>
+                                <li><a href="#" onclick="excluirusuario(); return false;">EXCLUIR USUÁRIO</a></li>
+                                <li><a href="/logout">SAIR</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Gráfico -->
+        <div class="container marginTopNav">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6 col-md-offset-3">
+                    <form method="POST" class="form-users" action="">
+                        <div class="input-group">
+                            <input type="number" name="txtAno" id="txtAno" class="form-control" placeholder="Informe o ano para gerar o relatório" min="2017" autofocus>
+                            <span class="input-group-btn">
+                                <input type="submit" class="btn btn-default" id="btn-loading" data-loading-text="AGUARDE ..." value="Pesquisar">
+                            </span>
+                        </div>
+                    </form>
+                    <div id="divResult" class="alert alert-dismissible text-center" role="alert">
+                        <strong id="result"></strong>
+                    </div>
+                    <br />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="relatorio"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Fim conteúdo -->
+    </div>
+    <script type="text/javascript" src="../../js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../js/wow.min.js"></script>
+    <script type="text/javascript" src="../../js/bootbox.min.js"></script>
+    <!--Excluir usuário-->
+    <script type="text/javascript" src="../../script/usuario/excluirUsuario.js"></script>
+    <!-- Relatório -->
+    <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript" src="../../script/usuario/graficos.js"></script>
+    <script>
+        // Loader
+        loading();
+        // Animation WOW
+        new WOW().init();
+    </script>
+</body>
+
+</html>

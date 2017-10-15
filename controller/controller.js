@@ -102,6 +102,13 @@ var controller = {
             res.status(httpStatus.OK).json({ consulta: consulta })
         })
     },
+    /* Operações do relatório */
+    retornarrelatoriousuario: function (req, res, dataSession) {
+        service.retornarrelatoriousuario(req.body, dataSession, function (error, status, message, dbSeries) {
+            if (status == httpStatus.OK) res.status(status).json({ message: message, dbSeries: dbSeries })
+            else res.status(status).json({ message: message })
+        })
+    },
     /*
         Níveis de acesso:
         2: PROFISSIONAL
