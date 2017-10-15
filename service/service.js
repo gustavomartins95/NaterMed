@@ -722,15 +722,51 @@ var service = {
             })
     },
     excluirtablehorario: function (data, callback) {
-        let sql = 'DELETE FROM horario WHERE idhorario = ?'
-        // Query no Banco de Dados
-        connection.query(sql, [data.id], function (error, result) {
-            if (error) {
-                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
-            } else {
-                callback(null, httpStatus.OK, 'Horário excluído com sucesso.')
-            }
+        async.waterfall([
+            dbIdProfissional,
+            dbAgendamento,
+            dbExcluirHorario
+        ], function (error, status, message) {
+            callback(error, status, message)
         })
+        function dbIdProfissional(cb) {
+            let sql = 'SELECT profissional_idprofissional FROM horario WHERE idhorario = ?'
+            // Query no Banco de Dados
+            connection.query(sql, [data.id], function (error, result) {
+                if (error) {
+                    cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    cb(null, result[0])
+                }
+            })
+        }
+        function dbAgendamento(dbResult, cb) {
+            let sql = 'SELECT idagendamento FROM agendamento ' +
+                'WHERE profissional_idprofissional=?'
+            // Query no Banco de Dados
+            connection.query(sql, [dbResult.profissional_idprofissional], function (error, result) {
+                if (error) {
+                    cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    if (result == null || result.length == 0)
+                        cb(null)
+                    else {
+                        cb(new Error(), httpStatus.UNAUTHORIZED, 'Não é possível excluir profissional caso haja consulta agendada.')
+                    }
+                }
+            })
+        }
+        function dbExcluirHorario(cb) {
+            let sql = 'DELETE FROM horario WHERE idhorario = ?'
+            // Query no Banco de Dados
+            connection.query(sql, [data.id], function (error, result) {
+                if (error) {
+                    cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    cb(null, httpStatus.OK, 'Horário excluído com sucesso.')
+                }
+            })
+        }
     },
     /* Operações do medicamento */
     cadastrarmedicamento: function (data, idsecretaria, callback) {
