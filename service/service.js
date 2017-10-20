@@ -1127,7 +1127,7 @@ var service = {
     },
     retonargeralagendamento: function (id, date, callback) {
         let sql = 'SELECT a.usuario_idusuario, a.nome_completo_usuario, a.numero_ficha, a.necessidades_esp, u.nome_mae, ' +
-            'u.familia, u.microarea FROM agendamento a JOIN usuario u ON a.usuario_idusuario = u.idusuario ' +
+            'u.familia, u.microarea, u.cns FROM agendamento a JOIN usuario u ON a.usuario_idusuario = u.idusuario ' +
             'WHERE a.profissional_idprofissional = ? && ' +
             'a.data_agendamento = ? ORDER BY a.numero_ficha'
         // Query no Banco de Dados

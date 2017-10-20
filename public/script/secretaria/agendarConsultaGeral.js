@@ -3,7 +3,9 @@ function realizargeralagendamento(agendamento) {
     // Usuário
     if (!$('#txtPaciente :selected').val()) {
         sendMsg("Escolha o usuário!", 0)
-        bootbox.alert("Escolha o usuário!");
+        bootbox.alert("Escolha o usuário!")
+        // Retornar ao topo
+        $('html, body').animate({ scrollTop: 0 }, 1000)
     } else {
         bootbox.confirm({
             title: "Marcar consulta",
