@@ -156,6 +156,10 @@ module.exports = function (app, passport) {
     app.get('/alertaragendamento', isLoggedIn, isAuthorized(['3']), function (req, res) {
         controller.alertaragendamento(res, req.session.passport.user)
     })
+    /* Retornar medicamentos */
+    app.get('/medicamento', isLoggedIn, isAuthorized(['3']), function (req, res) {
+        res.sendFile(path + 'users/usuario/medicamento.html')
+    })
     /*
         Níveis de acesso:
         2: PROFISSIONAL
@@ -285,7 +289,7 @@ module.exports = function (app, passport) {
     app.get('/listarmedicamento', isLoggedIn, isAuthorized(['1']), function (req, res) {
         res.sendFile(path + 'users/secretaria/listarMedicamento.html')
     })
-    app.get('/retornartablemedicamento', isLoggedIn, isAuthorized(['1']), function (req, res) {
+    app.get('/retornartablemedicamento', isLoggedIn, isAuthorized(['1', '3']), function (req, res) {
         controller.retornartablemedicamento(res)
     })
     app.get('/editartablemedicamento/:id?', isLoggedIn, isAuthorized(['1']), function (req, res) {
@@ -300,7 +304,7 @@ module.exports = function (app, passport) {
     app.post('/excluirtablemedicamento', isLoggedIn, isAuthorized(['1']), function (req, res) {
         controller.excluirtablemedicamento(req, res)
     })
-    app.post('/buscartablemedicamento', isLoggedIn, isAuthorized(['1']), function (req, res) {
+    app.post('/buscartablemedicamento', isLoggedIn, isAuthorized(['1', '3']), function (req, res) {
         controller.buscartablemedicamento(req, res)
     })
     /* Operações da notícia */
