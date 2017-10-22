@@ -297,6 +297,13 @@ var controller = {
         service.desmarcargeralagendamento(req.body, function (error, status, message) {
             res.status(status).json({ message: message })
         })
+    },
+    /* Operações do relatório */
+    retornarsecretariarelatorio: function (req, res) {
+        service.retornarsecretariarelatorio(req.body, function (error, status, message, dbSeries) {
+            if (status == httpStatus.OK) res.status(status).json({ message: message, dbSeries: dbSeries })
+            else res.status(status).json({ message: message })
+        })
     }
 }
 

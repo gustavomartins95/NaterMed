@@ -356,6 +356,13 @@ module.exports = function (app, passport) {
     app.post('/desmarcargeralagendamento', isLoggedIn, isAuthorized(['1']), function (req, res) {
         controller.desmarcargeralagendamento(req, res)
     })
+    /* Operações do relatório */
+    app.get('/secretariarelatorio', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        res.sendFile(path + 'users/secretaria/relatorioSecretaria.html')
+    })
+    app.post('/retornarsecretariarelatorio', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.retornarsecretariarelatorio(req, res)
+    })
     /*
         Todos os níveis de acesso
     */
