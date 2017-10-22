@@ -16,6 +16,20 @@
         #conteudo {
             opacity: 0;
         }
+
+        /* Table horários */
+        table#alertas {
+            font-size: 18px;
+        }
+        table#alertas>thead>tr>th {
+            padding: 15px 5px;
+            text-align: center;
+        }
+        table#alertas>tbody>tr>td {
+            padding: 15px 5px;
+            font-size: 15px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -56,8 +70,47 @@
                 </div>
             </div>
         </nav>
+        <!-- Modal de alertas -->
+        <div class="modal fade" id="alertas" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title text-center">ALERTA</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table id="alertas" class="table table-hover table-condensed table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Faltam</th>
+                                                    <th>Data do agendamento</th>
+                                                    <th>Número da ficha</th>
+                                                    <th>Profissionais</th>
+                                                    <th>Especialidades</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbodyAlerta">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/retornaragenda" class="btn btn-primary">Todas consultas agendadas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Timeline -->
-        <div class="container marginTopNav">
+        <div class="container">
             <div class="page-header">
                 <h1>Notícias <small>da UBS</small></h1>
             </div>
@@ -84,6 +137,8 @@
     <script type="text/javascript" src="../../js/bootbox.min.js"></script>
     <!--Excluir e editar usuário-->
     <script type="text/javascript" src="../../script/usuario/excluirUsuario.js"></script>
+    <!-- Retornar alerta -->
+    <script type="text/javascript" src="../../script/usuario/alertarAgendamento.js"></script>
     <!-- Retornar notícias -->
     <script type="text/javascript" src="../../script/retornarNoticia.js"></script>
     <script>

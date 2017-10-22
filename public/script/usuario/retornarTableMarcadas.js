@@ -15,7 +15,15 @@ function criarTable(consulta) {
     $("#tbodyDados tr").remove()
     if (consulta.length) {
         for (index = 0; index < consulta.length; index++) {
-            newTrItem = $("<tr>" +
+            switch (consulta[index].faltam) {
+                case 0:
+                    newTr = "<tr class='danger'>"
+                    break
+                default:
+                    newTr = "<tr>"
+                    break
+            }
+            newTrItem = $(newTr +
                 "<td>" + (consulta[index].faltam == 0 ? 'Hoje' : consulta[index].faltam + ' dia(as)') + "</td>" +
                 "<td>" + consulta[index].data_agend_format + "</td>" +
                 "<td>" + consulta[index].numero_ficha + "</td>" +

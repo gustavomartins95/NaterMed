@@ -415,6 +415,21 @@ var service = {
             }
         })
     },
+    alertaragendamento: function (dataSession, callback) {
+        let sql = 'SELECT usuario_idusuario, profissional_nome_completo, profissional_especialidade, ' +
+            'DATE_FORMAT(data_agendamento, "%d-%m-%Y") AS data_agend_format, numero_ficha, ' +
+            'DATEDIFF(data_agendamento, CURRENT_DATE) AS faltam FROM agendamento ' +
+            'WHERE data_agendamento >= CURRENT_DATE && usuario_idusuario = ? && ' +
+            '(DATEDIFF(data_agendamento, CURRENT_DATE)<=3) ORDER BY data_agendamento ASC'
+        // Query no Banco de Dados
+        connection.query(sql, [dataSession.idusuario], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, httpStatus.OK, 'Resultados encontrados.', result)
+            }
+        })
+    },
     /*
         Níveis de acesso:
         2: PROFISSIONAL

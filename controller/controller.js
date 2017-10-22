@@ -109,6 +109,13 @@ var controller = {
             else res.status(status).json({ message: message })
         })
     },
+    /* Retornar alertas de agendamento */
+    alertaragendamento: function (res, dataSession) {
+        service.alertaragendamento(dataSession, function (error, status, message, alerta) {
+            if (status == httpStatus.OK) res.status(status).json({ message: message, alerta: alerta })
+            else res.status(status).json({ message: message })
+        })
+    },
     /*
         Níveis de acesso:
         2: PROFISSIONAL

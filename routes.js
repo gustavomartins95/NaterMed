@@ -152,6 +152,10 @@ module.exports = function (app, passport) {
     app.post('/retornarrelatoriousuario', isLoggedIn, isAuthorized(['3']), function (req, res) {
         controller.retornarrelatoriousuario(req, res, req.session.passport.user)
     })
+    /* Retornar alertas de agendamento */
+    app.get('/alertaragendamento', isLoggedIn, isAuthorized(['3']), function (req, res) {
+        controller.alertaragendamento(res, req.session.passport.user)
+    })
     /*
         Níveis de acesso:
         2: PROFISSIONAL
