@@ -394,6 +394,23 @@ module.exports = function (app, passport) {
     app.get('/retornarnoticia', isLoggedIn, isAuthorized(['1', '2', '3']), function (req, res) {
         controller.retornarnoticia(res)
     })
+    /* Avaliação */
+    app.get('/avaliacaoubs', isLoggedIn, isAuthorized(['1', '2', '3']), function (req, res) {
+        res.sendFile(path + 'users/avaliacaoUBS.html')
+    })
+    app.get('/avaliacaosite', isLoggedIn, isAuthorized(['1', '2', '3']), function (req, res) {
+        res.sendFile(path + 'users/avaliacaoSite.html')
+    })
+    app.post('/avaliar', isLoggedIn, isAuthorized(['1', '2', '3']), function (req, res) {
+        controller.avaliar(req, res)
+    })
+    app.route('/avaliacao')
+        .get(isLoggedIn, isAuthorized(['1', '2', '3']), function (req, res) {
+            res.sendFile(path + 'users/avaliacao.html')
+        })
+        .post(isLoggedIn, isAuthorized(['1', '2', '3']), function (req, res) {
+            controller.avaliacao(req, res)
+        })
     /* Dados da session */
     app.get('/session', isLoggedIn, isAuthorized(['1', '2', '3']), function (req, res) {
         console.log(req.session.passport.user)

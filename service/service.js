@@ -1260,6 +1260,76 @@ var service = {
                     callback(null, httpStatus.OK, 'Resultados encontrados.', result)
             }
         })
+    },
+    /* Avaliação */
+    avaliar: function (data, callback) {
+        async.waterfall([
+            dbUm,
+            dbDois,
+            dbTres,
+            dbQuatro
+        ], function (error, status, message, user) {
+            if (error) callback(error, status, message)
+            else callback(error, status, message, user)
+        })
+        function dbUm(cb) {
+            let dataAtual = new Date(),
+                sql = 'INSERT INTO respostas(questoes_idquestoes, resposta, data_avaliacao) VALUES (?, ?, ?)'
+            // Query no Banco de Dados
+            connection.query(sql, [data.questUm, data.respUm, dataAtual], function (error, result) {
+                if (error) {
+                    cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    cb(null, dataAtual, sql)
+                }
+            })
+        }
+        function dbDois(dataAtual, sql, cb) {
+            // Query no Banco de Dados
+            connection.query(sql, [data.questDois, data.respDois, dataAtual], function (error, result) {
+                if (error) {
+                    cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    cb(null, dataAtual, sql)
+                }
+            })
+        }
+        function dbTres(dataAtual, sql, cb) {
+            // Query no Banco de Dados
+            connection.query(sql, [data.questTres, data.respTres, dataAtual], function (error, result) {
+                if (error) {
+                    cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    cb(null, dataAtual, sql)
+                }
+            })
+        }
+        function dbQuatro(dataAtual, sql, cb) {
+            // Query no Banco de Dados
+            connection.query(sql, [data.questQuatro, data.respQuatro, dataAtual], function (error, result) {
+                if (error) {
+                    cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    cb(null, httpStatus.OK, 'Avaliação cadastrada com sucesso.<br />Obrigado, Equipe Nater Med !')
+                }
+            })
+        }
+    },
+    avaliacao: function (data, callback) {
+        let sql = 'SELECT q.idquestoes, r.resposta, COUNT(r.resposta) as qtd_aval ' +
+            'FROM respostas r JOIN questoes q ON q.idquestoes = r.questoes_idquestoes ' +
+            'WHERE q.idquestoes = ? GROUP BY q.idquestoes, r.resposta ORDER BY q.idquestoes'
+        // Query no Banco de Dados
+        connection.query(sql, [data.txtIdQuestao], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                if (result == null || result.length == 0)
+                    callback(new Error(), httpStatus.UNAUTHORIZED, 'Nenhum resultado encontrado.')
+                else
+                    callback(null, httpStatus.OK, 'Avaliações encontradas.', result)
+            }
+        })
     }
 }
 

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="../img/icon.png">
+    <title>Nater Med</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/animate.css">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower|Open+Sans+Condensed:300">
+    <script type="text/javascript" src="../js/loader.js"></script>
+    <style>
+        #conteudo {
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!--Conteúdo-->
+    <div id="conteudo">
+        <div class="container">
+            <div id="top" class="divVertical">
+                <div class="wow fadeInDown">
+                    <img src="../img/logoVertical.png" class="img-logo" alt="logo">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6 col-md-offset-3">
+                    <h1 class="text-center">AVALIAR UBS</h1>
+                    <form method="POST" class="form-users" action="">
+                        <div id="divResult" class="alert alert-dismissible text-center" role="alert">
+                            <strong id="result"></strong>
+                        </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">1. Limpeza e organização do local.</h2>
+                            </div>
+                            <div class="panel-body">
+                                <input type="hidden" name="questUm" value="5">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="well well-sm">
+                                            <label><input type="radio" name="respUm" class="respUm" value="Excelente"> Excelente</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="well well-sm">
+                                            <label><input type="radio" name="respUm" class="respUm" value="Bom"> Bom</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="well well-sm">
+                                            <label><input type="radio" name="respUm" class="respUm" value="Fraco"> Fraco</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">2. Atendimento da recepção.</h2>
+                            </div>
+                            <div class="panel-body">
+                                <input type="hidden" name="questDois" value="6">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="well well-sm">
+                                            <label><input type="radio" name="respDois" class="respDois" value="Excelente"> Excelente</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="well well-sm">
+                                            <label><input type="radio" name="respDois" class="respDois" value="Bom"> Bom</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="well well-sm">
+                                            <label><input type="radio" name="respDois" class="respDois" value="Fraco"> Fraco</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">3. O tempo de espera para atendimento.</h2>
+                            </div>
+                            <div class="panel-body">
+                                <input type="hidden" name="questTres" value="7">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="well well-sm">
+                                            <label><input type="radio" name="respTres" class="respTres" value="Excelente"> Excelente</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="well well-sm">
+                                            <label><input type="radio" name="respTres" class="respTres" value="Bom"> Bom</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="well well-sm">
+                                            <label><input type="radio" name="respTres" class="respTres" value="Fraco"> Fraco</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">4. Qualidade do atendimento prestado.</h2>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <input type="hidden" name="questQuatro" value="8">
+                                    <div class="col-md-4">
+                                        <div class="well well-sm">
+                                            <label><input type="radio" name="respQuatro" class="respQuatro" value="Excelente"> Excelente</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="well well-sm">
+                                            <label><input type="radio" name="respQuatro" class="respQuatro" value="Bom"> Bom</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="well well-sm">
+                                            <label><input type="radio" name="respQuatro" class="respQuatro" value="Fraco"> Fraco</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="submit" class="btn btn-primary btn-lg" id="btn-loading" data-loading-text="AGUARDE ..." value="Avaliar">
+                                <input type="reset" class="btn btn-warning btn-lg" id="limparCampos" value="Limpar campos">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+    <!-- Fim conteúdo -->
+    </div>
+    <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/wow.min.js"></script>
+    <script type="text/javascript" src="../js/bootbox.min.js"></script>
+    <!-- Avaliar -->
+    <script type="text/javascript" src="../script/avaliar.js"></script>
+    <script>
+        // Loader
+        loading();
+        // Animation WOW
+        new WOW().init();
+    </script>
+</body>
+
+</html>

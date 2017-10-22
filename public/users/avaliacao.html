@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="../img/icon.png">
+    <title>Nater Med</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/animate.css">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower|Open+Sans+Condensed:300">
+    <script type="text/javascript" src="../js/loader.js"></script>
+    <style>
+        #conteudo {
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!--Conteúdo-->
+    <div id="conteudo">
+        <div class="container">
+            <div id="top" class="divVertical">
+                <div class="wow fadeInDown">
+                    <img src="../img/logoVertical.png" class="img-logo" alt="logo">
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8 col-md-offset-2">
+                    <form method="POST" class="form-users" action="">
+                        <div class="input-group">
+                            <select id="txtIdQuestao" name="txtIdQuestao" class="form-control">
+                                <!-- SITE -->
+                                <option disabled>AVALIAÇÃO DO SITE</option>
+                                <option value="1" data-resp-1="Sim" data-resp-2="Mais ou menos" data-resp-3="Não">Você acha que o nosso site é de fácil navegação?</option>
+                                <option value="2" data-resp-1="Sim" data-resp-2="Um pouco" data-resp-3="Não">O conteúdo do nosso website é claro e compreensível?</option>
+                                <option value="3" data-resp-1="Satisfeito" data-resp-2="Nem satisfeito, nem insatisfeito" data-resp-3="Insatisfeito">Em geral, você ficou satisfeito com o nosso site?</option>
+                                <option value="4" data-resp-1="Alta" data-resp-2="Nem alta, nem baixa" data-resp-3="Baixa">Qual é a probabilidade de você recomendar o nosso site para outros?</option>
+                                <!-- UBS -->
+                                <option disabled>AVALIAÇÃO DA UBS</option>
+                                <option value="5" data-resp-1="Excelente" data-resp-2="Bom" data-resp-3="Fraco">Limpeza e organização do local.</option>
+                                <option value="6" data-resp-1="Excelente" data-resp-2="Bom" data-resp-3="Fraco">Atendimento da recepção.</option>
+                                <option value="7" data-resp-1="Excelente" data-resp-2="Bom" data-resp-3="Fraco">O tempo de espera para atendimento.</option>
+                                <option value="8" data-resp-1="Excelente" data-resp-2="Bom" data-resp-3="Fraco">Qualidade do atendimento prestado.</option>
+                            </select>
+                            <span class="input-group-btn">
+                                <input type="submit" class="btn btn-default" id="btn-loading" data-loading-text="AGUARDE ..." value="Pesquisar">
+                            </span>
+                        </div>
+                    </form>
+                    <div id="divResult" class="alert alert-dismissible text-center" role="alert">
+                        <strong id="result"></strong>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="relatorio"></div>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+    <!-- Fim conteúdo -->
+    </div>
+    <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/wow.min.js"></script>
+    <script type="text/javascript" src="../js/bootbox.min.js"></script>
+    <!-- Relatório -->
+    <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript" src="../script/avaliacao.js"></script>
+    <script>
+        // Loader
+        loading();
+        // Animation WOW
+        new WOW().init();
+    </script>
+</body>
+
+</html>

@@ -317,6 +317,18 @@ var controller = {
             if (status == httpStatus.OK) res.status(status).json({ message: message, dbSeries: dbSeries })
             else res.status(status).json({ message: message })
         })
+    },
+    /* Avaliação */
+    avaliar: function (req, res) {
+        service.avaliar(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    avaliacao: function (req, res) {
+        service.avaliacao(req.body, function (error, status, message, dbAvaliacao) {
+            if (status == httpStatus.OK) res.status(status).json({ message: message, dbAvaliacao: dbAvaliacao })
+            else res.status(status).json({ message: message })
+        })
     }
 }
 
