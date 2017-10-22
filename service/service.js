@@ -462,6 +462,19 @@ var service = {
             }
         })
     },
+    // Editar login do secretaria
+    editarloginsecretaria: function (data, dataSession, callback) {
+        let hashedPassword = bcrypt.hashSync(data.txtSenha_Acesso, 10),
+            sql = 'UPDATE login SET senha_acesso = ? WHERE idlogin = ?'
+        // Query no Banco de Dados
+        connection.query(sql, [hashedPassword, dataSession.idlogin], function (error, result) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                callback(null, httpStatus.OK, 'Login atualizado com sucesso.')
+            }
+        })
+    },
     /* Operações do profissional */
     cadastrarprofissional: function (data, callback) {
         let sql = 'INSERT INTO profissional ' +

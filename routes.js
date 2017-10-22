@@ -210,6 +210,14 @@ module.exports = function (app, passport) {
             return res.status(200).json({ message: "Logado" })
         })
     })
+    /* Editar login secretaria */
+    app.route('/editarloginsecretaria')
+        .get(isLoggedIn, isAuthorized(['1']), function (req, res) {
+            res.sendFile(path + 'users/secretaria/editarLoginSecretaria.html')
+        })
+        .post(isLoggedIn, isAuthorized(['1']), function (req, res) {
+            controller.editarloginsecretaria(req, res, req.session.passport.user)
+        })
     /* Home secretaria */
     app.get('/indexsecretaria', isLoggedIn, isAuthorized(['1']), function (req, res) {
         res.sendFile(path + 'users/secretaria/indexSecretaria.html')

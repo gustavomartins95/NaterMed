@@ -136,6 +136,12 @@ var controller = {
             res.status(httpStatus.OK).json({ users: users })
         })
     },
+    // Editar login do secretaria
+    editarloginsecretaria: function (req, res, dataSession) {
+        service.editarloginsecretaria(req.body, dataSession, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
     /* Operações do profissional */
     cadastrarprofissional: function (req, res) {
         service.cadastrarprofissional(req.body, function (error, status, message) {
