@@ -382,13 +382,13 @@ var service = {
         })
     },
     retornartablemarcadas: function (dataSession, callback) {
-        let dataAtual = new Date(),
-            sql = 'SELECT profissional_nome_completo, profissional_especialidade, ' +
-                'DATE_FORMAT(data_agendamento, "%d-%m-%Y") AS data_agend_format, ' +
-                'numero_ficha FROM agendamento WHERE "data_agendamento" >= ? && usuario_idusuario = ? ' +
-                'ORDER BY data_agendamento ASC'
+        let sql = 'SELECT profissional_nome_completo, profissional_especialidade, ' +
+            'DATE_FORMAT(data_agendamento, "%d-%m-%Y") AS data_agend_format, ' +
+            'numero_ficha, DATEDIFF(data_agendamento, CURRENT_DATE) AS faltam FROM agendamento ' +
+            'WHERE data_agendamento >= CURRENT_DATE && usuario_idusuario = ? ' +
+            'ORDER BY data_agendamento ASC'
         // Query no Banco de Dados
-        connection.query(sql, [dataAtual, dataSession.idusuario], function (error, result) {
+        connection.query(sql, [dataSession.idusuario], function (error, result) {
             if (error) {
                 callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
             } else {
