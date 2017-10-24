@@ -31,7 +31,7 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-const port = 8080,
+const port = 80,
       hostname = "localhost"
 app.listen(port, onStart())
 
