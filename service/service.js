@@ -215,7 +215,7 @@ var service = {
         connection.beginTransaction(function (err) {
             if (err) { throw err }
             async.waterfall([
-                dbExcluirAgendamento,
+                dbUpdateStatusAgendamento,
                 dbExcluirUsuario
             ], function (error, status, message) {
                 if (error) {
@@ -233,8 +233,8 @@ var service = {
                     })
                 }
             })
-            function dbExcluirAgendamento(cb) {
-                let sql = 'DELETE FROM agendamento WHERE usuario_idusuario = ?'
+            function dbUpdateStatusAgendamento(cb) {
+                let sql = 'UPDATE agendamento SET status_agend = "0" WHERE usuario_idusuario = ?'
                 // Query no Banco de Dados
                 connection.query(sql, [dataSession.idusuario], function (error, result) {
                     if (error) {
@@ -294,7 +294,7 @@ var service = {
         })
     },
     retonaragendamento: function (id, date, callback) {
-        let sql = 'SELECT * FROM agendamento WHERE profissional_idprofissional = ? && ' +
+        let sql = 'SELECT * FROM agendamento WHERE status_agend = "1" && profissional_idprofissional = ? && ' +
             'data_agendamento = ? ORDER BY numero_ficha'
         // Query no Banco de Dados
         connection.query(sql, [id, date], function (error, result) {
@@ -339,7 +339,7 @@ var service = {
             })
         }
         function dbCheckDate(dbResult, cb) {
-            let sql = 'SELECT idagendamento FROM agendamento WHERE data_agendamento = ? ' +
+            let sql = 'SELECT idagendamento FROM agendamento WHERE status_agend = "1" && data_agendamento = ? ' +
                 '&& numero_ficha = ? && profissional_idprofissional = ?'
             connection.query(sql, [data.date, data.ficha, data.id_profissional], function (error, result) {
                 if (error) {
@@ -356,8 +356,8 @@ var service = {
             let sql = 'INSERT INTO agendamento ' +
                 '(profissional_idprofissional, usuario_idusuario, ' +
                 'profissional_nome_completo, profissional_especialidade, nome_completo_usuario, ' +
-                'data_agendamento, numero_ficha, necessidades_esp, ambulancia)' +
-                ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+                'data_agendamento, numero_ficha, necessidades_esp, ambulancia) ' +
+                'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
             connection.query(sql,
                 [data.id_profissional, dataSession.idusuario, data.nome_profissional, data.especialidade,
                 dbResult.nome_completo, data.date, data.ficha, dbResult.necessidades_esp, dbResult.ambulancia],
@@ -399,7 +399,7 @@ var service = {
     /* Operações do relatório */
     retornarrelatoriousuario: function (data, dataSession, callback) {
         let sql = 'SELECT profissional_nome_completo, EXTRACT(MONTH FROM data_agendamento) AS mes, ' +
-            'COUNT(*) as qtd_agen FROM agendamento WHERE usuario_idusuario = ? AND ' +
+            'COUNT(*) as qtd_agen FROM agendamento WHERE usuario_idusuario = ? && ' +
             'EXTRACT(YEAR FROM data_agendamento) = ? ' +
             'GROUP BY profissional_nome_completo, EXTRACT(MONTH FROM data_agendamento) ' +
             'ORDER BY EXTRACT(MONTH FROM data_agendamento)'
@@ -1156,7 +1156,7 @@ var service = {
     retonargeralagendamento: function (id, date, callback) {
         let sql = 'SELECT a.usuario_idusuario, a.nome_completo_usuario, a.numero_ficha, a.necessidades_esp, u.nome_mae, ' +
             'u.familia, u.microarea, u.cns FROM agendamento a JOIN usuario u ON a.usuario_idusuario = u.idusuario ' +
-            'WHERE a.profissional_idprofissional = ? && ' +
+            'WHERE status_agend = "1" && a.profissional_idprofissional = ? && ' +
             'a.data_agendamento = ? ORDER BY a.numero_ficha'
         // Query no Banco de Dados
         connection.query(sql, [id, date], function (error, result) {
@@ -1187,7 +1187,7 @@ var service = {
             })
         }
         function dbCheckIdUser(dbResult, cb) {
-            let sql = 'SELECT idagendamento FROM agendamento WHERE data_agendamento = ? ' +
+            let sql = 'SELECT idagendamento FROM agendamento WHERE status_agend = "1" && data_agendamento = ? ' +
                 '&& usuario_idusuario = ? && profissional_idprofissional = ?'
             connection.query(sql, [data.date, data.idusuario, data.id_profissional], function (error, result) {
                 if (error) {
@@ -1201,7 +1201,7 @@ var service = {
             })
         }
         function dbCheckDate(dbResult, cb) {
-            let sql = 'SELECT idagendamento FROM agendamento WHERE data_agendamento = ? ' +
+            let sql = 'SELECT idagendamento FROM agendamento WHERE status_agend = "1" && data_agendamento = ? ' +
                 '&& numero_ficha = ? && profissional_idprofissional = ?'
             connection.query(sql, [data.date, data.ficha, data.id_profissional], function (error, result) {
                 if (error) {
