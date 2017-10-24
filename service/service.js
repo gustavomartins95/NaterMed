@@ -522,8 +522,7 @@ var service = {
             async.waterfall([
                 dbSelectAgendamento,
                 dbUpdateProfissional,
-                dbUpdateHorario,
-                dbUpdateAgendamento
+                dbUpdateHorario
             ], function (error, status, message) {
                 if (error) {
                     return connection.rollback(function () {
@@ -542,7 +541,7 @@ var service = {
             })
             function dbSelectAgendamento(cb) {
                 let sql = 'SELECT profissional_especialidade FROM agendamento ' +
-                    'WHERE profissional_idprofissional=?'
+                    'WHERE profissional_idprofissional=? && data_agendamento >= CURRENT_DATE'
                 // Query no Banco de Dados
                 connection.query(sql, [data.txtIdProfissional], function (error, result) {
                     if (error) {
@@ -587,20 +586,6 @@ var service = {
                         if (error) {
                             cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
                         } else {
-                            cb(null)
-                        }
-                    })
-            }
-            function dbUpdateAgendamento(cb) {
-                let sql = 'UPDATE agendamento SET ' +
-                    'profissional_nome_completo=?, profissional_especialidade=? ' +
-                    'WHERE profissional_idprofissional=?'
-                // Query no Banco de Dados
-                connection.query(sql, [data.txtNome_Completo, data.txtEspecialidade, data.txtIdProfissional],
-                    function (error, result) {
-                        if (error) {
-                            cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
-                        } else {
                             cb(null, httpStatus.OK, 'Profissional atualizado com sucesso.')
                         }
                     })
@@ -632,7 +617,7 @@ var service = {
             })
             function dbSelectAgendamento(cb) {
                 let sql = 'SELECT idagendamento FROM agendamento ' +
-                    'WHERE profissional_idprofissional=?'
+                    'WHERE profissional_idprofissional=? && data_agendamento >= CURRENT_DATE'
                 // Query no Banco de Dados
                 connection.query(sql, [data.id], function (error, result) {
                     if (error) {
