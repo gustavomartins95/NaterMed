@@ -118,7 +118,7 @@ function criarRelatorio(dbSeries) {
         // Verificar se já tem o Dr. na series
         for (let j = 0; j < myChartOptions.series.length; j++) {
             // Se já tem, modifica o data []
-            if (myChartOptions.series[j].name == dbSeries[i].profissional_nome_completo) {
+            if (myChartOptions.series[j].name == (dbSeries[i].profissional_nome_completo + ' - ' + dbSeries[i].profissional_especialidade)) {
                 myChartOptions.series[j].data[dbSeries[i].mes - 1] = dbSeries[i].qtd_agen
                 // Modifica a variável e break
                 encontrado = 1
@@ -130,7 +130,7 @@ function criarRelatorio(dbSeries) {
             var createSeries = {
                 data: []
             }
-            createSeries.name = dbSeries[i].profissional_nome_completo
+            createSeries.name = dbSeries[i].profissional_nome_completo + ' - ' + dbSeries[i].profissional_especialidade
             for (let j = 0; j < 12; j++) {
                 if (dbSeries[i].mes == (j + 1)) createSeries.data.push(dbSeries[i].qtd_agen)
                 else createSeries.data.push("")

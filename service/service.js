@@ -398,11 +398,11 @@ var service = {
     },
     /* Operações do relatório */
     retornarrelatoriousuario: function (data, dataSession, callback) {
-        let sql = 'SELECT profissional_nome_completo, EXTRACT(MONTH FROM data_agendamento) AS mes, ' +
-            'COUNT(*) as qtd_agen FROM agendamento WHERE usuario_idusuario = ? && ' +
-            'EXTRACT(YEAR FROM data_agendamento) = ? ' +
-            'GROUP BY profissional_nome_completo, EXTRACT(MONTH FROM data_agendamento) ' +
-            'ORDER BY EXTRACT(MONTH FROM data_agendamento)'
+        let sql = 'SELECT profissional_nome_completo, profissional_especialidade, ' +
+            'EXTRACT(MONTH FROM data_agendamento) AS mes, COUNT(*) as qtd_agen ' +
+            'FROM agendamento WHERE usuario_idusuario = ? && EXTRACT(YEAR FROM data_agendamento) = ? ' +
+            'GROUP BY profissional_nome_completo, profissional_especialidade, ' +
+            'EXTRACT(MONTH FROM data_agendamento) ORDER BY EXTRACT(MONTH FROM data_agendamento)'
         // Query no Banco de Dados
         connection.query(sql, [dataSession.idusuario, data.txtAno], function (error, result) {
             if (error) {
@@ -1230,10 +1230,11 @@ var service = {
     },
     /* Operações do relatório */
     retornarsecretariarelatorio: function (data, callback) {
-        let sql = 'SELECT profissional_nome_completo, EXTRACT(MONTH FROM data_agendamento) AS mes, ' +
-            'COUNT(*) as qtd_agen FROM agendamento WHERE EXTRACT(YEAR FROM data_agendamento) = ? ' +
-            'GROUP BY profissional_nome_completo, EXTRACT(MONTH FROM data_agendamento) ' +
-            'ORDER BY EXTRACT(MONTH FROM data_agendamento)'
+        let sql = 'SELECT profissional_nome_completo, profissional_especialidade, ' +
+            'EXTRACT(MONTH FROM data_agendamento) AS mes, COUNT(*) as qtd_agen ' +
+            'FROM agendamento WHERE EXTRACT(YEAR FROM data_agendamento) = ? ' +
+            'GROUP BY profissional_nome_completo, profissional_especialidade, ' +
+            'EXTRACT(MONTH FROM data_agendamento) ORDER BY EXTRACT(MONTH FROM data_agendamento)'
         // Query no Banco de Dados
         connection.query(sql, [data.txtAno], function (error, result) {
             if (error) {
