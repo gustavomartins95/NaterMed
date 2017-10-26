@@ -15,7 +15,7 @@ function criarTable(noticia) {
         newNotice = $("<div class='panel panel-default'>" +
             "<div class='panel-heading icon'><i class='glyphicon glyphicon-envelope'></i></div>" +
             "<div class='panel-heading'><h3>" + noticia[index].titulo + "</h3></div>" +
-            "<div class='panel-body'><p>" + noticia[index].texto + "</p></div>" +
+            "<div class='panel-body'><textarea class='form-control' rows='10' disabled>" + noticia[index].texto + "</textarea></div>" +
             "<ul class='list-group'>" +
             (noticia[index].inicio ? "<li class='list-group-item'>Início: " + noticia[index].inicio + "</li>" : "") +
             (noticia[index].termino ? "<li class='list-group-item'>Término: " + noticia[index].termino + "</li>" : "") +
