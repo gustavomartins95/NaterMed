@@ -17,8 +17,6 @@ function validationRegister() {
         // Tamanho da senha
         if ($('#txtSenha_Acesso').val().length < 6) {
             msgErrors += ("A senha deve conter no mínimo 6 caracteres.<br />")
-        } else if ($('#txtSenha_Acesso').val().length > 20) {
-            msgErrors += ("A senha deve conter no máximo 20 caracteres.<br />")
         }
     }
     // Erros ou Dados

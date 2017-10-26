@@ -15,14 +15,12 @@ function validationRegister() {
         msgErrors = ("Todos os campos são obrigatórios.<br />")
     } else {
         // Tamanho do cartão
-        if ($('#txtCartaosus_Acesso').val().length < 15 || $('#txtCartaosus_Acesso').val().length > 15) {
-            msgErrors = ("O cartão deve conter 15 caracteres.<br />")
+        if ($('#txtCartaosus_Acesso').val().length < 11) {
+            msgErrors = ("O cartão deve conter no mínimo de 11 caracteres.<br />")
         }
         // Tamanho da senha
         if ($('#txtSenha_Acesso').val().length < 6) {
             msgErrors += ("A senha deve conter no mínimo 6 caracteres.<br />")
-        } else if ($('#txtSenha_Acesso').val().length > 20) {
-            msgErrors += ("A senha deve conter no máximo 20 caracteres.<br />")
         }
         // Senhas não conferem
         if ($('#txtSenha_Acesso').val() != $('#txtConfirmsenha_Acesso').val()) {
