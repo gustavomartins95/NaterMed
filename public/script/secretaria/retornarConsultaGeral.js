@@ -41,31 +41,21 @@ function criarTable(data, date, qtd_ficha) {
                     ficha: ficha, date: date,
                     idusuario: data[index].usuario_idusuario
                 }
-                if (data[index].necessidades_esp) {
-                    newTrItem = $("<tr class='danger'>" +
-                        "<td>" + ficha + "</td>" +
-                        "<td>" + data[index].familia + "</td>" +
-                        "<td>" + data[index].microarea + "</td>" +
-                        "<td>" + data[index].cns + "</td>" +
-                        "<td>" + data[index].nome_completo_usuario + "</td>" +
-                        "<td>" + data[index].nome_mae + "</td>" +
-                        "<td><span class='glyphicon glyphicon-ok necessidadeOkay' aria-hidden='true'></span></td>" +
-                        "<td><button type='button' class='btn btn-danger' onclick='desmarcargeralagendamento(" + JSON.stringify(desmarcarAgendamento) + ")'>Desmarcar</button></td>" +
-                        "</tr>")
-                    appendTable(newTrItem)
-                } else {
-                    newTrItem = $("<tr class='danger'>" +
-                        "<td>" + ficha + "</td>" +
-                        "<td>" + data[index].familia + "</td>" +
-                        "<td>" + data[index].microarea + "</td>" +
-                        "<td>" + data[index].cns + "</td>" +
-                        "<td>" + data[index].nome_completo_usuario + "</td>" +
-                        "<td>" + data[index].nome_mae + "</td>" +
-                        "<td><span class='glyphicon glyphicon-remove necessidadeNo' aria-hidden='true'></span></td>" +
-                        "<td><button type='button' class='btn btn-danger' onclick='desmarcargeralagendamento(" + JSON.stringify(desmarcarAgendamento) + ")'>Desmarcar</button></td>" +
-                        "</tr>")
-                    appendTable(newTrItem)
-                }
+                newTrItem = $("<tr class='danger'>" +
+                    "<td>" + ficha + "</td>" +
+                    "<td>" + data[index].familia + "</td>" +
+                    "<td>" + data[index].microarea + "</td>" +
+                    "<td>" + data[index].cns + "</td>" +
+                    "<td>" + data[index].nome_completo_usuario + "</td>" +
+                    (data[index].necessidades_esp == 1 ?
+                        "<td><span class='glyphicon glyphicon-ok necessidadeOkay' aria-hidden='true'></span></td>" :
+                        "<td><span class='glyphicon glyphicon-remove necessidadeNo' aria-hidden='true'></span></td>") +
+                    (data[index].ambulancia == 1 ?
+                        "<td><span class='glyphicon glyphicon-ok necessidadeOkay' aria-hidden='true'></span></td>" :
+                        "<td><span class='glyphicon glyphicon-remove necessidadeNo' aria-hidden='true'></span></td>") +
+                    "<td><button type='button' class='btn btn-danger' onclick='desmarcargeralagendamento(" + JSON.stringify(desmarcarAgendamento) + ")'>Desmarcar</button></td>" +
+                    "</tr>")
+                appendTable(newTrItem)
                 // Incrementa index
                 index++
             } else {
