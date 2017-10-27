@@ -29,7 +29,6 @@ function validationRegister() {
         $('#txtData_Nasc').val() == "" ||
         $('#txtEstado').val() == "" ||
         $('#txtCidade').val() == "" ||
-        $('#txtCelular').val() == "" ||
         ($('#inp-cpf').val() == "" && !$('#che-cpf').is(":checked")) ||
         ($('#inp-rg').val() == "" && !$('#che-rg').is(":checked")) ||
         ($('#inp-cns').val() == "" && !$('#che-cns').is(":checked"))) {
