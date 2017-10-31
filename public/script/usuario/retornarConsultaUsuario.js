@@ -32,39 +32,19 @@ function criarTable(data, user, date, qtd_ficha) {
             appendTable(newTrItem)
         } else {
             if (data[index].numero_ficha == ficha) {
-                if (data[index].usuario_idusuario == user) {
-                    if (data[index].necessidades_esp) {
-                        newTrItem = $("<tr class='danger'>" +
-                            "<td>" + ficha + "</td>" +
-                            "<td><span class='glyphicon glyphicon-ok necessidadeOkay' aria-hidden='true'></span></td>" +
-                            "<td><button type='button' class='btn btn-danger' onclick='desmarcaragendamento(" + JSON.stringify(agendamento) + ")'>Desmarcar</button></td>" +
-                            "</tr>")
-                        appendTable(newTrItem)
-                    } else {
-                        newTrItem = $("<tr class='danger'>" +
-                            "<td>" + ficha + "</td>" +
-                            "<td><span class='glyphicon glyphicon-remove necessidadeNo' aria-hidden='true'></span></td>" +
-                            "<td><button type='button' class='btn btn-danger' onclick='desmarcaragendamento(" + JSON.stringify(agendamento) + ")'>Desmarcar</button></td>" +
-                            "</tr>")
-                        appendTable(newTrItem)
-                    }
-                } else {
-                    if (data[index].necessidades_esp) {
-                        newTrItem = $("<tr class='warning'>" +
-                            "<td>" + ficha + "</td>" +
-                            "<td><span class='glyphicon glyphicon-ok necessidadeOkay' aria-hidden='true'></span></td>" +
-                            "<td><button type='button' class='btn btn-warning' disabled='disabled'>Marcada</button></td>" +
-                            "</tr>")
-                        appendTable(newTrItem)
-                    } else {
-                        newTrItem = $("<tr class='warning'>" +
-                            "<td>" + ficha + "</td>" +
-                            "<td><span class='glyphicon glyphicon-remove necessidadeNo' aria-hidden='true'></span></td>" +
-                            "<td><button type='button' class='btn btn-warning' disabled='disabled'>Marcada</button></td>" +
-                            "</tr>")
-                        appendTable(newTrItem)
-                    }
-                }
+                newTrItem = $(
+                    (data[index].usuario_idusuario == user ?
+                        "<tr class='danger'>" :
+                        "<tr class='warning'>") +
+                    "<td>" + ficha + "</td>" +
+                    (data[index].necessidades_esp == 1 ?
+                        "<td><span class='glyphicon glyphicon-ok necessidadeOkay' aria-hidden='true'></span></td>" :
+                        "<td><span class='glyphicon glyphicon-remove necessidadeNo' aria-hidden='true'></span></td>") +
+                    (data[index].usuario_idusuario == user ?
+                        "<td><button type='button' class='btn btn-danger' onclick='desmarcaragendamento(" + JSON.stringify(agendamento) + ")'>Desmarcar</button></td>" :
+                        "<td><button type='button' class='btn btn-warning' disabled='disabled'>Marcada</button></td>") +
+                    "</tr>")
+                appendTable(newTrItem)
                 // Incrementa index
                 index++
             } else {
