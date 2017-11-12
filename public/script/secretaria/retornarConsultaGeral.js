@@ -43,8 +43,8 @@ function criarTable(data, date, qtd_ficha) {
                 }
                 newTrItem = $("<tr class='danger'>" +
                     "<td>" + ficha + "</td>" +
-                    "<td>" + data[index].familia + "</td>" +
-                    "<td>" + data[index].microarea + "</td>" +
+                    "<td>" + (data[index].familia === null ? "" : data[index].familia) + "</td>" +
+                    "<td>" + (data[index].microarea === null ? "" : data[index].familia) + "</td>" +
                     "<td>" + data[index].cns + "</td>" +
                     "<td>" + data[index].nome_completo_usuario + "</td>" +
                     (data[index].necessidades_esp == 1 ?

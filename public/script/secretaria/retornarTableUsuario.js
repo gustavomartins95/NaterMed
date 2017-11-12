@@ -17,8 +17,8 @@ function criarTable(users) {
         for (index = 0; index < users.length; index++) {
             var idusuario = { id: users[index].idusuario }
             newTrItem = $("<tr>" +
-                "<td>" + users[index].familia + "</td>" +
-                "<td>" + users[index].microarea + "</td>" +
+                "<td>" + (users[index].familia === null ? "" : users[index].familia) + "</td>" +
+                "<td>" + (users[index].microarea === null ? "" : users[index].microarea) + "</td>" +
                 "<td>" + users[index].nome_completo + "</td>" +
                 "<td>" + users[index].nome_mae + "</td>" +
                 "<td>" + users[index].cpf + "</td>" +
