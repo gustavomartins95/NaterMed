@@ -11,11 +11,8 @@ function validationRegister() {
     // Mensagens de erros
     msgErrors = ""
     // Todos os campos estão vazios
-    if ($('#txtNome').val() == "" ||
-        $('#txtPosologia').val() == "" ||
-        $('#txtLaboratorio').val() == "" ||
-        $('#txtViaAdministracao').val() == "") {
-        msgErrors = "Fique atento aos campos obrigatórios indicados pelo asterisco (*)"
+    if ($('#txtNome').val() == "") {
+        msgErrors = "Campo nome é obrigatório."
     }
     // Erros ou Dados
     if (msgErrors) {

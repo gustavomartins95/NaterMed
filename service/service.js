@@ -802,12 +802,11 @@ var service = {
     },
     /* Operações do medicamento */
     cadastrarmedicamento: function (data, idsecretaria, callback) {
-        let sql = 'INSERT INTO medicamento (secretaria_idsecretaria, nome, posologia, laboratorio, ' +
-            'via_administracao, generico, estoque) VALUES (?, ?, ?, ?, ?, ?, ?)'
+        let sql = 'INSERT INTO medicamento (secretaria_idsecretaria, nome, estoque) ' +
+            'VALUES (?, ?, ?)'
         // Query no Banco de Dados
         connection.query(sql,
-            [idsecretaria, data.txtNome, data.txtPosologia, data.txtLaboratorio,
-                data.txtViaAdministracao, data.txtGenerico, data.txtEstoque],
+            [idsecretaria, data.txtNome, data.txtEstoque],
             function (error, result) {
                 if (error) {
                     callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
@@ -840,12 +839,10 @@ var service = {
     },
     editarmedicamento: function (data, callback) {
         let sql = 'UPDATE medicamento SET ' +
-            'nome=?, posologia=?, laboratorio=?, via_administracao=?, generico=?, estoque=? ' +
-            'WHERE idmedicamento=?'
+            'nome=?, estoque=? WHERE idmedicamento=?'
         // Query no Banco de Dados
         connection.query(sql,
-            [data.txtNome, data.txtPosologia, data.txtLaboratorio, data.txtViaAdministracao,
-            data.txtGenerico, data.txtEstoque, data.txtIdMedicamento],
+            [data.txtNome, data.txtEstoque, data.txtIdMedicamento],
             function (error, result) {
                 if (error) {
                     callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')

@@ -74,34 +74,17 @@
                         <!-- Cadastrar -->
                         <input type="hidden" name="txtIdentificacao" id="txtIdentificacao" value="cadastrar">
                         <div class="row">
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-8">
                                 <label for="txtNome"><span style="color: red;font-size: 18px;">*</span> Nome</label>
                                 <input type="text" name="txtNome" id="txtNome" class="form-control" autofocus>
                             </div>
-                            <div class="form-group col-md-3">
-                                <label for="txtPosologia"><span style="color: red;font-size: 18px;">*</span> Posologia</label>
-                                <input type="text" name="txtPosologia" id="txtPosologia" class="form-control">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="txtLaboratorio"><span style="color: red;font-size: 18px;">*</span> Laboratório</label>
-                                <input type="text" name="txtLaboratorio" id="txtLaboratorio" class="form-control">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="txtViaAdministracao"><span style="color: red;font-size: 18px;">*</span> Via de administração</label>
-                                <input type="text" name="txtViaAdministracao" id="txtViaAdministracao" class="form-control" autofocus>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="form-group col-md-4">
-                                <label for="txtGenerico"><span style="color: red;font-size: 18px;">*</span> Medicamento é genérico?</label>
-                                <label class="radio-inline"><input type="radio" name="txtGenerico" value="1" checked> Sim</label>
-                                <label class="radio-inline"><input type="radio" name="txtGenerico" value="0"> Não</label>
+                                <label for="txtEstoque"><span style="color: red;font-size: 18px;">*</span> Contém medicamento em estoque?</label>
+                                <select name="txtEstoque" id="txtEstoque" class="form-control"> 
+                                    <option value="1">Sim</option>
+                                    <option value="0">Não</option>
+                                </select>
                             </div>
-                            <div class="form-group col-md-4">
-                                    <label for="txtEstoque"><span style="color: red;font-size: 18px;">*</span> Contém medicamento em estoque?</label>
-                                    <label class="radio-inline"><input type="radio" name="txtEstoque" value="1" checked> Sim</label>
-                                    <label class="radio-inline"><input type="radio" name="txtEstoque" value="0"> Não</label>
-                                </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">

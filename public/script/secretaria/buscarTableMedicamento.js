@@ -76,7 +76,7 @@ function sendData() {
         criarSelectMedicamento(callback.medicamento)
     }).fail(function (callback) {
         jsonCb = JSON.parse(callback.responseText)
-        newTrItem = $("<tr class='danger'><td colspan='7'>" + jsonCb.message + "</td></tr>")
+        newTrItem = $("<tr class='danger'><td colspan='3'>" + jsonCb.message + "</td></tr>")
         appendTable(newTrItem)
     })
 }
@@ -86,10 +86,6 @@ function criarSelectMedicamento(medicamento) {
         var idmedicamento = { id: medicamento[index].idmedicamento }
         newTrItem = $("<tr>" +
             "<td>" + medicamento[index].nome + "</td>" +
-            "<td>" + medicamento[index].posologia + "</td>" +
-            "<td>" + medicamento[index].laboratorio + "</td>" +
-            "<td>" + medicamento[index].via_administracao + "</td>" +
-            "<td>" + (medicamento[index].generico == "1" ? "Sim" : "Não") + "</td>" +
             "<td>" + (medicamento[index].estoque == "1" ? "Disponível" : "Indisponível") + "</td>" +
             "<td><a href='editartablemedicamento?id=" + medicamento[index].idmedicamento + "' class='btn btn-primary' role='button'>Editar</a> " +
             "<button type='button' class='btn btn-danger' onclick='excluirtablemedicamento(" + JSON.stringify(idmedicamento) + ") return false'>Excluir</button></td>" +
