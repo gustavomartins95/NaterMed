@@ -14,9 +14,24 @@ function validationRegister() {
     if ($('#txtCartaosus_Acesso').val() == "" || $('#txtSenha_Acesso').val() == "" || $('#txtConfirmsenha_Acesso').val() == "") {
         msgErrors = ("Todos os campos são obrigatórios.<br />")
     } else {
-        // Tamanho do cartão
-        if ($('#txtCartaosus_Acesso').val().length < 11) {
-            msgErrors = ("O cartão deve conter no mínimo de 11 caracteres.<br />")
+        // Validar CNS
+        if ($("#txtCNS").is(':checked')) {
+            if ($('#txtCartaosus_Acesso').val().length != 15) {
+                msgErrors += ("O cartão deve conter 15 caracteres.<br />")
+            } else {
+                if (!fuValidarCNS($('#txtCartaosus_Acesso').val())) {
+                    msgErrors += ("CNS Inválido.<br />")
+                }
+            }
+        }
+        // Validar CPF
+        if ($("#txtCPF").is(':checked')) {
+            if ($('#txtCartaosus_Acesso').val().length != 11) {
+                msgErrors += ("O cartão deve conter 11 caracteres.<br />")
+            } else {
+                if (!fuValidarCPF($('#txtCartaosus_Acesso').val()))
+                    msgErrors += ("CPF Inválido.<br />")
+            }
         }
         // Tamanho da senha
         if ($('#txtSenha_Acesso').val().length < 6) {

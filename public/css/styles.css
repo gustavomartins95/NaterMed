@@ -300,6 +300,9 @@ section.loginandRegister form.form-users label {
     padding: 5px 0;
     font-size: 15px;
 }
+section.loginandRegister form.form-users label.radio-inline {
+    padding: 5px 20px;
+}
 section.loginandRegister form.form-users .form-control {
     height: inherit;
     padding: 10px;
