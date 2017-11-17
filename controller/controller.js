@@ -40,12 +40,6 @@ var controller = {
             res.status(status).json({ message: message })
         })
     },
-    // Retornar login dos usuários
-    retornarloginusuario: function (res, dataSession) {
-        service.retornarloginusuario(dataSession, function (error, login) {
-            res.status(httpStatus.OK).json({ login: login })
-        })
-    },
     // Editar dados do usuário
     editarusuario: function (req, res, dataSession) {
         service.editarusuario(req.body, dataSession, function (error, status, message) {
@@ -282,6 +276,11 @@ var controller = {
         service.buscargeralusuario(req.body, function (error, status, message, users) {
             if (status == httpStatus.OK) res.status(status).json({ message: message, users: users })
             else res.status(status).json({ message: message })
+        })
+    },
+    editargerallogin: function (req, res) {
+        service.editargerallogin(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
         })
     },
     // Gerenciamento da secretaria - Agendamento

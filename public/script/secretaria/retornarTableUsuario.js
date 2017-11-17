@@ -24,7 +24,8 @@ function criarTable(users) {
                 "<td>" + users[index].cpf + "</td>" +
                 "<td>" + users[index].rg + "</td>" +
                 "<td>" + users[index].cns + "</td>" +
-                "<td><a href='editartablegeralusuario?id=" + users[index].idusuario + "' class='btn btn-primary' role='button'>Editar</a></td>" +
+                "<td><a href='editartablegeralusuario?id=" + users[index].idusuario + "' class='btn btn-primary' role='button'>Editar</a> " +
+                "<a href='editartablegerallogin?idlogin=" + users[index].login_idlogin + "' class='btn btn-info' role='button'>Editar Login</a></td>" +
                 "</tr>")
             appendTable(newTrItem)
         }

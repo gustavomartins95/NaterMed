@@ -125,18 +125,6 @@ var service = {
                 }
             })
     },
-    // Retornar login dos usuários
-    retornarloginusuario: function (dataSession, callback) {
-        let sql = 'SELECT cartaosus_acesso FROM login WHERE idlogin = ?'
-        // Query no Banco de Dados
-        connection.query(sql, [dataSession.idlogin], function (error, result) {
-            if (error) {
-                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
-            } else {
-                callback(null, result)
-            }
-        })
-    },
     // Editar dados do usuário
     editarusuario: function (data, dataSession, callback) {
         connection.beginTransaction(function (err) {
@@ -975,7 +963,7 @@ var service = {
     },
     /* Operações do usuário */
     retornartablegeralusuario: function (callback) {
-        let sql = 'SELECT idusuario, familia, microarea, nome_mae, nome_completo, cpf, rg, cns FROM usuario ORDER BY nome_completo'
+        let sql = 'SELECT idusuario, login_idlogin, familia, microarea, nome_mae, nome_completo, cpf, rg, cns FROM usuario ORDER BY nome_completo'
         // Query no Banco de Dados
         connection.query(sql, function (error, result) {
             if (error) {
@@ -1107,6 +1095,24 @@ var service = {
                 }
             })
         }
+    },
+    editargerallogin: function (data, callback) {
+        let hashedPassword = bcrypt.hashSync(data.senha, 10),
+            sql = 'UPDATE login SET ' +
+                'cartaosus_acesso=?, senha_acesso=? ' +
+                'WHERE ' + data.idlogin
+        // Query no Banco de Dados
+        connection.query(sql, [data.cartao, hashedPassword],
+            function (error, result) {
+                if (error) {
+                    if (error.code == 'ER_DUP_ENTRY')
+                        callback(error, httpStatus.CONFLICT, 'Cartão ' + data.txtCartaosus_Acesso + ' já está em uso.')
+                    else
+                        callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                } else {
+                    callback(null, httpStatus.OK, 'Login atualizado com sucesso.')
+                }
+            })
     },
     // Gerenciamento da secretaria - Agendamento
     retonargeralhorarioagendamento: function (callback) {

@@ -93,10 +93,6 @@ module.exports = function (app, passport) {
         .post(isLoggedIn, isAuthorized(['3']), function (req, res) {
             controller.editarloginusuario(req, res, req.session.passport.user)
         })
-    /* Retornar login usuários */
-    app.get('/retornarloginusuario', isLoggedIn, isAuthorized(['3']), function (req, res) {
-        controller.retornarloginusuario(res, req.session.passport.user)
-    })
     /* Editar usuário */
     app.route('/editarusuario')
         .get(isLoggedIn, isAuthorized(['3']), function (req, res) {
@@ -351,6 +347,13 @@ module.exports = function (app, passport) {
     })
     app.post('/buscargeralusuario', isLoggedIn, isAuthorized(['1']), function (req, res) {
         controller.buscargeralusuario(req, res)
+    })
+    /* Operações do login usuário */
+    app.get('/editartablegerallogin/:id?', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        res.sendFile(path + 'users/secretaria/editarLoginUsuario.html')
+    })
+    app.post('/editargerallogin', isLoggedIn, isAuthorized(['1']), function (req, res) {
+        controller.editargerallogin(req, res)
     })
     /* Agendamento de consultas */
     app.get('/agendarconsulta', isLoggedIn, isAuthorized(['1']), function (req, res) {

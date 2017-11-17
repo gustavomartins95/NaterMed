@@ -62,12 +62,17 @@ function sendMsg(msg, options) {
 
 // Enviar formulário via AJAX
 function sendData() {
+    var dados = {
+        cartao: $('#txtCartaosus_Acesso').val(),
+        senha: $('#txtSenha_Acesso').val(),
+        idlogin: window.location.href.slice(window.location.href.indexOf('?') + 1)
+    }
     $.ajax({
-        url: "/editarloginusuario",
+        url: "/editargerallogin",
         type: "post",
         dataType: "json",
         async: true,
-        data: $("form").serialize(),
+        data: dados,
         beforeSend: function () {
             $('#btn-loading').button('loading')
         },
@@ -77,7 +82,7 @@ function sendData() {
             }, 1500)
         }
     }).done(function (callback) {
-        window.location = "/usuario"
+        window.location = "/listargeralusuario"
     }).fail(function (callback) {
         jsonCb = JSON.parse(callback.responseText)
         sendMsg(jsonCb.message)

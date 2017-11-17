@@ -22,13 +22,48 @@
 <body>
     <!--Conteúdo-->
     <div id="conteudo">
-        <div id="top" class="divVertical">
-            <div class="wow fadeInDown">
-                <img src="../../img/logoVertical.png" class="img-logo" alt="logo">
+        <!--Navigation-->
+        <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top wow pulse">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span> MENU <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href=""><img src="../../img/logoHorizontal.png" alt="Logo"></a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/indexsecretaria">HOME</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">LISTAR <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/listarhorario">HORÁRIOS</a></li>
+                                <li><a href="/listarmedicamento">MEDICAMENTOS</a></li>
+                                <li><a href="/listarnoticia">NOTÍCIAS</a></li>
+                                <li><a href="/listarprofissional">PROFISSIONAIS</a></li>
+                                <li><a href="/listargeralusuario">USUÁRIOS</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CONSULTA <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/agendarconsulta">AGENDAR</a></li>
+                                <li><a href="/secretariarelatorio">RELATÓRIO</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">OUTROS <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/secretaria">ALTERAR USUÁRIO</a></li>
+                                <li><a href="/logout">SAIR</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
+        </nav>
         <!--Editar Login Usuário-->
-        <div class="container">
+        <div class="container marginTopNav">
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="text-center">Editar login</h1>
@@ -66,7 +101,7 @@
                             <div class="col-md-12">
                                 <input type="submit" class="btn btn-success" id="btn-loading" data-loading-text="AGUARDE ..." value="Atualizar">
                                 <input type="reset" class="btn btn-warning" value="Limpar campos">
-                                <a href="/usuario" class="btn btn-default" role="button">Voltar</a>
+                                <a href="/listargeralusuario" class="btn btn-default" role="button">Voltar</a>
                             </div>
                         </div>
                     </form>
@@ -82,7 +117,7 @@
 <script type="text/javascript" src="../../js/wow.min.js"></script>
 <script type="text/javascript" src="../../js/jquery.mask.min.js"></script>
 <!--Validando dados do formulário-->
-<script type="text/javascript" src="../../script/usuario/editarLoginUsuario.js"></script>
+<script type="text/javascript" src="../../script/secretaria/editarLoginUsuario.js"></script>
 <script type="text/javascript" src="../../script/validarCNSeCPF.js"></script>
 <script>
     // Loader
