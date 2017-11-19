@@ -33,7 +33,7 @@ function validationRegister() {
         ($('#inp-cpf').val() == "" && !$('#che-cpf').is(":checked")) ||
         ($('#inp-rg').val() == "" && !$('#che-rg').is(":checked")) ||
         ($('#inp-cns').val() == "" && !$('#che-cns').is(":checked"))) {
-        msgErrors += "Fique atento aos campos obrigatórios indicados pelo asterisco (*)"
+        msgErrors += "Fique atento aos campos obrigatórios indicados pelo asterisco (*)<br />"
     }
     // Informe o input ou marque o checkbox
     $('#inp-cpf').val() == "" && !$('#che-cpf').is(":checked") ?
@@ -45,6 +45,16 @@ function validationRegister() {
     $('#inp-cns').val() == "" && !$('#che-cns').is(":checked") ?
         $(".error-cns").css("display", "block").text("Informe o campo ou marque a opção acima") :
         $(".error-cns").css("display", "block").text("")
+    // Validar CNS
+    if (!$('#che-cns').is(":checked")) {
+        if (!fuValidarCNS($('#inp-cns').val()))
+            msgErrors += ("Cartão SUS Inválido.<br />")
+    }
+    // Validar CPF
+    if (!$('#che-cpf').is(":checked")) {
+        if (!fuValidarCPF($('#inp-cpf').val()))
+            msgErrors += ("CPF Inválido.<br />")
+    }
     // Erros ou Dados
     if (msgErrors) {
         sendMsg(msgErrors)
