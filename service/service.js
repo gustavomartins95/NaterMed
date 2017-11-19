@@ -86,24 +86,104 @@ var service = {
     */
     // Cadastrar dados dos usuários
     cadastrarusuario: function (data, dataSession, callback) {
-        let sql = 'INSERT INTO usuario ' +
-            '(login_idlogin, nome_completo, nome_mae, nome_pai, data_nasc, sexo, escolaridade, situacao, estado_civil, ' +
-            'naturalidade, cpf, rg, cns, familia, microarea, tipo_sang, email, telefone, celular, ' +
-            'estado, cidade, rua, bairro, numero_casa, necessidades_esp, ambulancia) ' +
-            'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
-        // Query no Banco de Dados
-        connection.query(sql,
-            [dataSession.idlogin, data.txtNome_Completo, data.txtNome_Mae, data.txtNome_Pai, data.txtData_Nasc, data.txtSexo,
-            data.txtEscolaridade, data.txtSituacao, data.txtEstado_Civil, data.txtNaturalidade, data.txtCpf, data.txtRg,
-            data.txtCns, data.txtFamilia, data.txtMicroarea, data.txtTipo_Sanguineo, data.txtEmail, data.txtTelefone, data.txtCelular,
-            data.txtEstado, data.txtCidade, data.txtRua, data.txtBairro, data.txtNumero, data.txtNecessidade, data.txtAmbulancia],
-            function (error, result) {
+        connection.beginTransaction(function (err) {
+            if (err) { throw err }
+            async.waterfall([
+                dbSelectCPF,
+                dbSelectRG,
+                dbSelectCNS,
+                dbCadastrarUsuario
+            ], function (error, status, message) {
                 if (error) {
-                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    return connection.rollback(function () {
+                        callback(error, status, message)
+                    })
                 } else {
-                    callback(null, httpStatus.OK, 'Cadastrado com sucesso.')
+                    connection.commit(function (err) {
+                        if (err) {
+                            return connection.rollback(function () {
+                                callback(err, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                            })
+                        }
+                        callback(error, status, message)
+                    })
                 }
             })
+            function dbSelectCPF(cb) {
+                let sql = 'SELECT cpf FROM usuario WHERE cpf = ? LIMIT 1'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtCpf], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        if (result == null || result.length == 0)
+                            cb(null)
+                        else {
+                            if (data.txtCpf == "Não Declarado")
+                                cb(null)
+                            else
+                                cb(new Error(), httpStatus.NOT_ACCEPTABLE, 'CPF já em uso.')
+                        }
+                    }
+                })
+            }
+            function dbSelectRG(cb) {
+                let sql = 'SELECT rg FROM usuario WHERE rg = ? LIMIT 1'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtRg], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        if (result == null || result.length == 0)
+                            cb(null)
+                        else {
+                            if (data.txtRg == "Não Declarado")
+                                cb(null)
+                            else
+                                cb(new Error(), httpStatus.NOT_ACCEPTABLE, 'RG já em uso.')
+                        }
+                    }
+                })
+            }
+            function dbSelectCNS(cb) {
+                let sql = 'SELECT cns FROM usuario WHERE cns = ? LIMIT 1'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtCns], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        if (result == null || result.length == 0)
+                            cb(null)
+                        else {
+                            if (data.txtCns == "Não Declarado")
+                                cb(null)
+                            else
+                                cb(new Error(), httpStatus.NOT_ACCEPTABLE, 'CNS já em uso.')
+                        }
+                    }
+                })
+            }
+            function dbCadastrarUsuario(cb) {
+                let sql = 'INSERT INTO usuario ' +
+                    '(login_idlogin, nome_completo, nome_mae, nome_pai, data_nasc, sexo, escolaridade, situacao, estado_civil, ' +
+                    'naturalidade, cpf, rg, cns, familia, microarea, tipo_sang, email, telefone, celular, ' +
+                    'estado, cidade, rua, bairro, numero_casa, necessidades_esp, ambulancia) ' +
+                    'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+                // Query no Banco de Dados
+                connection.query(sql,
+                    [dataSession.idlogin, data.txtNome_Completo, data.txtNome_Mae, data.txtNome_Pai, data.txtData_Nasc, data.txtSexo,
+                    data.txtEscolaridade, data.txtSituacao, data.txtEstado_Civil, data.txtNaturalidade, data.txtCpf, data.txtRg,
+                    data.txtCns, data.txtFamilia, data.txtMicroarea, data.txtTipo_Sanguineo, data.txtEmail, data.txtTelefone, data.txtCelular,
+                    data.txtEstado, data.txtCidade, data.txtRua, data.txtBairro, data.txtNumero, data.txtNecessidade, data.txtAmbulancia],
+                    function (error, result) {
+                        if (error) {
+                            cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                        } else {
+                            cb(null, httpStatus.OK, 'Cadastrado com sucesso.')
+                        }
+                    })
+            }
+        })
     },
     // Editar login do usuário
     editarloginusuario: function (data, dataSession, callback) {
@@ -130,6 +210,9 @@ var service = {
         connection.beginTransaction(function (err) {
             if (err) { throw err }
             async.waterfall([
+                dbSelectCPF,
+                dbSelectRG,
+                dbSelectCNS,
                 dbEditarUsuario,
                 dbEditarAgendamento
             ], function (error, status, message) {
@@ -148,6 +231,63 @@ var service = {
                     })
                 }
             })
+            function dbSelectCPF(cb) {
+                let sql = 'SELECT idusuario, cpf FROM usuario WHERE cpf = ? LIMIT 1'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtCpf], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        if (result == null || result.length == 0)
+                            cb(null)
+                        else {
+                            if (data.txtCpf == "Não Declarado" ||
+                                result[0].idusuario == dataSession.idusuario)
+                                cb(null)
+                            else
+                                cb(new Error(), httpStatus.NOT_ACCEPTABLE, 'CPF já em uso.')
+                        }
+                    }
+                })
+            }
+            function dbSelectRG(cb) {
+                let sql = 'SELECT idusuario, rg FROM usuario WHERE rg = ? LIMIT 1'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtRg], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        if (result == null || result.length == 0)
+                            cb(null)
+                        else {
+                            if (data.txtRg == "Não Declarado" ||
+                                result[0].idusuario == dataSession.idusuario)
+                                cb(null)
+                            else
+                                cb(new Error(), httpStatus.NOT_ACCEPTABLE, 'RG já em uso.')
+                        }
+                    }
+                })
+            }
+            function dbSelectCNS(cb) {
+                let sql = 'SELECT idusuario, cns FROM usuario WHERE cns = ? LIMIT 1'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtCns], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        if (result == null || result.length == 0)
+                            cb(null)
+                        else {
+                            if (data.txtCns == "Não Declarado" ||
+                                result[0].idusuario == dataSession.idusuario)
+                                cb(null)
+                            else
+                                cb(new Error(), httpStatus.NOT_ACCEPTABLE, 'CNS já em uso.')
+                        }
+                    }
+                })
+            }
             function dbEditarUsuario(cb) {
                 let sql = 'UPDATE usuario SET ' +
                     'nome_completo=?, nome_mae=?, nome_pai=?, data_nasc=?, sexo=?, escolaridade=?, situacao=?, estado_civil=?, ' +
@@ -465,22 +605,102 @@ var service = {
     },
     /* Operações do profissional */
     cadastrarprofissional: function (data, callback) {
-        let sql = 'INSERT INTO profissional ' +
-            '(especialidade, nome_completo, data_nasc, naturalidade, sexo, ' +
-            'estado, cidade, rua, bairro, numero_casa, celular, telefone, email, cpf, rg, cns) ' +
-            'VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
-        // Query no Banco de Dados
-        connection.query(sql,
-            [data.txtEspecialidade, data.txtNome_Completo, data.txtData_Nasc, data.txtNaturalidade, data.txtSexo,
-            data.txtEstado, data.txtCidade, data.txtRua, data.txtBairro, data.txtNumero, data.txtCelular,
-            data.txtTelefone, data.txtEmail, data.txtCpf, data.txtRg, data.txtCns],
-            function (error, result) {
+        connection.beginTransaction(function (err) {
+            if (err) { throw err }
+            async.waterfall([
+                dbSelectCPF,
+                dbSelectRG,
+                dbSelectCNS,
+                dbCadastrarProfissional
+            ], function (error, status, message) {
                 if (error) {
-                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    return connection.rollback(function () {
+                        callback(error, status, message)
+                    })
                 } else {
-                    callback(null, httpStatus.OK, 'Cadastrado com sucesso.')
+                    connection.commit(function (err) {
+                        if (err) {
+                            return connection.rollback(function () {
+                                callback(err, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                            })
+                        }
+                        callback(error, status, message)
+                    })
                 }
             })
+            function dbSelectCPF(cb) {
+                let sql = 'SELECT cpf FROM profissional WHERE cpf = ? LIMIT 1'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtCpf], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        if (result == null || result.length == 0)
+                            cb(null)
+                        else {
+                            if (data.txtCpf == "Não Declarado")
+                                cb(null)
+                            else
+                                cb(new Error(), httpStatus.NOT_ACCEPTABLE, 'CPF já em uso.')
+                        }
+                    }
+                })
+            }
+            function dbSelectRG(cb) {
+                let sql = 'SELECT rg FROM profissional WHERE rg = ? LIMIT 1'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtRg], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        if (result == null || result.length == 0)
+                            cb(null)
+                        else {
+                            if (data.txtRg == "Não Declarado")
+                                cb(null)
+                            else
+                                cb(new Error(), httpStatus.NOT_ACCEPTABLE, 'RG já em uso.')
+                        }
+                    }
+                })
+            }
+            function dbSelectCNS(cb) {
+                let sql = 'SELECT cns FROM profissional WHERE cns = ? LIMIT 1'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtCns], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        if (result == null || result.length == 0)
+                            cb(null)
+                        else {
+                            if (data.txtCns == "Não Declarado")
+                                cb(null)
+                            else
+                                cb(new Error(), httpStatus.NOT_ACCEPTABLE, 'CNS já em uso.')
+                        }
+                    }
+                })
+            }
+            function dbCadastrarProfissional(cb) {
+                let sql = 'INSERT INTO profissional ' +
+                    '(especialidade, nome_completo, data_nasc, naturalidade, sexo, ' +
+                    'estado, cidade, rua, bairro, numero_casa, celular, telefone, email, cpf, rg, cns) ' +
+                    'VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+                // Query no Banco de Dados
+                connection.query(sql,
+                    [data.txtEspecialidade, data.txtNome_Completo, data.txtData_Nasc, data.txtNaturalidade, data.txtSexo,
+                    data.txtEstado, data.txtCidade, data.txtRua, data.txtBairro, data.txtNumero, data.txtCelular,
+                    data.txtTelefone, data.txtEmail, data.txtCpf, data.txtRg, data.txtCns],
+                    function (error, result) {
+                        if (error) {
+                            cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                        } else {
+                            cb(null, httpStatus.OK, 'Cadastrado com sucesso.')
+                        }
+                    })
+            }
+        })
     },
     retornartableprofissional: function (callback) {
         let sql = 'SELECT * FROM profissional ORDER BY especialidade'
@@ -508,6 +728,9 @@ var service = {
         connection.beginTransaction(function (err) {
             if (err) { throw err }
             async.waterfall([
+                dbSelectCPF,
+                dbSelectRG,
+                dbSelectCNS,
                 dbSelectAgendamento,
                 dbUpdateProfissional,
                 dbUpdateHorario
@@ -527,6 +750,63 @@ var service = {
                     })
                 }
             })
+            function dbSelectCPF(cb) {
+                let sql = 'SELECT idprofissional, cpf FROM profissional WHERE cpf = ? LIMIT 1'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtCpf], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        if (result == null || result.length == 0)
+                            cb(null)
+                        else {
+                            if (data.txtCpf == "Não Declarado" ||
+                                result[0].idprofissional == data.txtIdProfissional)
+                                cb(null)
+                            else
+                                cb(new Error(), httpStatus.NOT_ACCEPTABLE, 'CPF já em uso.')
+                        }
+                    }
+                })
+            }
+            function dbSelectRG(cb) {
+                let sql = 'SELECT idprofissional, rg FROM profissional WHERE rg = ? LIMIT 1'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtRg], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        if (result == null || result.length == 0)
+                            cb(null)
+                        else {
+                            if (data.txtRg == "Não Declarado" ||
+                                result[0].idprofissional == data.txtIdProfissional)
+                                cb(null)
+                            else
+                                cb(new Error(), httpStatus.NOT_ACCEPTABLE, 'RG já em uso.')
+                        }
+                    }
+                })
+            }
+            function dbSelectCNS(cb) {
+                let sql = 'SELECT idprofissional, cns FROM profissional WHERE cns = ? LIMIT 1'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtCns], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        if (result == null || result.length == 0)
+                            cb(null)
+                        else {
+                            if (data.txtCns == "Não Declarado" ||
+                                result[0].idprofissional == data.txtIdProfissional)
+                                cb(null)
+                            else
+                                cb(new Error(), httpStatus.NOT_ACCEPTABLE, 'CNS já em uso.')
+                        }
+                    }
+                })
+            }
             function dbSelectAgendamento(cb) {
                 let sql = 'SELECT profissional_especialidade FROM agendamento ' +
                     'WHERE profissional_idprofissional=? && data_agendamento >= CURRENT_DATE'
@@ -988,6 +1268,9 @@ var service = {
         connection.beginTransaction(function (err) {
             if (err) { throw err }
             async.waterfall([
+                dbSelectCPF,
+                dbSelectRG,
+                dbSelectCNS,
                 dbEditarUsuario,
                 dbEditarAgendamento
             ], function (error, status, message) {
@@ -1006,6 +1289,63 @@ var service = {
                     })
                 }
             })
+            function dbSelectCPF(cb) {
+                let sql = 'SELECT idusuario, cpf FROM usuario WHERE cpf = ? LIMIT 1'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtCpf], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        if (result == null || result.length == 0)
+                            cb(null)
+                        else {
+                            if (data.txtCpf == "Não Declarado" ||
+                                result[0].idusuario == data.txtIdUsuario)
+                                cb(null)
+                            else
+                                cb(new Error(), httpStatus.NOT_ACCEPTABLE, 'CPF já em uso.')
+                        }
+                    }
+                })
+            }
+            function dbSelectRG(cb) {
+                let sql = 'SELECT idusuario, rg FROM usuario WHERE rg = ? LIMIT 1'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtRg], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        if (result == null || result.length == 0)
+                            cb(null)
+                        else {
+                            if (data.txtRg == "Não Declarado" ||
+                                result[0].idusuario == data.txtIdUsuario)
+                                cb(null)
+                            else
+                                cb(new Error(), httpStatus.NOT_ACCEPTABLE, 'RG já em uso.')
+                        }
+                    }
+                })
+            }
+            function dbSelectCNS(cb) {
+                let sql = 'SELECT idusuario, cns FROM usuario WHERE cns = ? LIMIT 1'
+                // Query no Banco de Dados
+                connection.query(sql, [data.txtCns], function (error, result) {
+                    if (error) {
+                        cb(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    } else {
+                        if (result == null || result.length == 0)
+                            cb(null)
+                        else {
+                            if (data.txtCns == "Não Declarado" ||
+                                result[0].idusuario == data.txtIdUsuario)
+                                cb(null)
+                            else
+                                cb(new Error(), httpStatus.NOT_ACCEPTABLE, 'CNS já em uso.')
+                        }
+                    }
+                })
+            }
             function dbEditarUsuario(cb) {
                 let sql = 'UPDATE usuario SET ' +
                     'nome_completo=?, nome_mae=?, nome_pai=?, data_nasc=?, sexo=?, escolaridade=?, situacao=?, estado_civil=?, ' +
